@@ -1,5 +1,7 @@
+var numInitImages=4;
+var minPageImages=4;
 $(document).ready(function() {
-	$.ajax({ 	//get random page using mediawiki API
+	$.ajax({ //get random page using mediawiki API
 		url: 'http://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
 		dataType: 'jsonp',
 		success: function(jsonpData) {
@@ -10,19 +12,29 @@ $(document).ready(function() {
 			var pageImages = pageInfo.images;
 
 			console.log(pageUrl);
+			console.log(pageImages);
 
-			if (pageImages == null) { // == is correct, checks for undefined
-				$.ajax({	//make a request for a different article
+			//filter out that stupid "article stub" image that is sometimes delivered
+			if (pageImages != null) { // != is correct, checks for undefined
+				for (var i = pageImages.length - 1; i >= 0; i--) {
+					if (pageImages[i].title === 'Image:Incomplete_856.gif') {
+						pageImages.splice(i, 1);
+					}
+				}
+			}
+
+			if (pageImages == null || pageImages.length < minPageImages) { // == is correct, checks for undefined
+				$.ajax({ //make a request for a different article
 					url: this.url,
 					dataType: this.dataType,
-					success: this.success	
-				}); 
+					success: this.success
+				});
 			}
 
 			//base url to query api for image sources
 			var queryUrl = 'http://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
 			//append image titles seperated by '%7C' (url encoded '|')
-			for (var i = 0; i < pageImages.length; i++) { 
+			for (var i = 0; i < pageImages.length; i++) {
 				queryUrl = queryUrl + pageImages[i].title;
 				if (i < pageImages.length - 1)
 					queryUrl = queryUrl + '%7C'; //url-encoded '|'
@@ -31,18 +43,18 @@ $(document).ready(function() {
 			}
 			queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
 
-			$.ajax({	//make another async. request for image urls
+			$.ajax({ //make another async. request for image urls
 				url: queryUrl,
 				dataType: 'jsonp',
 				success: function(jsonpData) {
 					//create array and fill w/ slightly more accessable image data
-					var images = [];	
+					var images = [];
 					var keys = Object.keys(jsonpData.query.pages);
 					for (var i = 0; i < keys.length; i++) {
 						images.push(jsonpData.query.pages[keys[i].toString()]);
 					}
 
-					for (var i = 0; i < 3 && images.length !== 0; i++) {
+					for (var i = 0; i < numInitImages && images.length !== 0; i++) {
 						var randIndex = Math.floor(Math.random() * images.length); //random int in range [0, images.length-1]
 						console.log(randIndex);
 						console.log(images[randIndex].imageinfo[0]);

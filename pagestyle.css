@@ -15,16 +15,16 @@ input:focus {
 /*Input Bar*/
 
 #guessForm {
-
    background: #93B874;
    border-radius: 4px;
    border: none;
 }
 
-#inputBackdrop {
+#inputLayout {
    display: flex;
+   width: 100%;
    flex-wrap: nowrap;
-   align-items: baseline;
+   align-items: center;
    padding: 10px;
    padding-left: 10px;
    padding-right: 10px;
@@ -32,6 +32,8 @@ input:focus {
 
 #labelForGuessInput {
    display: inline-block;
+   float: left;
+   white-space: nowrap;
    font-family: 'Crete Round', serif;
    font-weight: 400;
    font-size: 50px;
@@ -41,12 +43,14 @@ input:focus {
 
 #guessInput {
    display: inline-block;
-   width: 50%;
+   flex: 3 1 auto;
    font-family: 'Laila', sans-serif;
    font-weight: 400;
    font-size: 50px;
+   line-height: 10%;
    padding-left: 10px;
    padding-right: 10px;
+   padding-top: 10px;
    margin-left: 10px;
    margin-right: 10px;
    border: 0px;
@@ -61,7 +65,8 @@ input:focus {
 #guessButton {
    font-family: 'Arial Unicode MS', serif, sans-serif;
    font-size: 30px;
-   vertical-align: center;
+   display: inline-block;
+   float: right;
    padding: 5px;
    padding-left: 10px;
    padding-right: 10px;

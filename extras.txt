@@ -1,90 +1,15 @@
-body{
-	background-color: #ecebe8;
-}
-.wrap {
-   /*overflow: hidden;*/
-   margin: 10px;
-   display:flex;
-   flex-wrap: wrap;
-}
-
-.box{
-	float: left;
-	position: relative;
-	width: 25%;
-	padding-bottom: 25%;
-}
-.boxInner{
-	display: flex;
-	align-content: center;
-	align-items: center;
-	justify-content: center;
-
-	position: absolute;
-	left:10px;
-	right:10px;
-	top:10px;
-	bottom:10px;
-	overflow: hidden;
-
-	border-radius: 4px;
-	background-color: #F6F5F4;
-	top: -2px;
-   box-shadow: 0px 2px 5px #C9C9C9;
-}
-
-.hImage{
-	position: relative;
-	width: 100%;
-}
-.vImage{
-	position: relative;
-	height: 100%;
-}
-
-@media only screen and (max-width: 650px){
-	/*smartphones and tablets*/
-	.box{
-		width:100%;
-		padding-bottom:100%;
-	}
-}
-
-/*@media only screen and (max-width: 650px) and (min-width: 481px){
-	tablets or some shit
-	.box{
-		width: 50%;
-		padding-bottom: 50%;
-	}
-}*/
-
-@media only screen and (max-width : 1050px) and (min-width : 651px) {
-	.box{
-		width: 50%;
-		padding-bottom: 50%;
-	}
-}
-
-@media only screen and (max-width: 1290px) and (min-width: 1051px){
-	.box{
-		width: 33.33%;
-		padding-bottom: 33.33%;
-	}
-}
-
-/*End image grid
+<div id="interactionPanel">
+      <form action="/my-handling-form-page" method="post" id="guessForm">
+         <span id="labelForGuessInput">How To: </span>
+         <div id="inputLayout">
+            <input type="text" value="Build an Ark" id="guessInput" />
+         </div>
+         <button type="submit" id="guessButton" title="Guess!">¯\_(ツ)_/¯</button>
+      </form>
+   </div>
 
 
 
-
-
-
-
-
-
-
-
-LKSJDF"*/
 
 
    button:focus {
@@ -171,3 +96,36 @@ input:focus {
    background-color: #6B835D;
    top: -1px;
 }
+
+
+
+
+
+
+
+
+<div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/400x300" class="image" />
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/300x300" class="image">
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/500x300" class="image" />
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/400x300" class="image" />
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/200x300" class="image"/>
+         </div>
+      </div>

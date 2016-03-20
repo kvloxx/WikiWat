@@ -41,7 +41,7 @@ $(document).ready(function() {
 				if (i < pageImages.length - 1)
 					queryUrl = queryUrl + '%7C'; //url-encoded '|'
 				else
-					queryUrl = queryUrl + '&iiprop=url'; //additional query properties
+					queryUrl = queryUrl + '&iiprop=url%7Csize'; //additional query properties
 			}
 			queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
 
@@ -60,9 +60,15 @@ $(document).ready(function() {
 						var randIndex = Math.floor(Math.random() * images.length); //random int in range [0, images.length-1]
 						console.log(randIndex);
 						console.log(images[randIndex].imageinfo[0]);
-						var imgTag = '<img src="' + images[randIndex].imageinfo[0].url + '" height="300px" class="image" id="image' + i + '">';
+						var imgWidth = images[randIndex].imageinfo[0].width;
+						var imgHeight = images[randIndex].imageinfo[0].height;
+						var imgTag = '<img src="' + images[randIndex].imageinfo[0].url;
+						if (imgWidth >= imgHeight)	//specify horiz or vert image in class attribute
+							imgTag = imgTag + '" class="hImage" id="image' + i + '"/>';
+						else
+							imgTag = imgTag + '" class="vImage" id="image' + i + '"/>';
 						images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
-						$(".imgContainer").append(imgTag);
+						$(".wrap").append("<div class=\"box\">\n<div class=\"boxInner\">\n" + imgTag + "\n</div>\n</div>");
 					}
 				}
 			});

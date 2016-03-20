@@ -1,11 +1,30 @@
+<!DOCTYPE HTML>
 <html>
+
 <head>
-	<title>WikiWhy?</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
-	</script>
-	<script type="text/javascript" src="main.js"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+   <link href='https://fonts.googleapis.com/css?family=Laila:400,300,500|Kreon:400,700,300|Crete+Round:400,400italic' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" type="text/css" href="pagestyle.css">
+   <title>WikiWat?</title>
 </head>
+
 <body>
-	<div class="imgContainer"></div>
+
+   <body>
+      <div class="imgContainer"></div>
+      <div id="interactionPanel">
+         <form action="/my-handling-form-page" method="post" id="guessForm">
+            <div id="inputBackdrop">
+               <span id="labelForGuessInput">How To: </span> 
+               <input type="text" value="Build an Ark" id="guessInput" />
+               <button type="submit" id="guessButton">¯\_(ツ)_/¯</button>
+            </div>
+         </form>
+      </div>
+   </body>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+   <script type="text/javascript" src="main.js"></script>
 </body>
+
 </html>

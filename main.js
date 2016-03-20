@@ -1,8 +1,8 @@
-var numInitImages=4;
-var minPageImages=4;
+var numInitImages = 3;
+var minPageImages = 4;
 $(document).ready(function() {
 	$.ajax({ //get random page using mediawiki API
-		url: 'http://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
+		url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
 		dataType: 'jsonp',
 		success: function(jsonpData) {
 			var page = jsonpData.query.pages;
@@ -17,7 +17,8 @@ $(document).ready(function() {
 			//filter out that stupid "article stub" image that is sometimes delivered
 			if (pageImages != null) { // != is correct, checks for undefined
 				for (var i = pageImages.length - 1; i >= 0; i--) {
-					if (pageImages[i].title === 'Image:Incomplete_856.gif') {
+					if (pageImages[i].title === 'Image:Incomplete_856.gif' ||
+						pageImages[i].title === 'Image:LinkFA star.jpg') {
 						pageImages.splice(i, 1);
 					}
 				}
@@ -29,10 +30,11 @@ $(document).ready(function() {
 					dataType: this.dataType,
 					success: this.success
 				});
+				return;
 			}
 
 			//base url to query api for image sources
-			var queryUrl = 'http://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
+			var queryUrl = 'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
 			//append image titles seperated by '%7C' (url encoded '|')
 			for (var i = 0; i < pageImages.length; i++) {
 				queryUrl = queryUrl + pageImages[i].title;

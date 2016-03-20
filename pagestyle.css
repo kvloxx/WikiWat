@@ -1,0 +1,85 @@
+button:focus {
+   outline: none;
+}
+
+input:focus {
+   outline: none;
+}
+
+.imageContainer {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+
+/*Input Bar*/
+
+#guessForm {
+
+   background: #93B874;
+   border-radius: 4px;
+   border: none;
+}
+
+#inputBackdrop {
+   display: flex;
+   flex-wrap: nowrap;
+   align-items: baseline;
+   padding: 10px;
+   padding-left: 10px;
+   padding-right: 10px;
+}
+
+#labelForGuessInput {
+   display: inline-block;
+   font-family: 'Crete Round', serif;
+   font-weight: 400;
+   font-size: 50px;
+   border: none;
+   color: #444F45;
+}
+
+#guessInput {
+   display: inline-block;
+   width: 50%;
+   font-family: 'Laila', sans-serif;
+   font-weight: 400;
+   font-size: 50px;
+   padding-left: 10px;
+   padding-right: 10px;
+   margin-left: 10px;
+   margin-right: 10px;
+   border: 0px;
+   color: #FFFFFF;
+   background: transparent;
+}
+
+#guessInput:hover {
+   background-color: #A6C090;
+}
+
+#guessButton {
+   font-family: 'Arial Unicode MS', serif, sans-serif;
+   font-size: 30px;
+   vertical-align: center;
+   padding: 5px;
+   padding-left: 10px;
+   padding-right: 10px;
+   border: 0px;
+   border-radius: 4px;
+   color: #FFFFFF;
+   background-color: #A6C090;
+   cursor: pointer;
+   appearance: none;
+   box-shadow: none;
+}
+
+#guessButton:hover {
+   top: -2px;
+   box-shadow: 0px 2px #57694C;
+}
+
+#guessButton:active {
+   background-color: #6B835D;
+   top: -1px;
+}

@@ -5,13 +5,17 @@ $(document).ready(function() {
 		url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
 		dataType: 'jsonp',
 		success: function(jsonpData) {
-			var page = jsonpData.query.pages;
-			var pageId = Object.keys(page)[0];
-			var pageInfo = page[pageId.toString()];
-			var pageUrl = pageInfo.fullurl;
+			/*The mediawiki api answers our request with a complex json object structure.
+			However, all of the data we're interested in is kept in a sub-object, "pageInfo"
+			Accessing it requires making this series of calls:
+				var page = jsonpData.query.pages;
+				var pageId = Object.keys(page)[0];
+				var pageInfo = page[pageId.toString()];
+			To avoid creating extra variables, I condense this to the single unreadable line below: */
+			var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];
 			var pageImages = pageInfo.images;
 
-			console.log(pageUrl);
+			console.log(pageInfo.fullurl);
 			console.log(pageImages);
 
 			//filter out that stupid "article stub" image that is sometimes delivered
@@ -52,21 +56,43 @@ $(document).ready(function() {
 					//create array and fill w/ slightly more accessable image data
 					var images = [];
 					var keys = Object.keys(jsonpData.query.pages);
-					for (var i = 0; i < keys.length; i++) {
-						images.push(jsonpData.query.pages[keys[i].toString()]);
+
+					var maxAspectRatio=1;	//tallest vert image
+					var minAspectRatio=1;	//widest horiz image
+					for (var i = 0; i < keys.length; i++) { 
+						//put image objects in new array
+						var current=jsonpData.query.pages[keys[i].toString()];
+						var currentInfo=current.imageinfo[0];
+						images.push(current);
+
+						//assign new aspect ratio property to each image
+						currentInfo.aspectratio=currentInfo.height/currentInfo.width;
+						var currentAspect=currentInfo.aspectratio;
+						console.log(currentAspect);
+
+						//identify most extreme aspect ratios to use later for creating layout
+						if(currentAspect<minAspectRatio)
+							minAspectRatio=currentAspect;
+						if(currentAspect>maxAspectRatio)
+							maxAspectRatio=currentAspect;
 					}
 
+					console.log('maxspect: '+maxAspectRatio);
+					console.log('minspect: '+minAspectRatio);
+
 					for (var i = 0; i < numInitImages && images.length !== 0; i++) {
-						var randIndex = Math.floor(Math.random() * images.length); //random int in range [0, images.length-1]
-						console.log(randIndex);
-						console.log(images[randIndex].imageinfo[0]);
-						var imgWidth = images[randIndex].imageinfo[0].width;
-						var imgHeight = images[randIndex].imageinfo[0].height;
-						var imgTag = '<img src="' + images[randIndex].imageinfo[0].url;
-						if (imgWidth >= imgHeight)	//specify horiz or vert image in class attribute
+						//Get random int in range [0, images.length-1]
+						var randIndex = Math.floor(Math.random() * images.length); 
+
+						var nextImageInfo=images[randIndex].imageinfo[0];
+						console.log(nextImageInfo);
+
+						var imgTag = '<img src="' + nextImageInfo.url;
+						if (nextImageInfo.aspectratio <=1)	//specify horiz or vert image in class attribute
 							imgTag = imgTag + '" class="hImage" id="image' + i + '"/>';
 						else
 							imgTag = imgTag + '" class="vImage" id="image' + i + '"/>';
+
 						images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
 						$(".wrap").append("<div class=\"box\">\n<div class=\"boxInner\">\n" + imgTag + "\n</div>\n</div>");
 					}

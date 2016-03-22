@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
+   <link href='https://fonts.googleapis.com/css?family=Laila:400,300,500|Kreon:400,700,300|Crete+Round:400,400italic' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" type="text/css" href="pagestyle.css" id="stylesheet">
+   <title>WikiWat?</title>
+</head>
+
+<body>
+   <div class="wrap"></div>
+   <div id="inputBar">
+      <form action="/my-handling-form-page" method="post" id="guessForm">
+         <span id="labelForGuessInput">How To: </span>
+         <div id="underlineWrapper">
+            <div id="textInputUnderline"></div>
+            <input type="text" placeholder="Build an Ark?" columns="25" id="textInput" />
+         </div>
+         <button type="submit" id="guessButton" title="Guess!">¯\_(ツ)_/¯</button>
+      </form>
+   </div>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+   </script>
+   <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
+
+
+
+body
+{
+    margin: 0;
+    padding: 0;
+
+    background-color: #ecebe8;
+}
+
+.wrap
+{
+    display: flex;
+    overflow: hidden;
+
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.box
+{
+    /*position: relative;*/
+    position:inline-box;
+    align-content: 
+
+    /*width: 33.3%;*/
+
+    /*padding-bottom: 33.3%;*/
+}
+
+.boxInner
+{
+    position: inline-box;
+
+/*    top: 10px;
+    top: -1px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;*/
+    /*width: auto;*/
+    max-width:500px ;
+    display: flex;
+    overflow: hidden;
+
+    padding: 10px;
+    /*margin: auto;*/
+    margin: 10px;
+
+    border-radius: 4px;
+    background-color: #f6f5f4;
+    box-shadow: 0 2px 7px #d6d6d6;
+
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.vImage, .hImage{
+   position: relative;
+   box-shadow: #d0d0d0;
+}
+
+.hImage
+{
+    position: relative;
+
+    width: 100%;
+    max-width:500px ;
+
+    box-shadow: 0 0 3px #d0d0d0;
+}
+
+.vImage
+{
+    position: relative;
+
+    height: 100%;
+
+    box-shadow: 0 0 3px #d0d0d0;
+}
+
+@media only screen and (max-width: 1094px)
+{
+    /*smartphones*/
+    .box
+    {
+        width: 100%;
+        /*padding-bottom: 100%;*/
+    }
+}
+
+/*@media only screen and (max-width: 650px) and (min-width: 481px)
+{
+    tablets or some shit
+    .box
+    {
+        width: 100%;
+        padding-bottom: 100%;
+    }
+}*/
+
+@media only screen and (max-width: 1624px) and (min-width: 1095px)
+{
+    .box
+    {
+        /*width: 50%;*/
+        /*padding-bottom: 50%;*/
+    }
+}
+/*End image grid
+
+
+
+
+
+
+
+
+
+
+
+LKSJDF"*/
+
+button:focus
+{
+    outline: none;
+}
+
+#inputBar
+{
+    /*height:100px;*/
+    position: relative;
+
+    padding: 5px;
+}
+
+#guessForm
+{
+    display: flex;
+
+    height: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    border: none;
+    border-radius: 4px;
+    background: #93b874;
+
+    align-items: center;
+    justify-content: center;
+}
+
+#labelForGuessInput
+{
+    font-family: 'Crete Round', serif;
+    font-size: 50px;
+    font-weight: 400;
+
+    float: left;
+
+    margin-top: 5px;
+
+    cursor: default;
+    white-space: nowrap;
+
+    color: #444f45;
+    border: none;
+}
+
+#underlineWrapper
+{
+    position: relative;
+}
+
+#textInputUnderline
+{
+    position: absolute;
+    bottom: 20px;
+
+    width: 100%;
+    height: 100%;
+    margin-right: 10px;
+    margin-left: 5px;
+
+    border-bottom: 3px solid white;
+}
+
+#textInput
+{
+    font-family: 'Laila', sans-serif;
+    font-size: 65px;
+    font-weight: 400;
+    /*display: inline-block;*/
+
+    position: relative;
+
+    width: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    resize: none;
+
+    color: #fff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+}
+
+::-webkit-input-placeholder
+{
+    /* Chrome */
+    color: #fff;
+}
+
+:-ms-input-placeholder
+{
+    /* IE 10+ */
+    color: #fff;
+}
+
+::-moz-placeholder
+{
+    opacity: 1;
+    /* Firefox 19+ */
+    color: #fff;
+}
+
+:-moz-placeholder
+{
+    opacity: 1;
+    /* Firefox 4 - 18 */
+    color: #fff;
+}
+
+#guessButton
+{
+    font-family: 'Arial Unicode MS', serif, sans-serif;
+    font-size: 30px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    background-color: #a6c090;
+    box-shadow: none;
+
+    align-self: stretch;
+    appearance: none;
+}
+
+#guessButton:hover
+{
+    top: -2px;
+
+    margin-top: 8px;
+
+    box-shadow: 0 2px #57694c;
+}
+
+#guessButton:active
+{
+    top: -1px;
+
+    margin-top: 9px;
+
+    background-color: #6b835d;
+}
+
+
+
+var numInitImages = 5;
+var minPageImages = 5;
+$(document).ready(function() {
+   $.ajax({ //get random page using mediawiki API
+      url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
+      dataType: 'jsonp',
+      success: function(jsonpData) {
+         /*The mediawiki api answers our request with a complex json object structure.
+         However, all of the data we're interested in is kept in a sub-object, "pageInfo"
+         Accessing it requires making this series of calls:
+            var page = jsonpData.query.pages;
+            var pageId = Object.keys(page)[0];
+            var pageInfo = page[pageId.toString()];
+         To avoid creating extra variables, I condense this to the single unreadable line below: */
+         var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];
+         var pageImages = pageInfo.images;
+
+         console.log(pageInfo.fullurl);
+         console.log(pageImages);
+
+         //filter out that stupid "article stub" image that is sometimes delivered
+         if (pageImages != null) { // != is correct, checks for undefined
+            for (var i = pageImages.length - 1; i >= 0; i--) {
+               if (pageImages[i].title === 'Image:Incomplete_856.gif' ||
+                  pageImages[i].title === 'Image:LinkFA star.jpg' ||
+                  pageImages[i].title === 'Image:Page discussion_71.gif') {
+                  pageImages.splice(i, 1);
+               }
+            }
+         }
+
+         if (pageImages == null || pageImages.length < minPageImages) { // == is correct, checks for undefined
+            $.ajax({ //make a request for a different article
+               url: this.url,
+               dataType: this.dataType,
+               success: this.success
+            });
+            return;
+         }
+
+         $.ajax({ //make another async. request for image urls
+            url: synthImageInfoQuery(pageImages),
+            dataType: 'jsonp',
+            success: function(jsonpData) {
+               //create array and fill w/ slightly more accessable image data
+               var images = [];
+               var keys = Object.keys(jsonpData.query.pages);
+
+               var maxAspectRatio = 1; //tallest vert image
+               var minAspectRatio = 1; //widest horiz image
+               for (var i = 0; i < keys.length; i++) {
+                  //put image objects in new array
+                  var current = jsonpData.query.pages[keys[i].toString()];
+                  var currentInfo = current.imageinfo[0];
+                  images.push(current);
+
+                  //assign new aspect ratio property to each image
+                  currentInfo.aspectratio = currentInfo.height / currentInfo.width;
+                  var currentAspect = currentInfo.aspectratio;
+                  console.log(currentAspect);
+
+                  //identify most extreme aspect ratios to use later for creating layout
+                  if (currentAspect < minAspectRatio)
+                     minAspectRatio = currentAspect;
+                  if (currentAspect > maxAspectRatio)
+                     maxAspectRatio = currentAspect;
+               }
+
+               console.log('maxspect: ' + maxAspectRatio);
+               console.log('minspect: ' + minAspectRatio);
+
+
+               for (var i = 0; i < numInitImages && images.length !== 0; i++) {
+                  //Get random int in range [0, images.length-1]
+                  var randIndex = Math.floor(Math.random() * images.length);
+
+                  var nextImageInfo = images[randIndex].imageinfo[0];
+                  console.log(nextImageInfo);
+
+                  images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
+
+                  $(".wrap").append(synthImageHtml(nextImageInfo, i));
+               }
+            }
+         });
+      }
+   });
+});
+
+function synthImageInfoQuery(pageImages) {
+   //base url to query api for image sources
+   var queryUrl = 'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
+   //append image titles seperated by '%7C' (url encoded '|')
+   for (var i = 0; i < pageImages.length; i++) {
+      queryUrl = queryUrl + pageImages[i].title;
+      if (i < pageImages.length - 1)
+         queryUrl = queryUrl + '%7C'; //url-encoded '|'
+      else
+         queryUrl = queryUrl + '&iiprop=url%7Csize'; //additional query properties
+   }
+   queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
+   return queryUrl;
+}
+
+function synthImageHtml(nextImageInfo) {
+   var imgTag = '<img src="' + nextImageInfo.url;
+   if (nextImageInfo.aspectratio <= 1) //specify horiz or vert image in class attribute
+      imgTag = imgTag + '" class="hImage"/>';
+   else
+      imgTag = imgTag + '" class="vImage"/>';
+   return "<div class=\"box\">\n<div class=\"boxInner\">\n" + imgTag + "\n</div>\n</div>";
+}
+
+function adjustAspectCSS(maxspect, minspect){
+   if((maxspect > 1 && minspect < 1)
+      ||(maxspect===1 && minspect ===1)){ //if there are both horiz. and vert images
+      //use square boxes, default css is correct
+      return;
+   }
+   else if(minspect < 1) //minspect=1, only vert or square images
+   {
+
+   }
+}

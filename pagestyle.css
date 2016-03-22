@@ -21,19 +21,12 @@ body
 {
     position: inline-box;
 
-/*    top: 10px;
-    top: -1px;
-    right: 10px;
-    bottom: 10px;
-    left: 10px;*/
-    /*width: auto;*/
-    max-width:500px ;
     display: flex;
     overflow: hidden;
 
-    padding: 10px;
-    /*margin: auto;*/
+    max-width: 500px;
     margin: 10px;
+    padding: 10px;
 
     border-radius: 4px;
     background-color: #f6f5f4;
@@ -44,9 +37,12 @@ body
     justify-content: space-around;
 }
 
-.vImage, .hImage{
-	position: relative;
-	box-shadow: #d0d0d0;
+.vImage,
+.hImage
+{
+    position: relative;
+
+    box-shadow: #d0d0d0;
 }
 
 .hImage
@@ -54,7 +50,7 @@ body
     position: relative;
 
     width: 100%;
-    max-width:500px ;
+    max-width: 500px;
 
     box-shadow: 0 0 3px #d0d0d0;
 }
@@ -67,6 +63,8 @@ body
 
     box-shadow: 0 0 3px #d0d0d0;
 }
+
+
 /*End image grid
 
 
@@ -88,7 +86,6 @@ button:focus
 
 #inputBar
 {
-    /*height:100px;*/
     position: relative;
 
     padding: 5px;
@@ -150,7 +147,6 @@ button:focus
     font-family: 'Laila', sans-serif;
     font-size: 65px;
     font-weight: 400;
-    /*display: inline-block;*/
 
     position: relative;
 

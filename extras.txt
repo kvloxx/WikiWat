@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 
@@ -16,10 +17,12 @@
          <div id="underlineWrapper">
             <div id="textInputUnderline"></div>
             <input type="text" placeholder="Build an Ark?" columns="25" id="textInput" />
+
          </div>
          <button type="submit" id="guessButton" title="Guess!">¯\_(ツ)_/¯</button>
       </form>
    </div>
+
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
    </script>
    <script type="text/javascript" src="main.js"></script>
@@ -306,6 +309,7 @@ button:focus
     margin-top: 9px;
 
     background-color: #6b835d;
+
 }
 
 
@@ -434,3 +438,29 @@ function adjustAspectCSS(maxspect, minspect){
 
    }
 }
+
+<div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/400x300" class="image" />
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/300x300" class="image">
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/500x300" class="image" />
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/400x300" class="image" />
+         </div>
+      </div>
+      <div class="box">
+         <div class="boxInner">
+            <img src="http://placehold.it/200x300" class="image"/>
+         </div>
+      </div>

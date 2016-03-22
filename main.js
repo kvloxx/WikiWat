@@ -1,5 +1,6 @@
 var numInitImages = 5;
 var minPageImages = 5;
+
 $(document).ready(function() {
 	$.ajax({ //get random page using mediawiki API
 		url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
@@ -24,6 +25,7 @@ $(document).ready(function() {
 					if (pageImages[i].title === 'Image:Incomplete_856.gif' ||
 						pageImages[i].title === 'Image:LinkFA star.jpg' ||
 						pageImages[i].title === 'Image:Page discussion_71.gif') {
+
 						pageImages.splice(i, 1);
 					}
 				}
@@ -45,7 +47,6 @@ $(document).ready(function() {
 					//create array and fill w/ slightly more accessable image data
 					var images = [];
 					var keys = Object.keys(jsonpData.query.pages);
-
 					var maxAspectRatio = 1; //tallest vert image
 					var minAspectRatio = 1; //widest horiz image
 					for (var i = 0; i < keys.length; i++) {
@@ -111,13 +112,11 @@ function synthImageHtml(nextImageInfo) {
 	return "<div class=\"boxInner\">\n" + imgTag + "\n</div>\n";
 }
 
-function adjustAspectCSS(maxspect, minspect){
-	if((maxspect > 1 && minspect < 1)
-		||(maxspect===1 && minspect ===1)){	//if there are both horiz. and vert images
+function adjustAspectCSS(maxspect, minspect) {
+	if ((maxspect > 1 && minspect < 1) || (maxspect === 1 && minspect === 1)) { //if there are both horiz. and vert images
 		//use square boxes, default css is correct
 		return;
-	}
-	else if(minspect < 1) //minspect=1, only vert or square images
+	} else if (minspect < 1) //minspect=1, only vert or square images
 	{
 
 	}

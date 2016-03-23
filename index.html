@@ -4,25 +4,29 @@
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
    <link href='https://fonts.googleapis.com/css?family=Laila:400,300,500|Kreon:400,700,300|Crete+Round:400,400italic' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    <link rel="stylesheet" type="text/css" href="pagestyle.css">
    <title>WikiWat?</title>
 </head>
 
 <body>
    <div class="wrap"></div>
-   <div id="inputBar">
-      <form action="/my-handling-form-page" method="post" id="guessForm">
-         <span id="labelForGuessInput">How To: </span>
-         <div id="underlineWrapper">
-            <div id="textInputUnderline"></div>
-            <input type="text" placeholder="Build an Ark?" columns="25" id="textInput" />
+   <footer id="f_area">
+      <div id="f_backdrop" class="floatyWrapper">
+         <div id="f_labelBackground">
+            <span id="f_label">How To:</span>
          </div>
-         <button type="submit" id="guessButton" title="Guess!">¯\_(ツ)_/¯</button>
-      </form>
-   </div>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
-   </script>
-   <script type="text/javascript" src="main.js"></script>
+         <form id="f_form" action="/my-handling-form-page" method="post">
+            <input id="f_textInput" type="text" placeholder="Build an Ark?" />
+            <button id="f_button" type="submit" title="Guess!">
+               <i id="f_button_icon" class="material-icons">&#xE5CA;</i>
+               <span id="f_button_text">¯\_(ツ)_/¯</span>
+            </button>
+         </form>
+      </div>
+      <footer>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+         <script type="text/javascript" src="main.js"></script>
 </body>
 
 </html>

@@ -464,3 +464,26 @@ function adjustAspectCSS(maxspect, minspect){
             <img src="http://placehold.it/200x300" class="image"/>
          </div>
       </div>
+
+
+
+
+   <div id="inputBar">
+      <form action="/my-handling-form-page" method="post" id="guessForm">
+         <span id="labelForGuessInput">How To: </span>
+         <div id="underlineWrapper">
+            <div id="textInputUnderline"></div>
+            <input type="text" placeholder="Build an Ark?" columns="25" id="textInput" />
+         </div>
+         <button type="submit" id="guessButton" title="Guess!">¯\_(ツ)_/¯</button>
+      </form>
+   </div>
+
+
+
+   STEP 2: Use Icon in Your Site
+<!-- For modern browsers. -->
+
+<i class="material-icons">check</i>
+<!-- For IE9 or below. -->
+

@@ -24,7 +24,8 @@ $(document).ready(function() {
 				for (var i = pageImages.length - 1; i >= 0; i--) {
 					if (pageImages[i].title === 'Image:Incomplete_856.gif' ||
 						pageImages[i].title === 'Image:LinkFA star.jpg' ||
-						pageImages[i].title === 'Image:Page discussion_71.gif') {
+						pageImages[i].title === 'Image:Page discussion_71.gif' ||
+						pageImages[i].title === 'Image:Merge_590.png') {
 
 						pageImages.splice(i, 1);
 					}
@@ -109,7 +110,7 @@ function synthImageHtml(nextImageInfo) {
 		imgTag = imgTag + '" class="hImage"/>';
 	else
 		imgTag = imgTag + '" class="vImage"/>';
-	return "<div class=\"boxInner\">\n" + imgTag + "\n</div>\n";
+	return "<div class=\"floatyWrapper\" id=\"box\">\n" + imgTag + "\n</div>\n";
 }
 
 function adjustAspectCSS(maxspect, minspect) {

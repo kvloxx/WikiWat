@@ -473,7 +473,7 @@ function adjustAspectCSS(maxspect, minspect){
          <span id="labelForGuessInput">How To: </span>
          <div id="underlineWrapper">
             <div id="textInputUnderline"></div>
-            <input type="text" placeholder="Build an Ark?" columns="25" id="textInput" />
+            <input type="text" placeholder="Build an Ark?" id="textInput" />
          </div>
          <button type="submit" id="guessButton" title="Guess!">¯\_(ツ)_/¯</button>
       </form>

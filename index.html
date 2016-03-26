@@ -16,11 +16,11 @@
          <div id="f_labelBackground">
             <span id="f_label">How To:</span>
          </div>
-         <form id="f_form" action="/my-handling-form-page" method="post">
-            <input id="f_textInput" type="text" placeholder="Build an Ark?" />
+         <form id="f_form" action="submit-action.php" method="post">
+            <input id="f_textInput" name="guess" type="text" value="Guess What's Going on!" />
             <button id="f_button" type="submit" title="Guess!">
-               <i id="f_button_icon" class="material-icons">&#xE5CA;</i>
-               <span id="f_button_text">¯\_(ツ)_/¯</span>
+               <i id="f_button_icon" class="material-icons buttonLabel">&#xE5CA;</i>
+               <span id="f_button_text" class="buttonLabel">¯\_(ツ)_/¯</span>
             </button>
          </form>
       </div>

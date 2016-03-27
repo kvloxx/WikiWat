@@ -7,36 +7,30 @@ $(document).ready(function() {
 	disableButton();
 	$('#f_textInput').css('color', '#9EB8A0');
 
-	$('#f_textInput').focus(textInput_focus());
+	$('#f_textInput').focus(function() {
+		$('#f_textInput').css('color', '#262b26');
+		if ($(this).val() === PLACEHOLDER_VAL)
+			$(this).val('');
+	});
 
-	$('#f_textInput').keyup(textInput_keyup());
+	$('#f_textInput').keyup(function() {
+		if ($(this).val() !== '')
+			enableButton();
+		else
+			disableButton();
+	});
 
-	$('#f_textInput').blur(textInput_blur());
+	$('#f_textInput').blur(function() {
+		if ($(this).val() !== '')
+			enableButton();
+		else {
+			$(this).val(PLACEHOLDER_VAL);
+			$(this).css('color', '#9EB8A0');
+			disableButton();
+		}
+	});
 
 }); //End $(document).ready(function() {
-
-function textInput_blur() {
-	if ($(this).val() !== '')
-		enableButton();
-	else {
-		$(this).val(PLACEHOLDER_VAL);
-		$(this).css('color', '#9EB8A0');
-		disableButton();
-	}
-}
-
-function textInput_keyup() {
-	if ($(this).val() !== '')
-		enableButton();
-	else
-		disableButton();
-}
-
-function textInput_focus() {
-	$('#f_textInput').css('color', '#262b26');
-	if ($(this).val() === PLACEHOLDER_VAL)
-		$(this).val('');
-}
 
 function disableButton() {
 	$('#f_button').attr('disabled', 'true');
@@ -77,7 +71,8 @@ function asyncLoadImagesFromRandomArticle() {
 					if (pageImages[i].title === 'Image:Incomplete_856.gif' ||
 						pageImages[i].title === 'Image:LinkFA star.jpg' ||
 						pageImages[i].title === 'Image:Page discussion_71.gif' ||
-						pageImages[i].title === 'Image:Merge_590.png') {
+						pageImages[i].title === 'Image:Merge_590.png' ||
+						pageImages[i].title === 'Image:Inaccurate1_469.gif') {
 
 						pageImages.splice(i, 1);
 					}

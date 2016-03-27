@@ -10,7 +10,17 @@
 </head>
 
 <body>
-   <div class="wrap"></div>
+   <div class="wrap">
+      <div class="box floatyWrapper">
+         <img class="pageImage" id="img0" src="res/blank_500x500.bmp" />
+      </div>
+      <div class="box floatyWrapper">
+         <img class="pageImage" id="img1" src="res/blank_500x500.bmp" />
+      </div>
+      <div class="box floatyWrapper">
+         <img class="pageImage" id="img2" src="res/blank_500x500.bmp" />
+      </div>
+   </div>
    <footer id="f_area">
       <div id="f_backdrop" class="floatyWrapper">
          <div id="f_labelBackground">
@@ -18,7 +28,7 @@
          </div>
          <form id="f_form" action="submit-action.php" method="post">
             <input id="f_textInput" name="guess" type="text" value="Guess What's Going on!" />
-            <button id="f_button" type="submit" title="Guess!">
+            <button id="f_button" name="submit" type="submit" title="Guess!">
                <i id="f_button_icon" class="material-icons buttonLabel">&#xE5CA;</i>
                <span id="f_button_text" class="buttonLabel">¯\_(ツ)_/¯</span>
             </button>

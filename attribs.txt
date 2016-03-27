@@ -1,1 +1,5 @@
-attribs
+Attributions:
+
+Material Icons by Google:
+https://design.google.com/icons/
+

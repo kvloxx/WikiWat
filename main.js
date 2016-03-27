@@ -1,39 +1,42 @@
-var numInitImages = 5;
-var minPageImages = 5;
+var numInitImages = 3;
+var minPageImages = 3;
+var PLACEHOLDER_VAL = 'Guess What\'s Going on!';
 
 $(document).ready(function() {
 	asyncLoadImagesFromRandomArticle();
-
-	var initVal = 'Guess What\'s Going on!';
-
-
 	disableButton();
 	$('#f_textInput').css('color', '#9EB8A0');
 
-	$('#f_textInput').focus(function() {
-		$('#f_textInput').css('color', '#262b26');
-		if ($(this).val() === initVal)
-			$(this).val('');
-	});
+	$('#f_textInput').focus(textInput_focus());
 
-	$('#f_textInput').keyup(function() {
-		if ($(this).val() !== '')
-			enableButton();
-		else
-			disableButton();
-	});
+	$('#f_textInput').keyup(textInput_keyup());
 
-	$('#f_textInput').blur(function() {
-		if ($(this).val() !== '')
-			enableButton();
-		else {
-			$(this).val(initVal);
-			$(this).css('color', '#9EB8A0');
-			disableButton();
-		}
-	});
+	$('#f_textInput').blur(textInput_blur());
 
 }); //End $(document).ready(function() {
+
+function textInput_blur() {
+	if ($(this).val() !== '')
+		enableButton();
+	else {
+		$(this).val(PLACEHOLDER_VAL);
+		$(this).css('color', '#9EB8A0');
+		disableButton();
+	}
+}
+
+function textInput_keyup() {
+	if ($(this).val() !== '')
+		enableButton();
+	else
+		disableButton();
+}
+
+function textInput_focus() {
+	$('#f_textInput').css('color', '#262b26');
+	if ($(this).val() === PLACEHOLDER_VAL)
+		$(this).val('');
+}
 
 function disableButton() {
 	$('#f_button').attr('disabled', 'true');
@@ -81,8 +84,9 @@ function asyncLoadImagesFromRandomArticle() {
 				}
 			}
 
-			if (pageImages == null // == is correct, checks for undefined
-				|| pageImages.length < minPageImages || pageInfo.title.length > 256) {
+			if (pageImages == null || // == is correct, checks for undefined
+				pageImages.length < minPageImages ||
+				pageInfo.title.length > 256) {
 
 				$.ajax({ //make a request for a different article
 					url: this.url,
@@ -110,24 +114,8 @@ function asyncQueryForAndLoadImages(pageImages) {
 			for (var i = 0; i < keys.length; i++) {
 				//put image objects in new array
 				var current = jsonpData.query.pages[keys[i].toString()];
-				var currentInfo = current.imageinfo[0];
 				images.push(current);
-
-				//assign new aspect ratio property to each image
-				currentInfo.aspectratio = currentInfo.height / currentInfo.width;
-				var currentAspect = currentInfo.aspectratio;
-				console.log(currentAspect);
-
-				//identify most extreme aspect ratios to use later for creating layout
-				if (currentAspect < minAspectRatio)
-					minAspectRatio = currentAspect;
-				if (currentAspect > maxAspectRatio)
-					maxAspectRatio = currentAspect;
 			}
-
-			console.log('maxspect: ' + maxAspectRatio);
-			console.log('minspect: ' + minAspectRatio);
-
 
 			for (var i = 0; i < numInitImages && images.length !== 0; i++) {
 				//Get random int in range [0, images.length-1]
@@ -138,7 +126,11 @@ function asyncQueryForAndLoadImages(pageImages) {
 
 				images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
 
-				$(".wrap").append(synthImageHtml(nextImageInfo, i));
+				if ($('#img' + i).length) { //if image (placeholder) element exists 
+					$('#img' + i).attr('src', nextImageInfo.url);
+				} else {
+					$(".wrap").append(synthImageHtml(nextImageInfo, i));
+				}
 			}
 		}
 	});
@@ -153,14 +145,14 @@ function synthImageInfoQuery(pageImages) {
 		if (i < pageImages.length - 1)
 			queryUrl = queryUrl + '%7C'; //url-encoded '|'
 		else
-			queryUrl = queryUrl + '&iiprop=url%7Csize'; //additional query properties
+			queryUrl = queryUrl + '&iiprop=url%7Csize&iiurlwidth=500'; //additional query properties
 	}
 	queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
 	return queryUrl;
 }
 
-function synthImageHtml(nextImageInfo) {
-	var imgTag = '<img class="pageImage" src="' + nextImageInfo.url + '"/>';
+function synthImageHtml(nextImageInfo, i) {
+	var imgTag = '<img class="pageImage" src="' + nextImageInfo.url + '" id="img' + i + '" />';
 	return '<div class="box floatyWrapper">\n' + imgTag + '\n</div>\n';
 }
 

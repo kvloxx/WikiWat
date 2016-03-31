@@ -1,164 +1,199 @@
-var numInitImages = 3;
-var minPageImages = 3;
-var PLACEHOLDER_VAL = 'Guess What\'s Going on!';
+var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
+var NUM_INITIAL_IMAGES = 3;
+var MIN_PAGE_IMAGES = 3; //must be >= NUM_INITIAL_IMAGES
+var DEFAULT_INPUT_MESSAGE = 'Guess What\'s Going on!';
+var UNUSABLE_IMAGES = [
+   'Image:Incomplete_856.gif',
+   'Image:LinkFA star.jpg',
+   'Image:Page discussion_71.gif',
+   'Image:Merge_590.png',
+   'Image:Inaccurate1_469.gif'
+];
+var gPageTitle;
 
+asyncGetRandomUsablePage().done(asyncQueryForAndLoadImages);
 $(document).ready(function() {
-	asyncLoadImagesFromRandomArticle();
-	disableButton();
-	$('#f_textInput').css('color', '#9EB8A0');
 
-	$('#f_textInput').focus(function() {
-		$('#f_textInput').css('color', '#262b26');
-		if ($(this).val() === PLACEHOLDER_VAL)
-			$(this).val('');
-	});
+   disableButton();
+   $('#f_textInput').css('color', '#9EB8A0');
 
-	$('#f_textInput').keyup(function() {
-		if ($(this).val() !== '')
-			enableButton();
-		else
-			disableButton();
-	});
+   $('#f_textInput').focus(function() {
+      $('#f_textInput').css('color', '#262b26');
+      if ($(this).val() === DEFAULT_INPUT_MESSAGE)
+         $(this).val('');
+   });
 
-	$('#f_textInput').blur(function() {
-		if ($(this).val() !== '')
-			enableButton();
-		else {
-			$(this).val(PLACEHOLDER_VAL);
-			$(this).css('color', '#9EB8A0');
-			disableButton();
-		}
-	});
+   $('#f_textInput').keyup(function() {
 
+      if ($(this).val() !== '')
+         enableButton();
+      else
+         disableButton();
+   });
+
+   $('#f_textInput').blur(function() {
+      if ($(this).val() !== '')
+         enableButton();
+      else {
+         $(this).val(DEFAULT_INPUT_MESSAGE);
+         $(this).css('color', '#9EB8A0');
+         disableButton();
+      }
+   });
+
+   $('#f_button').click();
 }); //End $(document).ready(function() {
 
+function findMatches(guess, title) {
+   var guessWordsMatched = [];
+   for (var i = 0; i < title.normTokens.length; i++) {
+      for (var j = 0; j < guess.normTokens.length; j++) {
+         if (title.normTokens[i] === guess.normTokens[j]) {
+            if (guess.guessed[j] === 0) {
+               guess.guessed[j] = 1;
+               title[i] = 1;
+               guessWordsMatched.push(j);
+            }
+         }
+      }
+   }
+   return guessWordsMatched;
+}
+
+function submitAction() {
+   var guess = new titleObject($('#f_textInput').val());
+   var wordsMatched=findMatches(guess, gPageTitle);
+   console.log(wordsMatched.sort());
+}
+
+function titleObject(str) {
+   this.origString = str;
+   this.origTokens = str.match(/\S+/g); //original chars/punct
+   this.normTokens =
+      diacritics2url.replaceDiacritics(str.toLowerCase().replace(STD_PUNCT, '')).match(/\S+/g);
+   this.guessed = zeroArray(this.origTokens.length);
+}
+
+function zeroArray(l) {
+   var res = new Array(l);
+   while (--l >= 0) {
+      res[l] = 0;
+   }
+   return res;
+}
+
 function disableButton() {
-	$('#f_button').attr('disabled', 'true');
-	$('.buttonLabel').css('color', '#9EB8A0');
+   $('#f_button').attr('disabled', 'true');
+   $('.buttonLabel').css('color', '#9EB8A0');
 }
 
 function enableButton() {
-	$('#f_button').removeAttr('disabled');
-	$('.buttonLabel').css('color', '#444f45');
+   $('#f_button').removeAttr('disabled');
+   $('.buttonLabel').css('color', '#444f45');
 }
 
-function asyncLoadImagesFromRandomArticle() {
-	/* NOTE: Image loading is ultimately performed in the 
-	callback function 'asyncQueryForAndLoadImages()'
-	Most of this function body handles the work of getting information
-	about a random article and determining whether it will be usable*/
+function isUnusableImage(image) {
+   for (var i = 0; i < UNUSABLE_IMAGES.length; i++) {
+      if (image === UNUSABLE_IMAGES[i])
+         return true;
+   }
+   return false;
+}
 
-	$.ajax({ //get random page using mediawiki API
-		url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
-		dataType: 'jsonp',
-		success: function(jsonpData) {
-			/*The mediawiki api answers our request with a complex json object structure.
-			However, all of the data we're interested in is kept in a sub-object, "pageInfo"
-			Accessing it requires making this series of calls:
-				var page = jsonpData.query.pages;
-				var pageId = Object.keys(page)[0];
-				var pageInfo = page[pageId.toString()];
-			To avoid creating extra variables, I condense this to the single unreadable line below: */
-			var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];
-			var pageImages = pageInfo.images;
+function filterUnusableImages(imageArray) {
+   //filter out those dumb article metadata images that are sometimes delivered
+   if (imageArray != null) { // != is intentional, checks for undefined
+      for (var i = imageArray.length - 1; i >= 0; i--) {
+         if (isUnusableImage(imageArray[i]))
+            imageArray.splice(i, 1);
+      }
+   }
+}
 
-			console.log(pageImages);
-			console.log(pageInfo.title);
+function asyncGetRandomUsablePage() {
+   /* Handles the work of getting information about a random 
+   article and determining whether it will be usable*/
+   var deff = $.Deferred();
+   $.ajax({ //get random page using mediawiki API
+      url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
+      dataType: 'jsonp',
+      success: function(jsonpData) {
+         /*The mediawiki api answers our request with a complex json object structure.
+         However, all of the data we're interested in is kept in a sub-object, "pageInfo"
+         Accessing it requires making this series of calls:
+            var page = jsonpData.query.pages;
+            var pageId = Object.keys(page)[0];
+            var pageInfo = page[pageId.toString()];
+         To avoid creating extra variables, I condense this to the single unreadable line below: */
+         var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];
+         var pageImages = pageInfo.images;
 
-			//filter out that stupid "article stub" image that is sometimes delivered
-			if (pageImages != null) { // != is correct, checks for undefined
-				for (var i = pageImages.length - 1; i >= 0; i--) {
-					if (pageImages[i].title === 'Image:Incomplete_856.gif' ||
-						pageImages[i].title === 'Image:LinkFA star.jpg' ||
-						pageImages[i].title === 'Image:Page discussion_71.gif' ||
-						pageImages[i].title === 'Image:Merge_590.png' ||
-						pageImages[i].title === 'Image:Inaccurate1_469.gif') {
+         filterUnusableImages(pageImages);
 
-						pageImages.splice(i, 1);
-					}
-				}
-			}
+         if (pageImages == null || // == is intentional, checks for undefined
+            pageImages.length < MIN_PAGE_IMAGES ||
+            pageInfo.title.length > 256) {
 
-			if (pageImages == null || // == is correct, checks for undefined
-				pageImages.length < minPageImages ||
-				pageInfo.title.length > 256) {
-
-				$.ajax({ //make a request for a different article
-					url: this.url,
-					dataType: this.dataType,
-					success: this.success
-				});
-				return;
-			}
-
-			asyncQueryForAndLoadImages(pageImages); //image processing function
-		}
-	});
+            return asyncGetRandomUsablePage(); //try again
+         }
+         gPageTitle = new titleObject(pageInfo.title);
+         console.log(gPageTitle);
+         deff.resolve(pageImages);
+      }
+   });
+   return deff.promise();
 }
 
 function asyncQueryForAndLoadImages(pageImages) {
-	$.ajax({ //make another async. request for image urls
-		url: synthImageInfoQuery(pageImages),
-		dataType: 'jsonp',
-		success: function(jsonpData) {
-			//create array and fill w/ slightly more accessable image data
-			var images = [];
-			var keys = Object.keys(jsonpData.query.pages);
-			var maxAspectRatio = 1; //tallest vert image
-			var minAspectRatio = 1; //widest horiz image
-			for (var i = 0; i < keys.length; i++) {
-				//put image objects in new array
-				var current = jsonpData.query.pages[keys[i].toString()];
-				images.push(current);
-			}
+   $.ajax({ //make another async. request for image urls
+      url: synthImageInfoQuery(pageImages),
+      dataType: 'jsonp',
+      success: function(jsonpData) {
+         //create array and fill w/ slightly more accessable image data
+         var images = [];
+         var keys = Object.keys(jsonpData.query.pages);
 
-			for (var i = 0; i < numInitImages && images.length !== 0; i++) {
-				//Get random int in range [0, images.length-1]
-				var randIndex = Math.floor(Math.random() * images.length);
+         for (var i = 0; i < keys.length; i++) {
+            //put image objects in new array
+            var current = jsonpData.query.pages[keys[i].toString()];
+            images.push(current);
+         }
 
-				var nextImageInfo = images[randIndex].imageinfo[0];
-				console.log(nextImageInfo);
+         for (var i = 0; i < NUM_INITIAL_IMAGES && images.length !== 0; i++) {
+            //Get random int in range [0, images.length-1]
+            var randIndex = Math.floor(Math.random() * images.length);
 
-				images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
+            var nextImageInfo = images[randIndex].imageinfo[0];
+            console.log(nextImageInfo);
 
-				if ($('#img' + i).length) { //if image (placeholder) element exists 
-					$('#img' + i).attr('src', nextImageInfo.url);
-				} else {
-					$(".wrap").append(synthImageHtml(nextImageInfo, i));
-				}
-			}
-		}
-	});
+            images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
+
+            if ($('#img' + i).length) { //if image (placeholder) element exists 
+               $('#img' + i).attr('src', nextImageInfo.url);
+            } else {
+               $(".wrap").append(synthImageHtml(nextImageInfo, i));
+            }
+         }
+      }
+   });
 }
 
 function synthImageInfoQuery(pageImages) {
-	//base url to query api for image sources
-	var queryUrl = 'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
-	//append image titles seperated by '%7C' (url encoded '|')
-	for (var i = 0; i < pageImages.length; i++) {
-		queryUrl = queryUrl + pageImages[i].title;
-		if (i < pageImages.length - 1)
-			queryUrl = queryUrl + '%7C'; //url-encoded '|'
-		else
-			queryUrl = queryUrl + '&iiprop=url%7Csize&iiurlwidth=500'; //additional query properties
-	}
-	queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
-	return queryUrl;
+   //base url to query api for image sources
+   var queryUrl = 'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
+   //append image titles seperated by '%7C' (url encoded '|')
+   for (var i = 0; i < pageImages.length; i++) {
+      queryUrl = queryUrl + pageImages[i].title;
+      if (i < pageImages.length - 1)
+         queryUrl = queryUrl + '%7C'; //url-encoded '|'
+      else
+         queryUrl = queryUrl + '&iiprop=url%7Csize&iiurlwidth=500'; //additional query properties
+   }
+   queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
+   return queryUrl;
 }
 
 function synthImageHtml(nextImageInfo, i) {
-	var imgTag = '<img class="pageImage" src="' + nextImageInfo.url + '" id="img' + i + '" />';
-	return '<div class="box floatyWrapper">\n' + imgTag + '\n</div>\n';
-}
-
-function monitorInput() {
-	var initVal = "Guess What's Going on!";
-	$(".submit-name").attr("disabled", "true");
-	$(".recipe-name").blur(function() {
-		if ($(this).val() != initVal && $(this).val() != "") {
-			$(".submit-name").removeAttr("disabled");
-		} else {
-			$(".submit-name").attr("disabled", "true");
-		}
-	});
+   var imgTag = '<img class="pageImage" src="' + nextImageInfo.url + '" id="img' + i + '" />';
+   return '<div class="box floatyWrapper">\n' + imgTag + '\n</div>\n';
 }

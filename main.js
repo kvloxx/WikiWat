@@ -2,17 +2,18 @@ var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
 var NUM_INITIAL_IMAGES = 3;
 var MIN_PAGE_IMAGES = 3; //must be >= NUM_INITIAL_IMAGES
 var DEFAULT_INPUT_MESSAGE = 'Guess What\'s Going on!';
-var UNUSABLE_IMAGES = [
-   'Image:Incomplete_856.gif',
-   'Image:LinkFA star.jpg',
-   'Image:Page discussion_71.gif',
-   'Image:Merge_590.png',
-   'Image:Inaccurate1_469.gif'
-];
+
 var gPageTitle;
 
-asyncGetRandomUsablePage().done(asyncQueryForAndLoadImages);
-$(document).ready(function() {
+asyncGetRandomUsablePage().done(asyncQueryForAndLoadImages, setPageName);
+
+function setPageName(pageInfo) {
+   gPageTitle = new titleObject(pageInfo.title);
+   console.log(gPageTitle);
+}
+
+$(document).data('readyDeferred', $.Deferred()).ready(function() {
+   $(document).data('readyDeferred').resolve();
 
    disableButton();
    $('#f_textInput').css('color', '#9EB8A0');
@@ -42,6 +43,7 @@ $(document).ready(function() {
    });
 
    $('#f_button').click();
+
 }); //End $(document).ready(function() {
 
 function findMatches(guess, title) {
@@ -62,7 +64,7 @@ function findMatches(guess, title) {
 
 function submitAction() {
    var guess = new titleObject($('#f_textInput').val());
-   var wordsMatched=findMatches(guess, gPageTitle);
+   var wordsMatched = findMatches(guess, gPageTitle);
    console.log(wordsMatched.sort());
 }
 
@@ -92,19 +94,20 @@ function enableButton() {
    $('.buttonLabel').css('color', '#444f45');
 }
 
-function isUnusableImage(image) {
-   for (var i = 0; i < UNUSABLE_IMAGES.length; i++) {
-      if (image === UNUSABLE_IMAGES[i])
-         return true;
+function isUnusableImage(imageTitle, pageTitle) {
+   console.log("comparing " + imageTitle + " & " + pageTitle);
+   if (!imageTitle.includes(pageTitle)) {
+      console.log("\t" + imageTitle + " !== " + pageTitle);
+      return true;
    }
    return false;
 }
 
-function filterUnusableImages(imageArray) {
+function filterUnusableImages(imageArray, pageTitle) {
    //filter out those dumb article metadata images that are sometimes delivered
    if (imageArray != null) { // != is intentional, checks for undefined
       for (var i = imageArray.length - 1; i >= 0; i--) {
-         if (isUnusableImage(imageArray[i]))
+         if (isUnusableImage(imageArray[i].title, pageTitle))
             imageArray.splice(i, 1);
       }
    }
@@ -126,9 +129,12 @@ function asyncGetRandomUsablePage() {
             var pageInfo = page[pageId.toString()];
          To avoid creating extra variables, I condense this to the single unreadable line below: */
          var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];
+         console.log("raw page images: ");
+         console.log(JSON.stringify(pageInfo.images));
          var pageImages = pageInfo.images;
+         console.log(pageInfo.fullurl);
 
-         filterUnusableImages(pageImages);
+         filterUnusableImages(pageImages, pageInfo.title);
 
          if (pageImages == null || // == is intentional, checks for undefined
             pageImages.length < MIN_PAGE_IMAGES ||
@@ -136,17 +142,16 @@ function asyncGetRandomUsablePage() {
 
             return asyncGetRandomUsablePage(); //try again
          }
-         gPageTitle = new titleObject(pageInfo.title);
-         console.log(gPageTitle);
-         deff.resolve(pageImages);
+         deff.resolve(pageInfo);
       }
    });
    return deff.promise();
 }
 
-function asyncQueryForAndLoadImages(pageImages) {
+function asyncQueryForAndLoadImages(pageInfo) {
+   var deff = $.Deferred();
    $.ajax({ //make another async. request for image urls
-      url: synthImageInfoQuery(pageImages),
+      url: synthImageInfoQuery(pageInfo.images),
       dataType: 'jsonp',
       success: function(jsonpData) {
          //create array and fill w/ slightly more accessable image data
@@ -168,11 +173,13 @@ function asyncQueryForAndLoadImages(pageImages) {
 
             images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
 
-            if ($('#img' + i).length) { //if image (placeholder) element exists 
-               $('#img' + i).attr('src', nextImageInfo.url);
-            } else {
-               $(".wrap").append(synthImageHtml(nextImageInfo, i));
-            }
+            $.when($(document).data('readyDeferred')).then(function() {
+               if ($('#img' + i).length) { //if image (placeholder) element exists 
+                  $('#img' + i).attr('src', nextImageInfo.url);
+               } else {
+                  $('.wrap').append(synthImageHtml(nextImageInfo, i));
+               }
+            });
          }
       }
    });
@@ -197,3 +204,10 @@ function synthImageHtml(nextImageInfo, i) {
    var imgTag = '<img class="pageImage" src="' + nextImageInfo.url + '" id="img' + i + '" />';
    return '<div class="box floatyWrapper">\n' + imgTag + '\n</div>\n';
 }
+
+function setFixedInputPosition() {
+   $("#f_area").css("bottom", Math.max(0, ($(document).scrollTop() + $(window).height()) - $(".siteFooter").offset()['top']));
+}
+
+$(window).scroll(setFixedInputPosition);
+$(window).resize(setFixedInputPosition);

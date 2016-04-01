@@ -21,23 +21,24 @@
          <img class="pageImage" id="img2" src="res/blank_500x500.bmp" />
       </div>
    </div>
-   <footer id="f_area">
+   <div id="f_area">
       <div id="f_backdrop" class="floatyWrapper">
          <div id="f_labelBackground">
             <span id="f_label">How To:</span>
          </div>
          <form id="f_form" action="javascript:submitAction();">
-            <input id="f_textInput" name="guess" type="text" maxlength="256" value="Guess What's Going on!" />
+            <input id="f_textInput" name="guess" type="text" maxlength="256" value="Guess What's Going on!" autocomplete="off" />
             <button id="f_button" name="submit" type="submit" form="f_form" title="Guess!">
                <i id="f_button_icon" class="material-icons buttonLabel">&#xE5CA;</i>
                <span id="f_button_text" class="buttonLabel">¯\_(ツ)_/¯</span>
             </button>
          </form>
       </div>
-      <footer>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-         <script type="text/javascript" src="Diacritics2Url.js"></script>
-         <script type="text/javascript" src="main.js"></script>
+   </div>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+   <script type="text/javascript" src="Diacritics2Url.js"></script>
+   <script type="text/javascript" src="main.js"></script>
+<footer class="siteFooter"></footer>
 </body>
 
 </html>

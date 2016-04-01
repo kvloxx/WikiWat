@@ -1,6 +1,6 @@
 body {
    margin: 0;
-   padding: 0 0 70px 0;
+   padding: 0;
    background-color: #ecebe8;
 }
 
@@ -48,7 +48,7 @@ body {
 }
 
 
-/*/////// Footer ///////*/
+/*/////// Floating Answer Bar ///////*/
 
 #f_area {
    position: fixed;
@@ -61,7 +61,6 @@ body {
 
 #f_backdrop {
    /*inherits from floatyWrapper*/
-   position: inline-box;
    display: flex;
    overflow: hidden;
    flex-direction: column;
@@ -190,4 +189,14 @@ body {
    #f_button_icon {
       display: none;
    }
+}
+
+
+/*///////Footer///////*/
+
+.siteFooter {
+   height: 300px;
+   width: 100%;
+   margin-top: 70px;
+   background: #D4FF7F;
 }

@@ -208,6 +208,6 @@ function synthImageHtml(nextImageInfo, i) {
 function setFixedInputPosition() {
    $("#f_area").css("bottom", Math.max(0, ($(document).scrollTop() + $(window).height()) - $(".siteFooter").offset()['top']));
 }
-
+document.body.addEventListener('touchmove', setFixedInputPosition);
 $(window).scroll(setFixedInputPosition);
 $(window).resize(setFixedInputPosition);

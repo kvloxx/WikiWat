@@ -1,50 +1,137 @@
 var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
 var NUM_INITIAL_IMAGES = 3;
 var MIN_PAGE_IMAGES = 3; //must be >= NUM_INITIAL_IMAGES
-var DEFAULT_INPUT_MESSAGE = 'Guess What\'s Going on!';
+var DEFAULT_INPUT_MESSAGE = 'Guess the Title of This Article!';
+var $DOC = $(document);
 
-var gPageTitle;
+var promisedUsablePage = asyncQueryForRandomUsablePage();
+$.when( //coordinates page loading (a masterpiece)
+   promisedUsablePage.then(asyncQueryForPageImages),
+   $DOC.data('readyDeferred')
+).done(addImagesToDocument);
 
-asyncGetRandomUsablePage().done(asyncQueryForAndLoadImages, setPageName);
+$DOC.data('readyDeferred', $.Deferred()).ready(function() {
+   var $textInput = $('#f_textInput');
+   $.when(promisedUsablePage).done(function(pageInfo) {
+      $DOC.data('wikiPageTitle', new titleObject(pageInfo.title));
+   });
 
-function setPageName(pageInfo) {
-   gPageTitle = new titleObject(pageInfo.title);
-   console.log(gPageTitle);
-}
-
-$(document).data('readyDeferred', $.Deferred()).ready(function() {
-   $(document).data('readyDeferred').resolve();
+   $DOC.data('readyDeferred').resolve();
 
    disableButton();
-   $('#f_textInput').css('color', '#9EB8A0');
+   $textInput.css('color', '#A6C090');
 
-   $('#f_textInput').focus(function() {
-      $('#f_textInput').css('color', '#262b26');
-      if ($(this).val() === DEFAULT_INPUT_MESSAGE)
-         $(this).val('');
-   });
+   $(window).scroll(setFixedInputPosition);
+   $(window).resize(setFixedInputPosition);
 
-   $('#f_textInput').keyup(function() {
+   $textInput.focus(focusedAction);
+   $textInput.keyup(keyupAction);
+   $textInput.blur(blurAction);
 
-      if ($(this).val() !== '')
-         enableButton();
-      else
-         disableButton();
-   });
+   $('#mobile_menuToggle').change(slideMenuUp);
+   slideMenuUp();
+      
+}); //End $DOC.ready
 
-   $('#f_textInput').blur(function() {
-      if ($(this).val() !== '')
-         enableButton();
-      else {
-         $(this).val(DEFAULT_INPUT_MESSAGE);
-         $(this).css('color', '#9EB8A0');
-         disableButton();
+function slideMenuUp() {
+   console.log("BUH");
+
+   if (!$(this).is(":checked")) {
+      $('.slide-menu').css({ "transform": "translate(0,-"+$('#mobile_menuContent').height()+"px)" });
+      $('#mobile_menuIcon_up').css({ "transform": "rotate(180deg)" });
+   } else {
+      $('.slide-menu').css({ "transform": "translate(0,0)" });
+      $('#mobile_menuIcon_up').css({ "transform": "rotate(0deg)" });
+   }
+}
+function asyncQueryForRandomUsablePage() {
+   /* request random article and see if it has enough usable images*/
+   return $.ajax({ //get random page using mediawiki API
+      url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
+      dataType: 'jsonp'
+   }).then(function(data) {
+      /*The mediawiki api answers our request with a complex json object structure.
+      However, all of the data we're interested in is kept in a sub-object, "pageInfo"
+      Accessing it requires making this series of calls:
+         var page = jsonpData.query.pages;
+         var pageId = Object.keys(page)[0];
+         var pageInfo = page[pageId.toString()];
+      To avoid creating extra variables, I condense this to the single unreadable line below: */
+      var pageInfo = data.query.pages[Object.keys(data.query.pages)[0].toString()];
+
+      console.log(pageInfo.fullurl);
+      console.log("raw page images: ");
+      console.log(JSON.stringify(pageInfo.images));
+
+      filterUnusableImages(pageInfo.images);
+
+      if (pageInfo.images == null || // == is intentional, checks for undefined
+         pageInfo.images.length < MIN_PAGE_IMAGES ||
+         pageInfo.title.length > 256) {
+
+         return asyncQueryForRandomUsablePage(); //try again
       }
+      return pageInfo;
    });
+}
 
-   $('#f_button').click();
+function asyncQueryForPageImages(pageInfo) {
+   return $.ajax({ //make another async. request for image urls
+      url: synthImageInfoQuery(pageInfo.images),
+      dataType: 'jsonp'
+   }).then(function(data) {
+      //create array and fill w/ slightly more accessable image data
+      var images = [];
+      var keys = Object.keys(data.query.pages);
 
-}); //End $(document).ready(function() {
+      for (var i = 0; i < keys.length; i++) {
+         //put image objects in new array
+         var current = data.query.pages[keys[i].toString()];
+         images.push(current);
+      }
+      return images;
+   });
+}
+
+function addImagesToDocument(images, a2) { //argument a2 is extra passed in from $.when().done() 
+   for (var i = 0; i < NUM_INITIAL_IMAGES && images.length !== 0; i++) {
+      //Get random int in range [0, images.length-1]
+      var randIndex = Math.floor(Math.random() * images.length);
+
+      var nextImageInfo = images[randIndex].imageinfo[0];
+      console.log(nextImageInfo);
+
+      images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down 1
+
+      if ($('#img' + i).length) //if image (placeholder) element exists 
+         $('#img' + i).attr('src', nextImageInfo.url);
+      else
+         $('.wrap').append(synthImageHtml(nextImageInfo, i));
+   }
+}
+
+function focusedAction() {
+   $(this).css('color', '#262b26');
+   if ($(this).val() === DEFAULT_INPUT_MESSAGE)
+      $(this).val('');
+}
+
+function keyupAction() {
+   if ($(this).val() !== '')
+      enableButton();
+   else
+      disableButton();
+}
+
+function blurAction() {
+   if ($(this).val() !== '')
+      enableButton();
+   else {
+      $(this).val(DEFAULT_INPUT_MESSAGE);
+      $(this).css('color', '#A6C090');
+      disableButton();
+   }
+}
 
 function findMatches(guess, title) {
    var guessWordsMatched = [];
@@ -64,7 +151,7 @@ function findMatches(guess, title) {
 
 function submitAction() {
    var guess = new titleObject($('#f_textInput').val());
-   var wordsMatched = findMatches(guess, gPageTitle);
+   var wordsMatched = findMatches(guess, $DOC.data('wikiPageTitle'));
    console.log(wordsMatched.sort());
 }
 
@@ -94,95 +181,23 @@ function enableButton() {
    $('.buttonLabel').css('color', '#444f45');
 }
 
-function isUnusableImage(imageTitle, pageTitle) {
-   console.log("comparing " + imageTitle + " & " + pageTitle);
-   if (!imageTitle.includes(pageTitle)) {
-      console.log("\t" + imageTitle + " !== " + pageTitle);
+function isUnusableImage(imageTitle) {
+   console.log("checking " + imageTitle);
+   if (UNUSABLE_IMAGES.includes(imageTitle)) {
+      console.log("\t" + imageTitle + " unusable.");
       return true;
    }
    return false;
 }
 
-function filterUnusableImages(imageArray, pageTitle) {
+function filterUnusableImages(imageArray) {
    //filter out those dumb article metadata images that are sometimes delivered
    if (imageArray != null) { // != is intentional, checks for undefined
       for (var i = imageArray.length - 1; i >= 0; i--) {
-         if (isUnusableImage(imageArray[i].title, pageTitle))
+         if (isUnusableImage(imageArray[i].title))
             imageArray.splice(i, 1);
       }
    }
-}
-
-function asyncGetRandomUsablePage() {
-   /* Handles the work of getting information about a random 
-   article and determining whether it will be usable*/
-   var deff = $.Deferred();
-   $.ajax({ //get random page using mediawiki API
-      url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
-      dataType: 'jsonp',
-      success: function(jsonpData) {
-         /*The mediawiki api answers our request with a complex json object structure.
-         However, all of the data we're interested in is kept in a sub-object, "pageInfo"
-         Accessing it requires making this series of calls:
-            var page = jsonpData.query.pages;
-            var pageId = Object.keys(page)[0];
-            var pageInfo = page[pageId.toString()];
-         To avoid creating extra variables, I condense this to the single unreadable line below: */
-         var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];
-         console.log("raw page images: ");
-         console.log(JSON.stringify(pageInfo.images));
-         var pageImages = pageInfo.images;
-         console.log(pageInfo.fullurl);
-
-         filterUnusableImages(pageImages, pageInfo.title);
-
-         if (pageImages == null || // == is intentional, checks for undefined
-            pageImages.length < MIN_PAGE_IMAGES ||
-            pageInfo.title.length > 256) {
-
-            return asyncGetRandomUsablePage(); //try again
-         }
-         deff.resolve(pageInfo);
-      }
-   });
-   return deff.promise();
-}
-
-function asyncQueryForAndLoadImages(pageInfo) {
-   var deff = $.Deferred();
-   $.ajax({ //make another async. request for image urls
-      url: synthImageInfoQuery(pageInfo.images),
-      dataType: 'jsonp',
-      success: function(jsonpData) {
-         //create array and fill w/ slightly more accessable image data
-         var images = [];
-         var keys = Object.keys(jsonpData.query.pages);
-
-         for (var i = 0; i < keys.length; i++) {
-            //put image objects in new array
-            var current = jsonpData.query.pages[keys[i].toString()];
-            images.push(current);
-         }
-
-         for (var i = 0; i < NUM_INITIAL_IMAGES && images.length !== 0; i++) {
-            //Get random int in range [0, images.length-1]
-            var randIndex = Math.floor(Math.random() * images.length);
-
-            var nextImageInfo = images[randIndex].imageinfo[0];
-            console.log(nextImageInfo);
-
-            images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down
-
-            $.when($(document).data('readyDeferred')).then(function() {
-               if ($('#img' + i).length) { //if image (placeholder) element exists 
-                  $('#img' + i).attr('src', nextImageInfo.url);
-               } else {
-                  $('.wrap').append(synthImageHtml(nextImageInfo, i));
-               }
-            });
-         }
-      }
-   });
 }
 
 function synthImageInfoQuery(pageImages) {
@@ -206,8 +221,8 @@ function synthImageHtml(nextImageInfo, i) {
 }
 
 function setFixedInputPosition() {
-   $("#f_area").css("bottom", Math.max(0, ($(document).scrollTop() + $(window).height()) - $(".siteFooter").offset()['top']));
+   if (window.innerWidth > 541)
+      $("#f_area").css("bottom", Math.max(0, ($DOC.scrollTop() + $(window).height()) - $(".siteFooter").offset().top));
+   else
+      $("#f_area").css("bottom", 0);
 }
-document.body.addEventListener('touchmove', setFixedInputPosition);
-$(window).scroll(setFixedInputPosition);
-$(window).resize(setFixedInputPosition);

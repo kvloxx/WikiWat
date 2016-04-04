@@ -10,6 +10,7 @@ body {
 .wrap {
    display: flex;
    overflow: hidden;
+   margin-bottom: 70px;
    padding: 10px;
    flex-wrap: wrap;
    justify-content: center;
@@ -18,14 +19,13 @@ body {
 }
 
 .floatyWrapper {
-   border-radius: 4px;
    background-color: #f6f5f4;
-   box-shadow: 0 2px 3px #b9b9b9;
+   border-radius: 4px;
+   box-shadow: 0 1px 2px #b9b9b9;
 }
 
 .box {
    /*inherits from Floatywrapper*/
-   position: inline-box;
    display: flex;
    overflow: hidden;
    max-width: 500px;
@@ -43,8 +43,8 @@ body {
 .pageImage {
    position: relative;
    width: 100%;
-   max-width: 500px;
-   box-shadow: 0 0 3px #d0d0d0;
+   max-width: 480px;
+   box-shadow: 0 0 2px #d0d0d0;
 }
 
 
@@ -53,49 +53,64 @@ body {
 #f_area {
    position: fixed;
    bottom: 0;
-   width: 100%;
    height: 70px;
+   width: 100%;
    padding: 0;
    padding-bottom: 10px;
 }
 
 #f_backdrop {
    /*inherits from floatyWrapper*/
+
    display: flex;
+
    overflow: hidden;
-   flex-direction: column;
-   height: 100%;
+   height: fit-content;
    margin-right: 10px;
    margin-left: 10px;
+   border-top-right-radius: 0;
    border-top-left-radius: 0;
+   /* box-shadow: 0 2px 6px #b9b9b9; */
+   flex-direction: column;
+
 }
 
 #f_labelBackground {
    position: relative;
+   height: 20px;
    width: 100%;
-   padding-bottom: 20px;
+   top: 1px;
+   /* padding-bottom: 20px; */
    /* IE10+ */
-   background-image: -ms-linear-gradient(left, #93b874 0%, #a6c090 100%);
+   background-image: -ms-linear-gradient(left, #94B379 0%, #a6c090 100%);
    /* Mozilla Firefox */
-   background-image: -moz-linear-gradient(left, #93b874 0%, #a6c090 100%);
+   background-image: -moz-linear-gradient(left, #94B379 0%, #a6c090 100%);
    /* Opera */
-   background-image: -o-linear-gradient(left, #93b874 0%, #a6c090 100%);
+   background-image: -o-linear-gradient(left, #94B379 0%, #a6c090 100%);
    /* Webkit (Safari/Chrome 10) */
-   background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #93b874), color-stop(100, #a6c090));
+   background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #94B379), color-stop(100, #a6c090));
    /* Webkit (Chrome 11+) */
-   background-image: -webkit-linear-gradient(left, #93b874 0%, #a6c090 100%);
+   background-image: -webkit-linear-gradient(left, #94B379 0%, #a6c090 100%);
    /* W3C Markup */
-   background-image: linear-gradient(to right, #93b874 0%, #a6c090 100%);
-   box-shadow: 0 1px 3px #57694c;
+   background-image: linear-gradient(to right, #94B379 0%, #a6c090 100%);
+   /* box-shadow: 0 0 3px #57694c; */
+}
+
+#f_label_justifier {
+   position: absolute;
+   display: flex;
+   top: -3px;
+   right: 0px;
+   left: 0px;
+   justify-content: center;
 }
 
 #f_label {
-   font-family: 'Crete Round', serif;
-   font-size: 21px;
-   font-weight: 400;
-   position: absolute;
-   top: -3px;
-   left: 5px;
+   position: relative;
+   top: 1px;
+   font-family: 'Josefin Sans', serif;
+   font-size: 20px;
+   font-weight: 600;
    color: #444f45;
 }
 
@@ -107,18 +122,33 @@ body {
 }
 
 #f_textInput {
-   font-family: 'Kreon', sans-serif;
-   font-size: 25px;
-   font-weight: 400;
+   resize: horizontal;
    width: 100%;
    margin-top: 5px;
    margin-bottom: 5px;
-   resize: horizontal;
-   color: #262b26;
-   border: none;
-   border-bottom: 2px solid #9ebc84;
-   outline: none;
    background-color: transparent;
+   font-family: 'Kreon', sans-serif;
+   font-size: 25px;
+   font-weight: 400;
+   color: #23852B;
+   border: none;
+   border-bottom: 2px solid #A6C090;
+   outline: none;
+}
+
+#f_textInput::selection {
+   background: #C0D9AA;
+}
+
+#f_textInput::-moz-selection {
+   background: #C0D9AA;
+}
+
+.green_button {
+   background-color: #a6c090;
+   border: 0;
+   border-radius: 4px;
+   box-shadow: 0 1px 3px #57694c;
 }
 
 #f_button {
@@ -128,11 +158,7 @@ body {
    padding-right: 6.5px;
    padding-left: 6.5px;
    cursor: pointer;
-   border: 0;
-   border-radius: 4px;
    outline: none;
-   background-color: #a6c090;
-   box-shadow: 0 1px 3px #57694c;
 }
 
 #f_button:hover {
@@ -160,13 +186,13 @@ body {
    white-space: nowrap;
 }
 
-@media only screen and (max-width: 500px) {
-   /* Adjusts footer for mobile: */
+@media only screen and (max-width: 540px) {
+   /* Adjusts for mobile: */
    #f_button_text {
       display: none;
    }
    #f_button_icon {
-      display: initial;
+      display: block;
    }
    #f_button {
       margin: 6px;
@@ -174,20 +200,26 @@ body {
       padding-right: 6.5px;
       padding-left: 6.5px;
       cursor: pointer;
+      background-color: #a6c090;
       border: 0;
       border-radius: 4px;
-      background-color: #a6c090;
       box-shadow: 0 1px 3px #57694c;
+   }
+   .siteFooter {
+      display: none;
    }
 }
 
-@media only screen and (min-width: 501px) {
+@media only screen and (min-width: 541px) {
    /* Restores footer for desktop */
    #f_button_text {
-      display: initial;
+      display: block;
    }
    #f_button_icon {
       display: none;
+   }
+   .siteFooter {
+      display: block;
    }
 }
 
@@ -195,8 +227,175 @@ body {
 /*///////Footer///////*/
 
 .siteFooter {
-   height: 300px;
+   height: 100px;
    width: 100%;
    margin-top: 70px;
    background: #D4FF7F;
 }
+
+#menuToggle_justifier {
+   position: absolute;
+   display: flex;
+   top: -3px;
+   right: 0;
+   left: 0;
+   /* justify-content: flex-start; */
+   height: 24px;
+}
+
+#menuToggle_wrapper {
+   /* inherits from green_button */
+   position: relative;
+   top: -2px;
+   height: 20px;
+   width: 70px;
+   box-shadow: none;
+}
+
+#mobile_menuToggle {
+   position: absolute;
+   top: 4px;
+   height: 20px;
+   width: 100%;
+   z-index: 5;
+   margin: 0;
+   opacity: 0;
+}
+
+#mobile_menuLabel {
+   position: absolute;
+   top: 6px;
+   left: 24px;
+   font-family: 'Josefin Sans', sans-serif;
+   font-size: 16px;
+   font-weight: 600;
+   color: #444f45;
+}
+
+#mobile_menuIcon_up {
+   position: absolute;
+   top: 3px;
+   height: 24px;
+   color: #444f45;
+   transition: transform 0.6s;
+}
+
+
+/*///////Mobile Menu///////*/
+
+input[type=checkbox]:checked ~ .slide-menu {
+   transform: translate3d(0, 0, 0);
+}
+
+input[type=checkbox]:checked ~ .slide-menu .menu li {
+   width: 100%;
+}
+
+.slide-menu {
+   position: absolute;
+   right: 10px;
+   left: 10px;
+   height: fit-content;
+   transition: all 0.6s;
+}
+
+.topLabel-spacer {
+   position: relative;
+   height: 20px;
+   width: 0;
+}
+
+
+#menuContent_clip_border {
+   display: block;
+   margin: auto;
+}
+
+#menuContent_clip {
+   /* border-bottom: 2px solid darkmagenta; */
+   position: absolute;
+   right: 10px;
+   bottom: 60px;
+   left: 10px;
+
+   overflow: hidden;
+   height: 80vh;
+   z-index: -2;
+   /* background-color: mediumblue; */
+}
+
+.hoverShadow{
+   box-shadow: 0 1px 6px #b9b9b9;
+}
+
+
+
+
+
+
+/*//////////////MENU CONTENT//////////////*/
+
+#mobile_menuContent {
+   position: absolute;
+   right: 5px;
+   bottom: calc(-50vh - 10px);
+   left: 5px;
+
+   height: 50vh;
+   z-index: -1;
+   background-color: rgba(255, 255, 255, 0.90);
+   padding:10px;
+}
+
+.knownWordsContainer{
+   border: 1px solid gray;
+}
+.contentLabel{
+   font-family: 'Josefin Sans', sans-serif;
+   font-weight: 700;
+   font-size: 26pt;
+   color: #475347;
+   margin: 5px 0 0 5px;
+   width: 100%;
+   text-align: left;
+}
+.guessText{
+   font-family: 'Kreon', serif;
+   font-size: 25pt;
+   color: white;
+}
+.selectableContainer{
+   display: inline-block;
+   background-color: #C2C2C2;
+   border-radius: 2px;
+   margin:5px;
+   padding: 2px 5px;
+   /* IE10+ */
+   background-image: -ms-linear-gradient(left, #94B379 0%, #a6c090 100%);
+   /* Mozilla Firefox */
+   background-image: -moz-linear-gradient(left, #94B379 0%, #a6c090 100%);
+   /* Opera */
+   background-image: -o-linear-gradient(left, #94B379 0%, #a6c090 100%);
+   /* Webkit (Safari/Chrome 10) */
+   background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #94B379), color-stop(100, #a6c090));
+   /* Webkit (Chrome 11+) */
+   background-image: -webkit-linear-gradient(left, #94B379 0%, #a6c090 100%);
+   /* W3C Markup */
+   background-image: linear-gradient(to right, #94B379 0%, #a6c090 100%);
+   /* box-shadow: 0 0 3px #57694c; */
+}
+li .guessText{
+
+   color: #94B379;
+
+}
+.historyContainer{
+   display: inline-block;
+   overflow: scroll;
+}
+
+
+
+
+
+

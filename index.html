@@ -2,11 +2,11 @@
 <html>
 
 <head>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
+   <meta name=viewport content="width=device-width, initial-scale=1.0 charset=UTF-8 user-scalable=no" />
    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,500,600,700|Kreon:400,700,300|Crete+Round:400,400italic,600' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700,100' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <link rel="stylesheet" type="text/css" href="pagestyle.css">
+   <link rel="stylesheet" type="text/css" href="css/pagestyle.css">
    <title>WikiWat?</title>
 </head>
 
@@ -22,71 +22,32 @@
          <img class="pageImage" id="img2" src="res/blank_500x500.bmp" />
       </div>
    </div>
-   <div id="f_area">
-      <span class="clipping-frame-border" id="menuContent_clip_border">
-         <span class="clipping_frame" id="menuContent_clip">
-            <div id="mobile_menuContent" class="menuContent slide-menu hoverShadow">
-              <div class="knownWordsContainer">
-                  <h1 class="contentLabel">Known Words</h1>
-                  <div class="selectableContainer">
-                     <span class="guessText">Uh-oh</span>
-                  </div>
-                  <div class="selectableContainer">
-                     <span class="guessText">poolparty</span>
-                  </div>
-                  <div class="selectableContainer">
-                     <span class="guessText">to</span>
-                  </div>
-                  <div class="selectableContainer">
-                     <span class="guessText">MoreShitttttt</span>
-                  </div>
-                  <div class="selectableContainer">
-                     <span class="guessText">Idunnolol</span>
-                  </div>
-               </div>
-               <h1 class="contentLabel">Guess History</h1>
-               <div class="historyContainer">
-                  <ul class="historyList">
-                     <li><span class="guessText">Boopy doDFOPopy doo</span></li>
-                     <li><span class="guessText">Don't read this lol</span></li>
-                     <li><span class="guessText">AAAAAAAAAAAAAAA here's a long one I fucking hope we can handle it!</span></li>
-                     <li><span class="guessText">o fuck. oopsieo</span></li>
-                     <li><span class="guessText">STEEEEEEEEEEEEELLAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHH</span></li>
-                  </ul>
-               </div>
-            </div>
-         </span>
-      </span>
-      <div class="slide-menu">
-         <div id="f_labelBackground" class="hoverShadow">
-            <div id="f_label_justifier">
-               <span id="f_label">How To...</span>
-            </div>
-            <div id="menuToggle_justifier">
-               <div id="menuToggle_wrapper">
-                  <input id="mobile_menuToggle" class=menuToggle type="checkbox">
-                  <i id="mobile_menuIcon_up" class="material-icons menuicon">&#xE5CE;</i>
-                  <span id="mobile_menuLabel" class="menuLabel">Menu</span>
-               </div>
-            </div>
-         </div>
+
+   <footer class="perfectFooter">
+      <div class="clipLayer">
+        <div class="menu sliding hoverShadow"></div>
       </div>
-   <div class="topLabel-spacer"></div>
-   <div id="f_backdrop" class="floatyWrapper hoverShadow">
-      <form id="f_form" action="javascript:submitAction();">
-         <input id="f_textInput" name="guess" type="text" maxlength="256" value="Guess the Title of This Article!" autocomplete="off" />
-         <button id="f_button" class="green_button" name="submit" type="submit" form="f_form" title="Guess!">
-            <i id="f_button_icon" class="material-icons buttonLabel">&#xE5CA;</i>
-            <span id="f_button_text" class="buttonLabel">¯\_(ツ)_/¯</span>
+      <header class="capSection sliding hoverShadow">
+         <h3 class="heading">how to...</h3>
+         <div class="toggleLabel">
+            <i class="material-icons toggleLabelIcon">&#xE5CE;</i>
+            <!-- <div class="toggleLabelText">more</div> -->
+         </div>
+         <input class="toggle" type="checkbox"></input>
+      </header>
+      <form class="guessSection hoverShadow">
+         <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off"></input>
+         <button type="submit" class="guessButton">
+            <i class="material-icons buttonLabel buttonLabelIcon">&#xE5CA;</i>
          </button>
       </form>
-   </div>
-   </div>
+   </footer>
+
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-   <script type="text/javascript" src="DetectMobile.js"></script>
-   <script type="text/javascript" src="Diacritics2Url.js"></script>
-   <script type="text/javascript" src="UnusableImages.js"></script>
-   <script type="text/javascript" src="main.js"></script>
+   <script type="text/javascript" src="js/DetectMobile.js"></script>
+   <script type="text/javascript" src="js/Diacritics2Url.js"></script>
+   <script type="text/javascript" src="js/UnusableImages.js"></script>
+   <script type="text/javascript" src="js/main.js"></script>
    <footer class="siteFooter"></footer>
 </body>
 

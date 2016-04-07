@@ -1,7 +1,7 @@
 var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
 var NUM_INITIAL_IMAGES = 3;
 var MIN_PAGE_IMAGES = 3; //must be >= NUM_INITIAL_IMAGES
-var DEFAULT_INPUT_MESSAGE = 'Guess the Title of This Article!';
+var DEFAULT_INPUT_MESSAGE = 'Guess the Title!';
 var $DOC = $(document);
 
 var promisedUsablePage = asyncQueryForRandomUsablePage();
@@ -28,22 +28,30 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
    $textInput.keyup(keyupAction);
    $textInput.blur(blurAction);
 
-   $('#mobile_menuToggle').change(slideMenuUp);
-   slideMenuUp();
-      
+   $('.toggle').change(slide);
+
+   function slide() {
+      console.log("BUH");
+      if (!$(this).is(":checked")) {
+         $('.sliding').css({ "transform": "translate(0,0)" });
+         $('.toggleLabelIcon').css({ "transform": "rotate(0deg)" });
+      } else {
+         $('.sliding').css({ "transform": "translate(0,-" + $('.menu').height() + "px)" });
+         $('.toggleLabelIcon').css({ "transform": "rotate(180deg)" });
+      }
+   }
 }); //End $DOC.ready
 
 function slideMenuUp() {
-   console.log("BUH");
-
    if (!$(this).is(":checked")) {
-      $('.slide-menu').css({ "transform": "translate(0,-"+$('#mobile_menuContent').height()+"px)" });
+      $('.slide-menu').css({ "transform": "translate(0,-" + $('#mobile_menuContent').height() + "px)" });
       $('#mobile_menuIcon_up').css({ "transform": "rotate(180deg)" });
    } else {
       $('.slide-menu').css({ "transform": "translate(0,0)" });
       $('#mobile_menuIcon_up').css({ "transform": "rotate(0deg)" });
    }
 }
+
 function asyncQueryForRandomUsablePage() {
    /* request random article and see if it has enough usable images*/
    return $.ajax({ //get random page using mediawiki API

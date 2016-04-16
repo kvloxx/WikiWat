@@ -22,31 +22,62 @@
          <img class="pageImage" id="img2" src="res/blank_500x500.bmp" />
       </div>
    </div>
-
    <footer class="perfectFooter">
       <div class="clipLayer">
-        <div class="menu sliding hoverShadow"></div>
+         <div class="menu sliding hoverShadow">
+            <section class="goodWords">
+               <h1 class=menuHeadline>Known Words</h1>
+               <div class="selectableContainer"><span class="word menuText">Lorem.</span></div>
+               <div class="selectableContainer"><span class="word menuText">Necessitatibus.</span></div>
+               <div class="selectableContainer"><span class="word menuText">Quo.</span></div>
+               <div class="selectableContainer"><span class="word menuText">Numquam.</span></div>
+               <div class="selectableContainer"><span class="word menuText">Maiores.</span></div>
+               <div class="selectableContainer"><span class="word menuText">Provident</span></div>
+               <div class="selectableContainer"><span class="word menuText">Quaerat!</span></div>
+               <div class="selectableContainer"><span class="word menuText">Ducimus</span></div>
+               <div class="selectableContainer"><span class="word menuText">Delectus.</span></div>
+               <div class="selectableContainer"><span class="word menuText">Ipsum!</span></div>
+            </section>
+            <br>
+            <section class="guessHistory">
+               <h1 class="menuHeadline">Previous Guesses</h1>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Lorem ipsum dolor sit amet,Lorem iLorem ipsum dolor sit amet, conpsum dolor sit amet, con consectetur.</span></div>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Sit dolorem esse dolores amSit dolSit dolorem esse dolores amet morem esse dolores amet met maiores!</span></div>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Volupolorem velit com commodi! Porro.</span></div>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Vero libero voluptates soluVero liVero libero voluptates soluta vbero voluptates soluta vta vel perferendis!</span></div>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Iste minus molestiae doloreIinctio est. i unde, distinctio est. st. Animi, molestiae!</span></div>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Necessitatibus magnam deserNecessiNecessitatibus magnam deserunt tatibus magnam deserunt unt quae eaque repellendus.</span></div>
+               <hr class="guessDivide">
+               <div class="guessContainer"><span class="inner menuText">Eum fuga pariatur distinctiEum fugEum fuga pariatur distinctio rea pariatur distinctio orcas todol a por th onxgy daaaaaorjdo di tig reo rerum mollitia.</span></div>
+            </section>
+         </div>
       </div>
       <header class="capSection sliding hoverShadow">
-         <h3 class="heading">how to...</h3>
+         <h3 class="heading">How to...</h3>
          <div class="toggleLabel">
             <i class="material-icons toggleLabelIcon">&#xE5CE;</i>
             <!-- <div class="toggleLabelText">more</div> -->
          </div>
          <input class="toggle" type="checkbox"></input>
       </header>
-      <form class="guessSection hoverShadow">
-         <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off"></input>
-         <button type="submit" class="guessButton">
-            <i class="material-icons buttonLabel buttonLabelIcon">&#xE5CA;</i>
-         </button>
+      <form class="guessSection hoverShadow" action="javascript:submitAction()" />
+      <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off"></input>
+      <button type="submit" class="guessButton">
+         <i class="material-icons buttonLabel buttonLabelIcon">&#xE5CA;</i>
+      </button>
       </form>
    </footer>
-
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
    <script type="text/javascript" src="js/DetectMobile.js"></script>
    <script type="text/javascript" src="js/Diacritics2Url.js"></script>
    <script type="text/javascript" src="js/UnusableImages.js"></script>
+   <script type="text/javascript" src="js/clamp.min.js"></script>
    <script type="text/javascript" src="js/main.js"></script>
    <footer class="siteFooter"></footer>
 </body>

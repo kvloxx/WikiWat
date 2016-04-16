@@ -1,7 +1,7 @@
 var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
 var NUM_INITIAL_IMAGES = 3;
 var MIN_PAGE_IMAGES = 3; //must be >= NUM_INITIAL_IMAGES
-var DEFAULT_INPUT_MESSAGE = 'Guess the Title!';
+var DEFAULT_INPUT_MESSAGE = 'whatever.';
 var $DOC = $(document);
 
 var promisedUsablePage = asyncQueryForRandomUsablePage();
@@ -11,7 +11,7 @@ $.when( //coordinates page loading (a masterpiece)
 ).done(addImagesToDocument);
 
 $DOC.data('readyDeferred', $.Deferred()).ready(function() {
-   var $textInput = $('#f_textInput');
+   var $textInput = $('.textField');
    $.when(promisedUsablePage).done(function(pageInfo) {
       $DOC.data('wikiPageTitle', new titleObject(pageInfo.title));
    });
@@ -28,27 +28,48 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
    $textInput.keyup(keyupAction);
    $textInput.blur(blurAction);
 
-   $('.toggle').change(slide);
+   var $tog = $('.toggle');
 
-   function slide() {
-      console.log("BUH");
-      if (!$(this).is(":checked")) {
-         $('.sliding').css({ "transform": "translate(0,0)" });
-         $('.toggleLabelIcon').css({ "transform": "rotate(0deg)" });
-      } else {
-         $('.sliding').css({ "transform": "translate(0,-" + $('.menu').height() + "px)" });
-         $('.toggleLabelIcon').css({ "transform": "rotate(180deg)" });
-      }
+   $tog.change(slide);
+
+   console.log($('.inner').get());
+
+   var guesses = $('.guessContainer .inner').get();
+   for (var i = guesses.length - 1; i >= 0; i--) {
+      console.log(guesses[i]);
+      $clamp(guesses[i], { clamp: 2 });
    }
+   // clampContext.apply(clampContext, $('.guessContainer .inner').get());
+   // $clamp($('.guessContainer').element(), {clamp: 2, useNativeClamp: false});
 }); //End $DOC.ready
 
-function slideMenuUp() {
-   if (!$(this).is(":checked")) {
-      $('.slide-menu').css({ "transform": "translate(0,-" + $('#mobile_menuContent').height() + "px)" });
-      $('#mobile_menuIcon_up').css({ "transform": "rotate(180deg)" });
+function titleObject(str) {
+   this.origString = str;
+   this.origTokens = str.match(/\S+/g); //original chars/punct
+   this.normTokens =
+      diacritics2url.replaceDiacritics(str.toLowerCase().replace(STD_PUNCT, ''))
+      .match(/\S+/g);
+   this.guessed = zeroArray(this.origTokens.length);
+}
+
+function clampContext(args) {
+   console.log("lolol");
+   return $clamp(args, { clamp: 2 });
+}
+
+function slide() {
+   var $this = $(this);
+
+   if (!$this.prop('checked')) {
+      console.log("not checked");
+      $('.sliding').css({ "transform": "translate(0,0)" });
+      $('.toggleLabelIcon').css({ "transform": "rotate(0deg)" });
    } else {
-      $('.slide-menu').css({ "transform": "translate(0,0)" });
-      $('#mobile_menuIcon_up').css({ "transform": "rotate(0deg)" });
+      $('.sliding').css({
+         "transform": "translate(0,-" + $('.menu').height() +
+            "px)"
+      });
+      $('.toggleLabelIcon').css({ "transform": "rotate(180deg)" });
    }
 }
 
@@ -141,34 +162,107 @@ function blurAction() {
    }
 }
 
-function findMatches(guess, title) {
-   var guessWordsMatched = [];
-   for (var i = 0; i < title.normTokens.length; i++) {
-      for (var j = 0; j < guess.normTokens.length; j++) {
-         if (title.normTokens[i] === guess.normTokens[j]) {
-            if (guess.guessed[j] === 0) {
-               guess.guessed[j] = 1;
-               title[i] = 1;
-               guessWordsMatched.push(j);
-            }
+function submitAction() {
+   var $tog = $('.toggle'),
+      $menu = $('.menu'),
+      guess = new titleObject($('.textField').val()),
+      title = $DOC.data('wikiPageTitle'),
+      wasChecked = true,
+      lim = $('.goodWords').height() + 10;
+
+   if (!$tog.prop('checked')) {
+      wasChecked = false;
+      $tog.prop('checked', true);
+      $tog.change();
+   }
+   if ($menu.scrollTop() > lim) {
+      $menu.animate({ scrollTop: lim }, wasChecked ? 300 : 1, 'swing',
+         updateMenu(guess, 600, 'slow'));
+   } else {
+      updateMenu(guess, 'slow', 'slow');
+   }
+
+   $('.textField').val('').blur();
+   $clamp($('.guessHistory .inner')[0], { clamp: 2 });
+}
+
+function updateMenu(guess, slideDuration, fadeDuration) {
+   var newHtml = getUpdateHtml(guess, $DOC.data('wikiPageTitle'));
+   console.log(newHtml);
+   addNewGuessHistory(newHtml.hist, slideDuration, fadeDuration);
+   addNewGoodWords(newHtml.words, fadeDuration);
+}
+
+function getUpdateHtml(guess, title) {
+   
+   var   s = '<hr class="guessDivide">' +
+      '<div class="guessContainer"><div class="inner menuText">'; //"guess Html";
+  var    w = '';
+   for (var i = 0; i < guess.normTokens.length; i++) {
+      for (var j = 0; j < title.normTokens.length; j++) {
+         if (guess.normTokens[i] === title.normTokens[j]) {
+            s = s + '<span class="goodWord">' + guess.origTokens[i] +
+               '</span> ';
+           
+               if (title.guessed[j] === 0){
+                  w = w + wrapWord(title.origTokens[j]);
+                  console.log('w='+ w);
+               }
+               guess.guessed[i]++;
+               title.guessed[j]++;
+          break;
+         } else if (j === title.normTokens.length - 1) { //tokens don't match and this is the last time we'll compare this guess tok
+            s = s + guess.origTokens[i] + ' ';
          }
       }
    }
-   return guessWordsMatched;
+   var ret = { //"update html"
+         'words': w, //"word html"
+         'hist': s + '</div></div>'
+      };
+
+   console.log('meeeeeeee'+ret.words);
+   return ret;
 }
 
-function submitAction() {
-   var guess = new titleObject($('#f_textInput').val());
-   var wordsMatched = findMatches(guess, $DOC.data('wikiPageTitle'));
-   console.log(wordsMatched.sort());
+/*function synthGuessHistoryHtmlAndAddNewGoodWords(guess) {
+   var htmlToBeAppended =
+      '<hr class="guessDivide"><div class="guessContainer"><div class="inner menuText">';
+   for (var i = 0; i < guess.guessed.length; i++) {
+      if (guess.guessed[i] > 0) {
+
+         htmlToBeAppended = htmlToBeAppended + '<span class=goodWord>' + guess.origTokens[
+            i] + '</span> ';
+
+         if (title.guessed[i] === 1) //new goodword
+            addNewGoodWord(title.origTokens[i]);
+      } else {
+         htmlToBeAppended = htmlToBeAppended + guess.origTokens[i] + ' ';
+      }
+   }
+   return htmlToBeAppended + '</div></div>';
+}*/
+
+function addNewGuessHistory(histHtml, slideDuration, fadeDuration) {
+   $(histHtml).hide().insertAfter('.guessHistory .menuHeadline').slideDown(
+      slideDuration).fadeIn(fadeDuration);
+   console.log($(histHtml));
 }
 
-function titleObject(str) {
-   this.origString = str;
-   this.origTokens = str.match(/\S+/g); //original chars/punct
-   this.normTokens =
-      diacritics2url.replaceDiacritics(str.toLowerCase().replace(STD_PUNCT, '')).match(/\S+/g);
-   this.guessed = zeroArray(this.origTokens.length);
+function addNewGoodWords(wordHtml, fadeDuration) {
+      console.log('inserting text: '+wordHtml);
+   console.log('inserting html version:'+$(wordHtml));
+   $(wordHtml).hide().appendTo('.goodWords').fadeIn('fadeDuration');
+
+}
+
+function wrapWord(word) {
+   console.log("rappin word:  " +
+      '<div class="selectableContainer"><span class="word menuText">' + word +
+      '</span></div> \n');
+
+   return '<div class="selectableContainer"><span class="word menuText">' +
+      word + '</span></div> \n';
 }
 
 function zeroArray(l) {
@@ -180,12 +274,12 @@ function zeroArray(l) {
 }
 
 function disableButton() {
-   $('#f_button').attr('disabled', 'true');
+   $('.guessButton').attr('disabled', 'true');
    $('.buttonLabel').css('color', '#9EB8A0');
 }
 
 function enableButton() {
-   $('#f_button').removeAttr('disabled');
+   $('.guessButton').removeAttr('disabled');
    $('.buttonLabel').css('color', '#444f45');
 }
 
@@ -210,7 +304,8 @@ function filterUnusableImages(imageArray) {
 
 function synthImageInfoQuery(pageImages) {
    //base url to query api for image sources
-   var queryUrl = 'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
+   var queryUrl =
+      'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';
    //append image titles seperated by '%7C' (url encoded '|')
    for (var i = 0; i < pageImages.length; i++) {
       queryUrl = queryUrl + pageImages[i].title;
@@ -224,13 +319,15 @@ function synthImageInfoQuery(pageImages) {
 }
 
 function synthImageHtml(nextImageInfo, i) {
-   var imgTag = '<img class="pageImage" src="' + nextImageInfo.url + '" id="img' + i + '" />';
+   var imgTag = '<img class="pageImage" src="' + nextImageInfo.url +
+      '" id="img' + i + '" />';
    return '<div class="box floatyWrapper">\n' + imgTag + '\n</div>\n';
 }
 
 function setFixedInputPosition() {
    if (window.innerWidth > 541)
-      $("#f_area").css("bottom", Math.max(0, ($DOC.scrollTop() + $(window).height()) - $(".siteFooter").offset().top));
+      $("#f_area").css("bottom", Math.max(0, ($DOC.scrollTop() + $(window).height()) -
+         $(".siteFooter").offset().top));
    else
       $("#f_area").css("bottom", 0);
 }

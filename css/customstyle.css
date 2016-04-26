@@ -1,9 +1,4 @@
-
-
-
-/*/////// Image Grid ///////*/
-
-.wrap
+/* .wrap
 {
     display: flex;
     overflow: hidden;
@@ -26,11 +21,11 @@
 
 .boxWrapper
 {
-    /*inherits from Floatywrapper*/
+    inherits from Floatywrapper
     display: flex;
     overflow: hidden;
 
-    max-width: 500px;
+
     margin: 10px;
     padding: 10px;
 
@@ -46,13 +41,9 @@
     position: relative;
 
     width: 100%;
-    max-width: 480px;
 
     box-shadow: 0 0 2px #d0d0d0;
-}
-
-
-/*/////// Floating Answer Bar ///////*/
+} */
 
 .inputWidget
 {
@@ -64,14 +55,6 @@
     height: 80px;
     margin: 0;
     padding: 0;
-}
-
-.aosdj{
-   color: darkorchid;
-   color: darkslateblue;
-   color: darkslategray;
-   color: indigo;
-   
 }
 
 .capSection
@@ -207,7 +190,7 @@
 
 .toggleLabelText
 {
-    font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
+    font-family: 'Raleway', 'Trebuchet MS', 'Helvetica', sans-serif;
     font-size: 1.3rem;
 
     top: -3px;
@@ -238,7 +221,7 @@
 
 .heading
 {
-    font-family: 'Josefin Sans', 'Trebuchet MS', 'Helvetica', sans-serif;
+    font-family: 'Raleway', 'Trebuchet MS', 'Helvetica', sans-serif;
     font-size: 1.4rem;
     font-weight: 600;
 
@@ -350,7 +333,7 @@
 
 .menuHeadline
 {
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 18pt;
     font-weight: 700;
 
@@ -449,64 +432,4 @@
 .goodWords
 {
     padding-top: 15px;
-}
-
-@keyframes growAndFade
-{
-    0%
-    {
-        transform: scale(0);
-
-        opacity: 1;
-    }
-    100%
-    {
-        transform: scale(2);
-
-        opacity: 0;
-        background-color: #fceb50;
-    }
-}
-
-.unloaded
-{
-    position: relative;
-}
-
-.unloaded:before
-{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    width: 100%;
-    min-width: 500px;
-    min-height: 500px;
-    margin-top: -50%;
-    margin-left: -50%;
-
-    content: 'Loading…';
-}
-
-.unloaded:not(:required):before
-{
-    content: '';
-    /* border-bottom: 10px double #6A5ACD; */
-    animation: growAndFade 2s ease infinite;
-
-    border-radius: 50%;
-    background-color: #13eb50;
-}
-
-.splashscreen
-{
-    z-index: 5;
-    /* position: absolute; */
-
-    height: 1000px;
-}
-
-.pageImage.loader
-{
-    box-shadow: none;
 }

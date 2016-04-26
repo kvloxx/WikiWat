@@ -1,85 +1,126 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 
 <head>
-   <meta name=viewport content="width=device-width, initial-scale=1.0 charset=UTF-8 user-scalable=no" />
-   <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,500,600,700|Kreon:400,700,300|Crete+Round:400,400italic,600' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <link rel="stylesheet" type="text/css" href="css/pagestyle.css">
-   <title>WikiWat?</title>
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>WikiWat?</title>
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name=viewport content="width=device-width initial-scale=1.0 user-scalable=no" />
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600%7CArvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,500,600,700|Kreon:400,700,300|Crete+Round:400,400italic,600' rel='stylesheet' type='text/css'> -->
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/customstyle.css">
+    <!-- <link rel="stylesheet" href="css/pagestyle.css"> -->
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" href="/res/favicon2.ico">
 </head>
 
 <body>
-   <div class="wrap">
-      <div class="box floatyWrapper">
-         <img class="pageImage" id="img0" src="res/blank_500x500.bmp" />
-      </div>
-      <div class="box floatyWrapper">
-         <img class="pageImage" id="img1" src="res/blank_500x500.bmp" />
-      </div>
-      <div class="box floatyWrapper">
-         <img class="pageImage" id="img2" src="res/blank_500x500.bmp" />
-      </div>
-   </div>
-   <footer class="perfectFooter">
-      <div class="clipLayer">
-         <div class="menu sliding hoverShadow">
-            <section class="goodWords">
-               <h1 class=menuHeadline>Known Words</h1>
-               <div class="selectableContainer"><span class="word menuText">Lorem.</span></div>
-               <div class="selectableContainer"><span class="word menuText">Necessitatibus.</span></div>
-               <div class="selectableContainer"><span class="word menuText">Quo.</span></div>
-               <div class="selectableContainer"><span class="word menuText">Numquam.</span></div>
-               <div class="selectableContainer"><span class="word menuText">Maiores.</span></div>
-               <div class="selectableContainer"><span class="word menuText">Provident</span></div>
-               <div class="selectableContainer"><span class="word menuText">Quaerat!</span></div>
-               <div class="selectableContainer"><span class="word menuText">Ducimus</span></div>
-               <div class="selectableContainer"><span class="word menuText">Delectus.</span></div>
-               <div class="selectableContainer"><span class="word menuText">Ipsum!</span></div>
-            </section>
-            <br>
-            <section class="guessHistory">
-               <h1 class="menuHeadline">Previous Guesses</h1>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Lorem ipsum dolor sit amet,Lorem iLorem ipsum dolor sit amet, conpsum dolor sit amet, con consectetur.</span></div>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Sit dolorem esse dolores amSit dolSit dolorem esse dolores amet morem esse dolores amet met maiores!</span></div>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Volupolorem velit com commodi! Porro.</span></div>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Vero libero voluptates soluVero liVero libero voluptates soluta vbero voluptates soluta vta vel perferendis!</span></div>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Iste minus molestiae doloreIinctio est. i unde, distinctio est. st. Animi, molestiae!</span></div>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Necessitatibus magnam deserNecessiNecessitatibus magnam deserunt tatibus magnam deserunt unt quae eaque repellendus.</span></div>
-               <hr class="guessDivide">
-               <div class="guessContainer"><span class="inner menuText">Eum fuga pariatur distinctiEum fugEum fuga pariatur distinctio rea pariatur distinctio orcas todol a por th onxgy daaaaaorjdo di tig reo rerum mollitia.</span></div>
-            </section>
-         </div>
-      </div>
-      <header class="capSection sliding hoverShadow">
-         <h3 class="heading">How to...</h3>
-         <div class="toggleLabel">
-            <i class="material-icons toggleLabelIcon">&#xE5CE;</i>
-            <!-- <div class="toggleLabelText">more</div> -->
-         </div>
-         <input class="toggle" type="checkbox"></input>
-      </header>
-      <form class="guessSection hoverShadow" action="javascript:submitAction()" />
-      <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off"></input>
-      <button type="submit" class="guessButton">
-         <i class="material-icons buttonLabel buttonLabelIcon">&#xE5CA;</i>
-      </button>
-      </form>
-   </footer>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-   <script type="text/javascript" src="js/DetectMobile.js"></script>
-   <script type="text/javascript" src="js/Diacritics2Url.js"></script>
-   <script type="text/javascript" src="js/UnusableImages.js"></script>
-   <script type="text/javascript" src="js/clamp.min.js"></script>
-   <script type="text/javascript" src="js/main.js"></script>
-   <footer class="siteFooter"></footer>
+    <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <header class="topHeader row">
+            <img class="logo four columns" src="http://placehold.it/130x60" alt="Wiki What?" />
+            <h1 class="tagline eight columns">Tagline Oh Yeah Bby</h1>
+            <details class="row">
+                <summary class="rulesHeader whole column"><span>rules</span></summary>
+                <p class="rules whole column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </details>
+        </header>
+        <br>
+        <div class="wrap"> </div>
+        <footer class="pageFooter">
+            <nav class="row">
+                <a href="" class="navItem two columns">Lorem.</a>
+                <a href="" class="navItem two columns">Excepturi!</a>
+                <a href="" class="navItem two columns">Maxime.</a>
+                <a href="" class="navItem two columns">Dicta.</a>
+                <a href="" class="navItem two columns">Soluta!</a>
+            </nav>
+        </footer>
+    </div>
+    <div class="inputSpacer">
+        <br> <br> <br> <br> <br> <br>
+    </div>
+    <!--end container-->
+    <div class="inputWidget">
+        <div class="clipLayer">
+            <div class="menu sliding hoverShadow">
+                <details class="goodWords" open="">
+                    <summary class="menuHeadline">Known Words</summary>
+                    <!-- TODO: add counter -->
+                    <div class="selectableContainer"><span class="word menuText">Lorem.</span></div>
+                    <div class="selectableContainer"><span class="word menuText">Necessitatibus.</span></div>
+                    <div class="selectableContainer"><span class="word menuText">Quo.</span></div>
+                    <div class="selectableContainer"><span class="word menuText">Ipsum!</span></div>
+                </details>
+                <details class="guessHistory" open="open">
+                    <summary class="menuHeadline">Previous Guesses</summary>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Lorem ipsum dolor sit amet,Lorem iLorem ipsum dolor sit amet, conpsum dolor sit amet, con consectetur.</div>
+                    </div>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Sit dolorem esse dolores amSit dolSit dolorem esse dolores amet morem esse dolores amet met maiores!</div>
+                    </div>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Volupolorem velit com commodi! Porro.</div>
+                    </div>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Vero libero voluptates soluVero liVero libero voluptates soluta vbero voluptates soluta vta vel perferendis!</div>
+                    </div>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Iste minus molestiae doloreIinctio est. i unde, distinctio est. st. Animi, molestiae!</div>
+                    </div>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Necessitatibus magnam deserNecessiNecessitatibus magnam deserunt tatibus magnam deserunt unt quae eaque repellendus.</div>
+                    </div>
+                    <hr class="guessDivide">
+                    <div class="guessContainer">
+                        <div class="inner menuText">Eum fuga pariatur distinctiEum fugEum fuga pariatur distinctio rea pariatur distinctio orcas todol a por th onxgy daaaaaorjdo di tig reo rerum mollitia.</div>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <header class="capSection sliding hoverShadow">
+            <h3 class="heading">How to...</h3>
+            <div class="toggleLabel">
+                <i class="material-icons toggleLabelIcon">&#xE5CE;</i>
+                <div class="toggleLabelText">more</div>
+            </div>
+            <input class="toggle" type="checkbox">
+        </header>
+        <form class="guessSection hoverShadow" action="javascript:submitAction()">
+            <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off">
+            <button type="submit" class="guessButton guessSubmit" disabled="disabled">
+                <i class="material-icons buttonLabel buttonLabelIcon">&#xE5CA;</i>
+            </button>
+        </form>
+    </div>
+    <!--end input widget-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min.js"></script>
+    <script type="text/javascript" src="js/jquery.unveil.js"></script>
+    <script type="text/javascript" src="js/DetectMobile.js"></script>
+    <script type="text/javascript" src="js/Diacritics2Url.js"></script>
+    <script type="text/javascript" src="js/UnusableImages.js"></script>
+    <script type="text/javascript" src="js/clamp.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>

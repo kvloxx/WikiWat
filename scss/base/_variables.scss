@@ -17,24 +17,6 @@ $border-color: #bbb !default;
 $link-color: #487841 !default;
 $font-color: #222 !default;
 
-// custom colors (prefixed $c_)
-$c_main: #93b874;
-$c_link: #487841;
-$c_light: #adc996;
-$c_dark: #444f45;
-$c_container_highlight: #F6F8F7;
-$c_bg: #ecebe8;
-$c_detail_text: #8a8a89;
-$c_container_bg: #FFF;
-
-//numbers
-$b-rad: 4px;
-$padding_mobile: 6px;
-$padding: 10px;
-$padding_button_mobile: 2px;
-$padding_band: 10px;
-$band_height: 43px+ 2*$padding_band;
-$card_height: 250px;
 
 // Typography
 $font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
@@ -49,3 +31,31 @@ $column-margin: 4% !default; // space between columns
 
 // Misc
 $global-radius: 4px !default;
+
+//==========CUSTOM VARIABLES===============
+// custom colors (prefixed $c_)
+$c_main: #93b874;
+$c_link: #487841;
+$c_light: #adc996;
+$c_dark: #444f45;
+$c_container_highlight: #f6f8f7;
+$c_bg: #ecebe8;
+$c_detail_text: #8a8a89;
+$c_container_bg: #fff;
+//numbers
+$b-rad: 4px;
+$padding_mobile: 6px;
+$padding: 10px;
+$padding_button_mobile: 2px;
+$padding_band: 10px;
+$band_height_mobile: 43px+ 2*$padding_band;
+$band_height: 2.4rem * 1.5;
+$card_height: 250px;
+$card_clearance: 10px;
+$accent_border_header_width: 3px;
+//distance above bottom of header (to avoid peeking shadow)
+$logo_width: grid-column-width(8);
+$logo_height: logo-height(8);
+//borders
+$accent_border_header: $accent_border_header_width solid $c_link;
+$accent_border_footer: 2px solid $c_link;

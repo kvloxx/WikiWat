@@ -23,9 +23,9 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 
    /*   $(window).scroll(setFixedInputPosition);
       $(window).resize(setFixedInputPosition);*/
-      var $g_panel_buttons=$('.g_panel_button');
-   $g_panel_buttons.blur(gPanelButtonBlurAction);
-   $g_panel_buttons.click(gPanelButtonPressedAction);
+      var $panel_buttons=$('.panel_button');
+   $panel_buttons.blur(gPanelButtonBlurAction);
+   $panel_buttons.click(gPanelButtonPressedAction);
 
    $textField.focus(focusedAction);
    $textField.keyup(keyupAction);
@@ -36,7 +36,9 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 function gPanelButtonPressedAction() {
     var pagelink='menu/'+$(this).attr('id')+'.html';
     $('.game_card').queue(function(){
-      $('.game_card iframe').attr("src", pagelink);
+      if($('.game_card iframe').attr("src") !== pagelink){
+         $('.game_card iframe').attr("src", pagelink);
+      }
       $(this).addClass('slid');
       $(this).delay(GAMECARD_SLIDE_DELAY);
       $(this).dequeue();

@@ -1,6 +1,0 @@
-Attributions:
-
-Material Icons by Google:
-https://design.google.com/icons/
-
-subtle_loader: http://preloaders.net/en/search/3/circle (half_moon)

@@ -8,14 +8,16 @@
 * Sass Version by Seth Coelen https://github.com/whatsnewsaes
 */
 
-/* Base files. */
-
-@import 'base/normalize';
+/* Variables */
 @import 'base/variables';
+
+/* Base files. */
+@import 'base/normalize';
 @import 'base/functions';
 @import 'base/base-styles';
 @import 'base/utils';
 @import 'base/typography';
+
 
 /* Modules */
 
@@ -34,23 +36,25 @@
 
 @mixin floating($level: 5)
 {
-   box-shadow: 0 0 ($level * 2px) rgba(0, 0, 0, .21 - $level * .01);
+  box-shadow: 0 0 ($level * 2px) rgba(0, 0, 0, .21 - $level * .01);
 }
 
 body
 {
-   background-color: $c_container_bg;
+  background-color: $c_container_bg;
 }
-.rules{
-   margin-top: 10px;
+.rules
+{
+  margin-top: 10px;
+  h4
+  {
+    font-family: 'Arvo';
+    font-weight: 400;
 
-   h4{
-      font-family: 'Arvo';
-      font-weight: 400;
-      margin-bottom: $padding_mobile;
-
-   }
+    margin-bottom: $padding_mobile;
+  }
 }
-p{
-   font-size: 1.4rem;
+p
+{
+  font-size: 1.4rem;
 }

@@ -1,3 +1,4 @@
+
 /*
 * Skeleton V2.0.4
 * Copyright 2014, Dave Gamache
@@ -7,18 +8,15 @@
 * 12/9/2014
 * Sass Version by Seth Coelen https://github.com/whatsnewsaes
 */
-
-/* Base files. */
-
-@import 'base/normalize';
+/* Variables */
 @import 'base/variables';
+/* Base files. */
+@import 'base/normalize';
 @import 'base/functions';
 @import 'base/base-styles';
 @import 'base/utils';
 @import 'base/typography';
-
 /* Modules */
-
 @import 'modules/grid';
 @import 'modules/buttons';
 @import 'modules/forms';
@@ -28,273 +26,276 @@
 @import 'modules/spacing';
 @import 'modules/media-queries';
 
-/* variables */
-
-@mixin floating($level: 5)
-{
-   box-shadow: 0 0 ($level * 2px) rgba(0, 0, 0, .21 - $level * .01);
-}
-*
-{
-   // border: 0.5px dotted gray;
-}
-body
-{
-   background-color: $c_bg;
+// /* variables */
+@mixin floating($level:5) {
+  box-shadow: 0 0 ($level * 2px) rgba(0, 0, 0, .21 - $level * .01);
 }
 
-.top_header
-{
-   position: relative;
-   z-index: 1;
-
-   padding-top: $padding;
-
-   background-color: $c_main;
-   .container
-   {
-      padding: $padding_band $padding_band 0 $padding_band;
-   }
-   .mobile_band
-   {
-      position: absolute;
-      bottom: 0;
-
-      width: 100%;
-      height: $band_height;
-
-      border-top: 3px solid $c_link;
-      background-color: $c_container_bg;
-
-      @include floating(4);
-   }
+* {
+  // border: 0.5px dotted gray;
 }
 
-.tagline
-{
-   padding-bottom: $padding_mobile;
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
-.game_panel
-{
-   position: relative;
-
-   float: left;
-
-   width: 100%;
-   margin: $padding_band 0 $padding_band 0;
-}
-.g_panel_button:hover
-{
-   @include floating(3);
-}
-.g_panel_button:hover
-{
-   background-color: $c_light;
-
-   @include floating(0);
-}
-.g_panel_button
-{
-   line-height: 1;
-
-   float: left;
-
-   width: 22%;
-   margin: 0 0 0 2.4%;
-   padding: $padding_button_mobile;
-
-   border: .5px solid $c_detail_text;
-   background-color: $c_container_highlight;
-   i
-   {
-      vertical-align: middle;
-
-      color: $c_detail_text;
-   }
-   div
-   {
-      line-height: 1;
-
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      padding-top: $padding_button_mobile;
-
-      vertical-align: top;
-   }
+body {
+  background-color: $c_bg;
 }
 
-// Larger than phablet (also point when grid becomes active)
-@media (#{$bp-larger-than-phablet})
-{
-   .game_panel
-   {
-      position: absolute;
-      top: $padding;
-      right: $padding;
-      bottom: $padding;
-      left: grid-offset-length(8);
+.top_header {
+  position: relative;
+  z-index: 1;
 
-      width: auto;
+  background-color: $c_main;
 
-      border-radius: $b-rad;
-      background-color: $c_container_bg;
-      button
-      {
-         line-height: 1;
-
-         width: auto;
-         padding: $padding;
-      }
-   }
+  @include bp-gridactive {
+    padding-top: .5%;
+  }
+  img {
+    margin-top: 4%;
+    @include bp-gridactive {
+      margin: $padding;
+      margin-left: 0;
+    }
+  }
 }
-.game_card
-{
-   position: absolute;
-   right: 2%;
-   bottom: 0;
-   left: 2%;
+.container{
 
-   height: $card_height;
-   padding-bottom: 2px;
-
-   transition: transform .4s ease;
-
-   background-color: $c_container_bg;
-border-radius: 2px;
-   @include floating(2);
-   // transform: translate(0, 200px);
-   iframe
-   {
-      width: 100%;
-      height: 100%;
-   }
-   .scrim
-   {
-      position: absolute;
-      bottom: 0;
-
-      width: 90%;
-      height: 10%;
-      // background-color: purple;
-      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+86 */
-
-      background:    -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 86%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 86%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
-      background:         linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 86%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-   }
 }
-.slid
-{
-   transform: translate(0, $card_height);
+.header_backdrop {
+  position: absolute;
+  right: -50%;
+  left: -50%;
 
-   outline: none;
+  height: 100%;
+
+  background-color: $c_main;
+  z-index: -1;
 }
 
-.game_card_concealer
-{
-   position: absolute;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
+.band {
+  @include floating(4);
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: -50%;
+  left: -50%;
 
-   background-color: $c_main;
-   // transform: translate(0, 200px);
+  height: $band_height_mobile;
+
+  background-color: $c_container_bg;
+  border-top: $accent_border_header;
+
+  @include bp-gridactive {
+    height: $band_height;
+  }
 }
-.box_wrapper
-{
-   line-height: 0;
 
-   margin-bottom: 20px;
-   padding: $padding_mobile;
-
-   border-radius: $b-rad;
-   background-color: $c_container_bg;
-
-   @include floating(2);
+.tagline {
+  padding-bottom: $padding_mobile;
+  @include bp-gridactive {
+    padding-bottom: 0;
+  }
 }
-// Larger than phablet (also point when grid becomes active)
-@media (#{$bp-larger-than-phablet})
-{
-   .box_wrapper
-   {
+
+.game_button_panel {
+  position: relative;
+ 
+
+  padding: ($padding_band+$accent_border_header_width) 0 $padding_band 0;
+
+
+  @include bp-gridactive {
+    display: inline-block;
+    top: $padding;
+    bottom: 0;
+    left: grid-offset-length(8)-2%;
+
+    padding: 0;
+
+    background-color: $c_container_bg;
+    border-radius: $b-rad;
+  }
+}
+
+.panel_button:hover {
+  @include floating(3);
+}
+
+.panel_button:active {
+  @include floating(0);
+  background-color: $c_light;
+}
+
+.panel_button {
+  float: left;
+
+  width: 22%;
+  margin: 0 0 0 2.4%;
+  padding: $padding_button_mobile;
+
+  background-color: $c_container_highlight;
+  line-height: 1;
+  border: .5px solid $c_detail_text;
+
+  $width: 45%;
+  $height: 45%;
+  @include bp-gridactive {
+    height: $height;
+    width: $width;
+    margin-top: (100-2*$height)/4;
+    margin-right: (100-2*$width)/4;
+    margin-bottom: (100-2*$height - 20)/4;
+    margin-left: (100-2*$width)/4;
+    padding: 0;
+  }
+
+  i {
+    vertical-align: middle;
+    color: $c_detail_text;
+  }
+
+  div {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: $padding_button_mobile;
+
+    line-height: 1;
+  }
+}
+
+.game_card {
+  @include floating(2);
+
+  position: absolute;
+  right: -3%;
+  bottom: $card_clearance;
+  left: -3%;
+  z-index: -1;
+
+  height: $card_height;
+  padding-bottom: 2px;
+
+  background-color: $c_container_bg;
+  border-radius: 2px;
+
+  transition: transform .4s ease;
+
+  // transform: translate(0, 200px);
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
+  .scrim {
+    position: absolute;
+    bottom: 0;
+
+    height: 10%;
+    width: 90%;
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 86%, rgba(255, 255, 255, 1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 86%, rgba(255, 255, 255, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 86%, rgba(255, 255, 255, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+  }
+}
+
+.slid {
+  outline: none;
+  transform: translate(0, $card_height+$card_clearance);
+}
+
+.game_card_concealer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: $c_main;
+  // transform: translate(0, 200px);
+}
+
+.box_wrapper {
+  @include floating(2);
+  z-index: -2;
+  margin-bottom: 20px;
+  padding: $padding_mobile;
+  display: inline-block;
+  position: relative;
+
+  background-color: $c_container_bg;
+  line-height: 0;
+  border-radius: $b-rad;
+
+  @include bp-gridactive {
+    .box_wrapper {
       padding: $padding;
-   }
+    }
+  }
 }
 
-.pageImage
-{
-   @include floating(1);
+.pageImage {
+  @include floating(1);
 }
 
-.tagline
-{
-   font-style: italic;
-
-   margin: auto;
-}
-.icon
-{
-   .gpanel
-   {
-      margin: auto;
-   }
+.tagline {
+  margin: auto;
+  font-style: italic;
 }
 
-.page_footer
-{
-   position: relative;
-
-   padding: 0;
-
-   color: $c_link;
-   background-color: $c_main;
-
-   @extend .top_header;
-   .container
-   {
-      padding: $padding_mobile;
-
-      text-align: center;
-      text-justify: inter-word;
-   }
+.icon {
+  .gpanel {
+    margin: auto;
+  }
 }
 
-.footer_band
-{
-   top: 0;
+.page_footer {
+  position: relative;
 
-   width: 100%;
+  padding: 0;
 
-   border-bottom: 2px solid $c_link;
-   background-color: $c_container_bg;
+  background-color: $c_main;
+  color: $c_link;
 
-   @include floating(3);
+  .container {
+    padding: $padding_mobile;
+
+    text-align: center;
+    text-justify: inter-word;
+  }
 }
 
-.footer_logo
-{
-   float: left;
 
-   max-height: 20px;
+.footer_band {
+  @include floating(3);
+
+  top: 0;
+
+  width: 100%;
+
+  background-color: $c_container_bg;
+  border-bottom: $accent_border_footer;
 }
-.footer_title
-{
-   margin: 0;
-   padding: 2px;
 
-   text-align: center;
-
-   color: $c_detail_text;
+.footer_logo {
+  float: left;
+  max-height: 20px;
 }
-.linkspacer
-{
-   display: inline-block;
 
-   width: 3%;
+.footer_title {
+  margin: 0;
+  padding: 2px;
 
-   text-align: center;
+  color: $c_detail_text;
+  text-align: center;
+}
+
+.linkspacer {
+  display: inline-block;
+
+  width: 3%;
+
+  text-align: center;
 }

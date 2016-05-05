@@ -7,6 +7,7 @@
 * 12/9/2014
 * Sass Version by Seth Coelen https://github.com/whatsnewsaes
 */
+/* Variables */
 /* Base files. */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
@@ -657,107 +658,134 @@ ol,
 form {
   margin-bottom: 2.5rem; }
 
-/* variables */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; }
+
 body {
   background-color: #ecebe8; }
 
-.top_header, .page_footer {
+.top_header {
   position: relative;
   z-index: 1;
-  padding-top: 10px;
   background-color: #93b874; }
-  .top_header .container, .page_footer .container {
-    padding: 10px 10px 0 10px; }
-  .top_header .mobile_band, .page_footer .mobile_band {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 63px;
-    border-top: 3px solid #487841;
-    background-color: #FFF;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.17); }
+  @media (min-width: 550px) {
+    .top_header {
+      padding-top: .5%; } }
+  .top_header img {
+    margin-top: 4%; }
+    @media (min-width: 550px) {
+      .top_header img {
+        margin: 10px;
+        margin-left: 0; } }
+
+.header_backdrop {
+  position: absolute;
+  right: -50%;
+  left: -50%;
+  height: 100%;
+  background-color: #93b874;
+  z-index: -1; }
+
+.band {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.17);
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: -50%;
+  left: -50%;
+  height: 63px;
+  background-color: #fff;
+  border-top: 3px solid #487841; }
+  @media (min-width: 550px) {
+    .band {
+      height: 3.6rem; } }
 
 .tagline {
   padding-bottom: 6px; }
+  @media (min-width: 550px) {
+    .tagline {
+      padding-bottom: 0; } }
 
-.game_panel {
+.game_button_panel {
   position: relative;
-  float: left;
-  width: 100%;
-  margin: 10px 0 10px 0; }
+  padding: 13px 0 10px 0; }
+  @media (min-width: 550px) {
+    .game_button_panel {
+      display: inline-block;
+      top: 10px;
+      bottom: 0;
+      left: 67.33333%;
+      padding: 0;
+      background-color: #fff;
+      border-radius: 4px; } }
 
-.g_panel_button:hover {
+.panel_button:hover {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.18); }
 
-.g_panel_button:hover {
-  background-color: #adc996;
-  box-shadow: 0 0 0px rgba(0, 0, 0, 0.21); }
+.panel_button:active {
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.21);
+  background-color: #adc996; }
 
-.g_panel_button {
-  line-height: 1;
+.panel_button {
   float: left;
   width: 22%;
   margin: 0 0 0 2.4%;
   padding: 2px;
-  border: 0.5px solid #8a8a89;
-  background-color: #F6F8F7; }
-  .g_panel_button i {
+  background-color: #f6f8f7;
+  line-height: 1;
+  border: 0.5px solid #8a8a89; }
+  @media (min-width: 550px) {
+    .panel_button {
+      height: 45%;
+      width: 45%;
+      margin-top: 2.5%;
+      margin-right: 2.5%;
+      margin-bottom: -2.5%;
+      margin-left: 2.5%;
+      padding: 0; } }
+  .panel_button i {
     vertical-align: middle;
     color: #8a8a89; }
-  .g_panel_button div {
-    line-height: 1;
+  .panel_button div {
     width: 100%;
     margin: 0;
     padding: 0;
     padding-top: 2px;
-    vertical-align: top; }
+    line-height: 1; }
 
-@media (min-width: 550px) {
-  .game_panel {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
-    left: 69.33333%;
-    width: auto;
-    border-radius: 4px;
-    background-color: #FFF; }
-    .game_panel button {
-      line-height: 1;
-      width: auto;
-      padding: 10px; } }
 .game_card {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.19);
   position: absolute;
-  right: 2%;
-  bottom: 0;
-  left: 2%;
+  right: -3%;
+  bottom: 10px;
+  left: -3%;
+  z-index: -1;
   height: 250px;
   padding-bottom: 2px;
-  transition: transform .4s ease;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.19); }
+  transition: transform .4s ease; }
   .game_card iframe {
-    width: 100%;
-    height: 100%; }
+    height: 100%;
+    width: 100%; }
   .game_card .scrim {
     position: absolute;
     bottom: 0;
-    width: 90%;
     height: 10%;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+86 */
+    width: 90%;
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, white 86%, white 100%);
     /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, white 86%, white 100%);
     /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 86%, white 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0);
     /* IE6-9 */ }
 
 .slid {
-  transform: translate(0, 250px);
-  outline: none; }
+  outline: none;
+  transform: translate(0, 260px); }
 
 .game_card_concealer {
   position: absolute;
@@ -768,22 +796,25 @@ body {
   background-color: #93b874; }
 
 .box_wrapper {
-  line-height: 0;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.19);
+  z-index: -2;
   margin-bottom: 20px;
   padding: 6px;
-  border-radius: 4px;
-  background-color: #FFF;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.19); }
+  display: inline-block;
+  position: relative;
+  background-color: #fff;
+  line-height: 0;
+  border-radius: 4px; }
+  @media (min-width: 550px) {
+    .box_wrapper .box_wrapper {
+      padding: 10px; } }
 
-@media (min-width: 550px) {
-  .box_wrapper {
-    padding: 10px; } }
 .pageImage {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); }
 
 .tagline {
-  font-style: italic;
-  margin: auto; }
+  margin: auto;
+  font-style: italic; }
 
 .icon .gpanel {
   margin: auto; }
@@ -791,19 +822,19 @@ body {
 .page_footer {
   position: relative;
   padding: 0;
-  color: #487841;
-  background-color: #93b874; }
+  background-color: #93b874;
+  color: #487841; }
   .page_footer .container {
     padding: 6px;
     text-align: center;
     text-justify: inter-word; }
 
 .footer_band {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
   top: 0;
   width: 100%;
-  border-bottom: 2px solid #487841;
-  background-color: #FFF;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.18); }
+  background-color: #fff;
+  border-bottom: 2px solid #487841; }
 
 .footer_logo {
   float: left;
@@ -812,8 +843,8 @@ body {
 .footer_title {
   margin: 0;
   padding: 2px;
-  text-align: center;
-  color: #8a8a89; }
+  color: #8a8a89;
+  text-align: center; }
 
 .linkspacer {
   display: inline-block;

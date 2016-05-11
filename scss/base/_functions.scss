@@ -15,3 +15,7 @@
 @function grid-offset-length($n) {
   @return grid-column-width($n) + $column-margin;
 }
+
+@mixin floating($level:5) {
+  box-shadow: 0 0 ($level * 2px) rgba(0, 0, 0, .21 - $level * .01);
+}

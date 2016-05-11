@@ -9,9 +9,10 @@
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=no" />
+  <meta name="theme-color" content="#93B874">
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600%7CArvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600|Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,500,600,700|Kreon:400,700,300|Crete+Round:400,400italic,600' rel='stylesheet' type='text/css'> -->
   <!-- CSS
@@ -19,6 +20,7 @@
   <link rel="stylesheet" href="scss/skeleton.css">
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" href="https://cloud.githubusercontent.com/assets/14935003/14973727/65833dfa-10b9-11e6-85bd-24b3a895b0bb.png"> -->
   <link rel="icon" href="https://cloud.githubusercontent.com/assets/14935003/14973727/65833dfa-10b9-11e6-85bd-24b3a895b0bb.png">
 </head>
 
@@ -27,43 +29,108 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <header class="top_header row">
-      <div class="header_backdrop"> </div>
-      <div class="row eight columns">
-        <img class="u-max-full-width" src="https://cloud.githubusercontent.com/assets/14935003/14973678/bdda1d44-10b8-11e6-95b3-a6df10b93df1.png" alt="Wiki What?" />
-        <h5 class="tagline">Embrace the Inscrutable.</h5>
+      <div class="backdrop">
+        <div class="trim mobileonly"></div>
       </div>
+      <img class="eight columns" src="https://cloud.githubusercontent.com/assets/14935003/14973678/bdda1d44-10b8-11e6-95b3-a6df10b93df1.png" alt="Wiki What?" />
+      <h5 class="tagline twelve columns">Embrace the Inscrutable.</h5>
     </header>
-    <div class="row four columns game_button_panel">
-      <div class="game_card">
-        <iframe src="menu/rules.html" frameborder="0"></iframe>
-        <div class="scrim"> </div>
+    <div class="row mainrow">
+      <div class="panels row four columns">
+        <div class="game panel row">
+          <div class="card_clip">
+            <div class="card">
+              <iframe src="menu/rules.html" frameborder="0"></iframe>
+              <div class="scrim"> </div>
+            </div>
+          </div>
+          <div class="band mobile_header">
+            <h6>Game</h6></div>
+          <button class="gb panelbutton" title="How to play" id="rules">
+            <i class="material-icons">&#xE8FD;</i>
+            <div>Rules</div>
+          </button>
+          <button class="gb panelbutton" title="New article" id="restart">
+            <i class="material-icons">&#xE5D5;</i>
+            <div>Restart</div>
+          </button>
+          <button class="gb panelbutton" title="Reveal title" id="giveup">
+            <i class="material-icons">&#xE812;</i>
+            <div>Give Up</div>
+          </button>
+          <button class="gb panelbutton" title="We live in a digital age." id="share">
+            <i class="material-icons">&#xE80D;</i>
+            <div>Share</div>
+          </button>
+        </div>
+        <div class="menu_clip">
+          <div class="menu sliding_up_mobile">
+            <div class="hint panel row">
+              <div class="band">
+                <h6>Hint</h6>
+              </div>
+              <button class="panelbutton" title="Reveal image" id="imagehint">
+                <i class="material-icons">&#xE3C4;</i>
+                <div>Image</div>
+              </button>
+              <button class="panelbutton" title="Reveal word" id="wordhint">
+                <i class="material-icons">&#xE8D2;</i>
+                <div>Word</div>
+              </button>
+            </div>
+            <div class="words panel row">
+              <div class="band">
+                <h6>Words</h6><span class="word counter">(3/5)</span>
+              </div>
+              <div class="content good_words">
+              </div>
+            </div>
+            <div class="history panel row">
+              <div class="history_log_clip">
+                <div class="history_log">
+                  <div class="guess_container">
+                    <div class="inner menuText">Here is an old guess. <span class="good_word">Make </span>is <span class="good_word">a </span>correct word. </div>
+                  </div>
+                  <hr>
+                  <div class="guess_container">
+                    <div class="inner menuText">Here is an old guess. <span class="good_word">Make </span>is <span class="good_word">a </span>correct word. </div>
+                  </div>
+                  <hr>
+                  <div class="guess_container">
+                    <div class="inner menuText">Here is an old guess. <span class="good_word">Make </span>is <span class="good_word">a </span>correct word. </div>
+                  </div>
+                </div>
+              </div>
+              <div class="band">
+                <h6>History</h6><span class="word counter">(3)</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="band"></div>
-      <button type="button" title="How to play" class="panel_button" id="rules">
-        <i class="material-icons gpanel icon">&#xE8FD;</i>
-        <div>Rules</div>
-      </button>
-      <button type="button" title="New article" class="panel_button" id="restart">
-        <i class="material-icons gpanel icon">&#xE5D5;</i>
-        <div>Restart</divo>
-      </button>
-      <button type="buttn" title="Reveal title" class="panel_button" id="giveup">
-        <i class="material-icons gpanel icon">&#xE812;</i>
-        <div>Give Up</div>
-      </button>
-      <button type="button" title="We live in a digital age." class="panel_button" id="share">
-        <i class="material-icons gpanel icon">&#xE80D;</i>
-        <div>Share</div>
-      </button>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="wrap">
-      <div class="box_wrapper row">
-        <img class="pageImage loader u-max-full-width" id="img3" src="https://www.wikihow.com/images/8/88/Play-Hard-to-Get-With-a-Boy-That-You-Like-Step-4.jpg" data-src="https://www.wikihow.com/images/8/88/Play-Hard-to-Get-With-a-Boy-That-You-Like-Step-4.jpg">
+      <div class="wrap row eight columns">
+        <div class="box_wrapper row">
+          <img class="pageImage loader u-max-full-width" id="img3" src="https://www.wikihow.com/images/0/05/Catch-a-Cheating-Girlfriend-Step-5-Version-3.jpg" data-src="https://www.wikihow.com/images/0/05/Catch-a-Cheating-Girlfriend-Step-5-Version-3.jpg" />
+        </div>
       </div>
     </div>
+  </div>
+  <!-- FLOATING ANSWER WIDGET -->
+  <div class="answer">
+    <header class="widget_header sliding_up_mobile">
+      <div class="band">
+        <i class="material-icons mobile_only">&#xE5CE;</i>
+        <h6>Guess</h6>
+      </div>
+      <input class="toggle" type="checkbox" />
+    </header>
+    <form class="guessSection">
+      <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off" />
+      <button type="submit" class="panelbutton submitbutton" action="javascript:submitAction()">
+        <i class="material-icons">&#xE5CA;</i>
+        <div>Submit</div>
+      </button>
+    </form>
   </div>
   <footer class="page_footer">
     <div class="footer_band">

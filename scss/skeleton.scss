@@ -25,134 +25,222 @@
 @import 'modules/tables';
 @import 'modules/spacing';
 @import 'modules/media-queries';
+@import 'floatingwidget';
 
 // /* variables */
-@mixin floating($level:5) {
-  box-shadow: 0 0 ($level * 2px) rgba(0, 0, 0, .21 - $level * .01);
-}
+
 
 * {
   // border: 0.5px dotted gray;
 }
 
 html, body {
-    max-width: 100%;
-    overflow-x: hidden;
+  overflow-x: hidden;
+  
 }
+
 body {
   background-color: $c_bg;
 }
 
-.top_header {
-  position: relative;
-  z-index: 1;
-
-  background-color: $c_main;
-
+.mobile_only {
   @include bp-gridactive {
-    padding-top: .5%;
+    display: none;
   }
-  img {
-    margin-top: 4%;
-    @include bp-gridactive {
-      margin: $padding;
-      margin-left: 0;
-    }
+}
+.desktop_only {
+  @include bp-gridinactive {
+    display: none;
   }
 }
 .container{
 
 }
-.header_backdrop {
+.top_header {
+  position: relative;
+  z-index: 2;
+
+  img {
+    margin-top: 4%;
+    @include bp-gridactive {
+      max-width: 500px;
+      margin: $margin;
+      margin-left: 0;
+    }
+  }
+}
+
+.backdrop {
   position: absolute;
   right: -50%;
   left: -50%;
+  z-index: -1;
 
   height: 100%;
 
   background-color: $c_main;
-  z-index: -1;
+}
+
+.trim{
+  display: none;
+  @include bp-gridactive {
+    // @include floating(4);
+
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+
+    height: $trim_height;
+    width: 100%;
+    margin-bottom: 0;
+
+    background-color: $c_container_bg;
+    border-top: $accent_border_header;
+  }
+}
+
+.tagline{
+  line-height: 1.8;
+  @include bp-gridactive {
+    margin-left: 0;
+    line-height: 1.8;
+  }
 }
 
 .band {
-  @include floating(4);
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  right: -50%;
-  left: -50%;
+  @include floating(0);
 
-  height: $band_height_mobile;
+  position: static;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+
+  height: auto;
+ 
+
+
+    margin: 0 $padding $padding $padding ;
 
   background-color: $c_container_bg;
-  border-top: $accent_border_header;
+  border-bottom: $panel_button_border;
 
   @include bp-gridactive {
-    height: $band_height;
+    margin: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
   }
+
+  h6{
+    display: inline-block;
+
+    margin: 0;
+    font-family: $ff_arvo;
+    font-size: 2.0rem;
+    color: $c_detail_text;
+    line-height: 1;
+
+    @include bp-gridactive {
+    margin: $v_btn_margin 0 0 0;
+
+    }
+  }
+
+  &.mobile_header{
+    @include bp-gridinactive {
+      @include floating(4);
+
+      position: absolute;
+      top: 0;
+      right: -50%;
+      left: -50%;
+      border-top: $accent_border_header;
+      height: $band_height_mobile;
+    }
+    h6{
+      @extend .desktop_only;
+    }
+  }
+
 }
 
-.tagline {
-  padding-bottom: $padding_mobile;
-  @include bp-gridactive {
-    padding-bottom: 0;
-  }
+.panels{
+  z-index: 3;
 }
 
-.game_button_panel {
+
+
+.panel {
   position: relative;
- 
 
   padding: ($padding_band+$accent_border_header_width) 0 $padding_band 0;
 
 
+
   @include bp-gridactive {
-    display: inline-block;
-    top: $padding;
-    bottom: 0;
-    left: grid-offset-length(8)-2%;
+    padding: ($padding_band+$accent_border_header_width) 0 $padding_band 0;
+    @include floating(2);
 
-    padding: 0;
+    overflow: visible;
+    margin-bottom: $margin;
+    padding:  0;
 
-    background-color: $c_container_bg;
-    border-radius: $b-rad;
+    background: $c_container_bg;
+    border-top: $accent_border_header;
+  }
+
+  &.game{
+    
+  }
+
+  &.hint{
+    .content{
+    }
+  }
+
+  &.words{
+    .content{
+        padding: 0 $padding $padding $padding;
+      @include bp-gridactive {
+        padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+      }
+    }
+  }
+
+  &.history{
+  
+    .content{
+      padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+      
+    }
   }
 }
 
-.panel_button:hover {
-  @include floating(3);
-}
-
-.panel_button:active {
-  @include floating(0);
-  background-color: $c_light;
-}
-
-.panel_button {
+.panelbutton {
+  position: relative;
   float: left;
+  z-index: 1;
 
   width: 22%;
-  margin: 0 0 0 2.4%;
+  margin: 0 0 0 $padding;
   padding: $padding_button_mobile;
 
   background-color: $c_container_highlight;
   line-height: 1;
-  border: .5px solid $c_detail_text;
+  border: $panel_button_border;
 
-  $width: 45%;
-  $height: 45%;
   @include bp-gridactive {
-    height: $height;
-    width: $width;
-    margin-top: (100-2*$height)/4;
-    margin-right: (100-2*$width)/4;
-    margin-bottom: (100-2*$height - 20)/4;
-    margin-left: (100-2*$width)/4;
-    padding: 0;
+    margin: 0 0 0 2.4%;
+    padding: $padding_button_mobile;
+    height: 50 - $v_btn_margin*3/2;
+    width: 50 - $h_btn_margin*3/2;
+    margin-bottom: $v_btn_margin;
+    margin-left: $h_btn_margin;
   }
 
   i {
     vertical-align: middle;
+
+    margin: auto;
+
     color: $c_detail_text;
   }
 
@@ -164,41 +252,152 @@ body {
 
     line-height: 1;
   }
+
+  &:hover {
+    @include floating(3);
+  }
+
+  &:active {
+    @include floating(0);
+    background-color: $c_light;
+  }
+
+  &.gb {
+    @include bp-desktophd {
+      height: 100 - $v_btn_margin*2;
+      width: 25 - $h_btn_margin*5/4;
+      margin-bottom: $v_btn_margin;
+      margin-left: $h_btn_margin;
+    }
+  }
 }
 
-.game_card {
+.selectable_container{
+  display: inline-block;
+
+  border: $panel_button_border;
+  border-radius: $global-radius;
+  padding: $padding_button_mobile $padding_button_mobile*2;
+  background-color: $c_container_highlight;
+  cursor: default;
+  margin: 0 $padding $padding 0;
+
+  @include bp-gridactive {
+    margin: 0 2*$padding_button_mobile 2*$padding_button_mobile 0;
+  }
+
+  &:hover{
+    text-decoration: underline;
+    @include floating(3);
+  }
+  &:active {
+    @include floating(0);
+    background-color: $c_light;
+  }
+
+}
+.counter{
+  margin-left: $padding/2;
+  font-family: $ff_arvo;
+  color: $c_detail_text;
+  font-size: 1.5rem;
+}
+
+.card_clip{
+  position: relative;
+  z-index: 0;
+
+  @include bp-gridactive {
+    position: absolute;
+    bottom: -$card_height;
+
+    overflow: hidden;
+    height: $card_height;
+    width: 100%;
+  }
+}
+
+.card {
   @include floating(2);
 
   position: absolute;
   right: -3%;
   bottom: $card_clearance;
   left: -3%;
-  z-index: -1;
+  z-index: auto;
 
   height: $card_height;
   padding-bottom: 2px;
 
   background-color: $c_container_bg;
-  border-radius: 2px;
 
   transition: transform .4s ease;
 
-  // transform: translate(0, 200px);
+  @include bp-gridactive {
+    top: -$card_height - $card_clearance;
+    right: 1.5%;
+    left: 1.5%;
+
+    margin: 0;
+    padding: 0;
+  }
   iframe {
     height: 100%;
     width: 100%;
   }
-  .scrim {
-    position: absolute;
-    bottom: 0;
+}
 
-    height: 10%;
-    width: 90%;
-    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 86%, rgba(255, 255, 255, 1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 86%, rgba(255, 255, 255, 1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 86%, rgba(255, 255, 255, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+.history.panel .card{
+  position: relative;
+  @include bp-gridactive {
+  background-color: $c_container_highlight;
+  padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+  font-style: italic;
+  font-weight: 400;
+    transform: translate(0, $card_height+$card_clearance);
   }
+  hr{
+    border-style: dotted;
+    border-color: $c_detail_text;
+    margin: $padding 0;
+  }
+}
+
+.history_log_clip{
+  @extend .card_clip;
+}
+
+.history_log{
+  @extend .card;
+  left: 0;
+  right: 0;
+  padding: 0 $padding;
+  @include bp-gridactive {
+
+  }
+}
+
+.good_word{
+  color: $c_link;
+  font-weight: 600;
+  font-style: normal;
+
+  &:hover{
+    text-decoration: underline;
+    cursor: default;
+  }
+}
+
+.scrim {
+  position: absolute;
+  bottom: 0;
+
+  height: 10%;
+  width: 90%;
+  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#f6f8f7', GradientType=0); /* IE6-9 */
 }
 
 .slid {
@@ -206,33 +405,38 @@ body {
   transform: translate(0, $card_height+$card_clearance);
 }
 
-.game_card_concealer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.mainrow{
 
-  background-color: $c_main;
-  // transform: translate(0, 200px);
+  @include bp-gridactive {
+    padding: 2*$padding 0;
+    overflow-y: hidden;
+  }
+}
+
+.wrap{
+  position: relative;
+  z-index: -1;
+  margin-top: $margin;
+  @include bp-gridactive {
+    margin-top: 0;
+  }
 }
 
 .box_wrapper {
   @include floating(2);
-  z-index: -2;
-  margin-bottom: 20px;
-  padding: $padding_mobile;
-  display: inline-block;
+
   position: relative;
+  display: inline-block;
+
+  margin-bottom: $margin;
+  padding: $padding_mobile;
 
   background-color: $c_container_bg;
   line-height: 0;
   border-radius: $b-rad;
 
   @include bp-gridactive {
-    .box_wrapper {
-      padding: $padding;
-    }
+    padding: $padding;
   }
 }
 
@@ -245,19 +449,15 @@ body {
   font-style: italic;
 }
 
-.icon {
-  .gpanel {
-    margin: auto;
-  }
-}
-
 .page_footer {
   position: relative;
 
-  padding: 0;
-
+  padding: 0 0 125px 0;
   background-color: $c_main;
   color: $c_link;
+  @include bp-gridactive {
+    padding-bottom: 125px;
+  }
 
   .container {
     padding: $padding_mobile;
@@ -266,7 +466,6 @@ body {
     text-justify: inter-word;
   }
 }
-
 
 .footer_band {
   @include floating(3);

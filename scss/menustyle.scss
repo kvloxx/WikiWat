@@ -41,7 +41,8 @@
 
 body
 {
-  background-color: $c_container_bg;
+  background-color: $c_container_highlight;
+  overflow-x: hidden;
 }
 .rules
 {

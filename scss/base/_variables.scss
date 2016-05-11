@@ -7,6 +7,11 @@ $bp-larger-than-phablet   : "min-width: 550px" !default;
 $bp-larger-than-tablet    : "min-width: 750px" !default;
 $bp-larger-than-desktop   : "min-width: 1000px" !default;
 $bp-larger-than-desktophd : "min-width: 1200px" !default;
+$bp-smaller-than-mobile    : "max-width: 399px" !default;
+$bp-smaller-than-phablet   : "max-width: 549px" !default;
+$bp-smaller-than-tablet    : "max-width: 749px" !default;
+$bp-smaller-than-desktop   : "max-width: 999px" !default;
+$bp-smaller-than-desktophd : "max-width: 1199px" !default;
 
 // Colors
 $light-grey: #e1e1e1 !default;
@@ -20,11 +25,12 @@ $font-color: #222 !default;
 
 // Typography
 $font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-
+$ff_arvo: "Arvo", "Palatino Linotype", "Book Antiqua", Palatino, serif !default;
 //Grid Variables
-$container-width: 960px !default;
+$container-width: 1200px !default;
 $container-width-larger-than-mobile: 90% !default;
-$container-width-larger-than-phablet: 85% !default;
+$container-width-larger-than-phablet: 80% !default;
+$container-width-larger-than-tablet: 90% !default;
 $total-columns: 12 !default;
 $column-width: 100 / $total-columns !default; // calculates individual column width based off of # of columns
 $column-margin: 4% !default; // space between columns
@@ -46,16 +52,34 @@ $c_container_bg: #fff;
 $b-rad: 4px;
 $padding_mobile: 6px;
 $padding: 10px;
+$margin: 20px;
+$trim_height: 2.4rem * 1.8;
 $padding_button_mobile: 2px;
 $padding_band: 10px;
 $band_height_mobile: 43px+ 2*$padding_band;
 $band_height: 2.4rem * 1.5;
 $card_height: 250px;
-$card_clearance: 10px;
+$menu_height: 300px;
+$card_clearance: 0px;
 $accent_border_header_width: 3px;
 //distance above bottom of header (to avoid peeking shadow)
 $logo_width: grid-column-width(8);
 $logo_height: logo-height(8);
+$h_btn_margin: 5%;
+$v_btn_margin: 5%;
+
+$answer_width_desktop: 98%;
+$answer_width_mobile: 95%;
+$h_ans_margin: 1.5%;
+$ans_btn_to_txt_ratio_mobile: 5;
+$ans_btn_to_txt_ratio_desktop: 8;
+
+$ans_btn_width_mobile: (100 - 3 * $h_ans_margin)/($ans_btn_to_txt_ratio_mobile + 1);
+$ans_btn_width_desktop: (100 - 3 * $h_ans_margin)/($ans_btn_to_txt_ratio_desktop + 1);
+$ans_txt_width_mobile: $ans_btn_to_txt_ratio_mobile * $ans_btn_width_mobile;
+$ans_txt_width_desktop: $ans_btn_to_txt_ratio_desktop * $ans_btn_width_desktop;
+
 //borders
 $accent_border_header: $accent_border_header_width solid $c_link;
 $accent_border_footer: 2px solid $c_link;
+$panel_button_border: .5px solid $c_detail_text;

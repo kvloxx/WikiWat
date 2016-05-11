@@ -37,6 +37,13 @@
   .container {
     width: $container-width-larger-than-phablet;
   }
+}
+
+// For devices larger than 750px
+@media (#{$bp-larger-than-tablet}) {
+  .container {
+    width: $container-width-larger-than-tablet;
+  }
   .column,
   .columns {
     margin-left: $column-margin;

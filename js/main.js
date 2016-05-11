@@ -1,9 +1,10 @@
 var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g,
-   NUM_INITIAL_IMAGES = 4,
+   NUM_INITIAL_IMAGES = 1,
    MIN_PAGE_IMAGES = 4, //must be >= NUM_INITIAL_IMAGES
    DEFAULT_INPUT_MESSAGE = 'whatever.',
    GAMECARD_SLIDE_DELAY = 450;
-   $DOC = $(document),
+BP_GRID_ACTIVE = 750;
+$DOC = $(document),
    promisedUsablePage = asyncQueryForRandomUsablePage();
 
 $.when( //coordinates page loading (a masterpiece)
@@ -23,37 +24,59 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 
    /*   $(window).scroll(setFixedInputPosition);
       $(window).resize(setFixedInputPosition);*/
-      var $panel_buttons=$('.panel_button');
+   var $panel_buttons = $('.gb');
    $panel_buttons.blur(gPanelButtonBlurAction);
    $panel_buttons.click(gPanelButtonPressedAction);
+
+   $('#imagehint').click(addImageToDocument);
+   $('#wordhint').click(giveWordHint);
+
 
    $textField.focus(focusedAction);
    $textField.keyup(keyupAction);
    $textField.blur(blurAction);
    $tog.change(slide);
+
+   $('#giveup').click(function() {
+      console.log('loasdl');
+      console.log($DOC.data('wikiPageTitle').origString);
+      $textField.val($DOC.data('wikiPageTitle').origString);
+   });
 }); //End $DOC.ready
 
 function gPanelButtonPressedAction() {
-    var pagelink='menu/'+$(this).attr('id')+'.html';
-    $('.game_card').queue(function(){
-      if($('.game_card iframe').attr("src") !== pagelink){
-         $('.game_card iframe').attr("src", pagelink);
-      }
-      $(this).addClass('slid');
-      $(this).delay(GAMECARD_SLIDE_DELAY);
-      $(this).dequeue();
-   });
-    console.log('\t---ln: 39 from '+this+'---');
-    console.log($('.game_card'));
+   var pagelink = 'menu/' + $(this).attr('id') + '.html';
+   if ($(window).width() < BP_GRID_ACTIVE) {
+      $('.card').queue(function() {
+         if ($('.card iframe').attr("src") !== pagelink) {
+            $('.card iframe').attr("src", pagelink);
+         }
+         $(this).addClass('slid');
+         $(this).delay(GAMECARD_SLIDE_DELAY);
+         $(this).dequeue();
+      });
+   } else{
+      $('.card, .menu_clip').queue(function() {
+         if ($('.card iframe').attr("src") !== pagelink) {
+            $('.card iframe').attr("src", pagelink);
+         }
+         $(this).addClass('slid');
+         $(this).delay(GAMECARD_SLIDE_DELAY);
+         $(this).dequeue();
+      });
+   }
+   console.log('\t---ln: 39 from ' + this + '---');
+   console.log($('.card'));
 }
+
 function gPanelButtonBlurAction() {
-    $('.game_card').queue(function(){
+   $('.card, .menu_clip').queue(function() {
       $(this).removeClass('slid');
       $(this).delay(GAMECARD_SLIDE_DELAY);
       $(this).dequeue();
    });
-    console.log('\t---ln: 329 from '+this+'---');
-    console.log($('.game_card'));
+   console.log('\t---ln: 329 from ' + this + '---');
+   console.log($('.card'));
 }
 
 function disable(jQueryObj) {
@@ -75,21 +98,23 @@ function titleObject(str) {
 
 function slide() {
    var $this = $(this);
+
    if (!$this.prop('checked')) {
-      $('.sliding').css({
+      $('.sliding_up_mobile').css({
          "transform": "translate(0,0)"
       });
-      $('.toggleLabelIcon').css({
+      $('.widget_header i').css({
          "transform": "rotate(0deg)"
       });
    } else {
-      $('.sliding').css({
+      $('.sliding_up_mobile').css({
          "transform": "translate(0,-" + $('.menu').height() + "px)"
       });
-      $('.toggleLabelIcon').css({
+      $('.widget_header i').css({
          "transform": "rotate(180deg)"
       });
    }
+
 }
 
 function asyncQueryForRandomUsablePage() {
@@ -143,8 +168,50 @@ function asyncQueryForPageImages(pageInfo) {
    });
 }
 
+function addImageToDocument() {
+   var images = $DOC.data('undisplayedImages');
+   if (images.length !== 0) {
+      var $wrap = $('.wrap');
+      var randIndex = Math.floor(Math.random() * images.length);
+      var nextImageInfo = images[randIndex].imageinfo[0];
+
+      images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down 1
+
+      var wrappedImage = getNewImageHtml(nextImageInfo);
+      $wrap.append(wrappedImage);
+      $(wrappedImage.find('img')[0]).unveil(0, removeLoaderClass());
+      if (images.length < 1) {
+         disable($(this)); //disable button calling this as a listener funct. 
+      }
+   } else {
+      disable($(this));
+   }
+}
+
+function giveWordHint() {
+   console.log("lol");
+   var title = $DOC.data('wikiPageTitle');
+   var tmp = [];
+   for (var i = title.normTokens.length - 1; i >= 0; i--) {
+      if (title.guessed[i] === 0) {
+         tmp.push(i);
+      }
+   }
+   if (tmp.length >= 1) {
+      var n = Math.floor(Math.random() * tmp.length);
+      title.guessed[tmp[n]]++;
+      addNewGoodWords(makeWordNode(title.origTokens[tmp[n]]), 'slow');
+      if (tmp.length === 1) {
+         disable($(this)); //disable button calling this as a listener funct.  
+      }
+   } else {
+      disable($(this)); //disable button calling this as a listener funct.
+   }
+}
+
 function addImagesToDocument(images, _) { //argument _ is extra passed in from $.when().done() 
    var $wrap = $('.wrap');
+   $DOC.data('undisplayedImages', images);
    for (var i = 0; i < NUM_INITIAL_IMAGES && images.length !== 0; i++) {
       var randIndex = Math.floor(Math.random() * images.length);
       console.log('\t---ln: 120 from ' + this + '---');
@@ -158,7 +225,7 @@ function addImagesToDocument(images, _) { //argument _ is extra passed in from $
 
       images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down 1
 
-      var wrappedImage = getNewImageHtml(nextImageInfo, i);
+      var wrappedImage = getNewImageHtml(nextImageInfo);
 
       // var numImgs=$wrap.find('.pageImage').length;
       // console.log(numImgs);
@@ -178,31 +245,12 @@ function addImagesToDocument(images, _) { //argument _ is extra passed in from $
 function removeLoaderClass() {
    $(this).removeClass('loader');
 }
-//TODO: FOR DESKTOP VERSION
-// /*getNewImageHtml returns a new jQ node representing the input image
-// wrapped in a page image wrapper*/
-// function getNewImageHtml(nextImageInfo, i) {
-//    var ret = $('<div class="box floatyWrapper unloaded"></div>').hide(),
-//       imgTag = $('<img class="pageImage" id="img' + i + '" />)').attr('src', nextImageInfo.url).css({opacity: 0});
-
-//    ret.ready(function() {
-//       ret.append(imgTag);
-//       ret.fadeIn('slow');
-//    });
-
-//    ret.waitForImages(function() {
-//       imgTag.fadeTo('slow', 1);
-//       ret.removeClass('unloaded');
-//    });
-
-//    return ret;
-// }
 
 /*getNewImageHtml returns a new jQ node representing the input image
 wrapped in a page image wrapper*/
-function getNewImageHtml(nextImageInfo, i) {
+function getNewImageHtml(nextImageInfo) {
    var ret = $('<div class="box_wrapper floatyWrapper row"></div>'),
-      unveilImgTag = $('<img class="pageImage loader u-max-full-width" id="img' + i + '" src="res/subtle_loader.gif"/>');
+      unveilImgTag = $('<img class="pageImage loader u-max-full-width" src="res/subtle_loader.gif"/>');
 
    /*
    TODO: make media delivery responsive/make sense (this isn't quite it)
@@ -215,16 +263,6 @@ function getNewImageHtml(nextImageInfo, i) {
    // }
 
    console.log(nextImageInfo.size);
-
-   // ret.ready(function() {
-   //    ret.append(imgTag);
-   //    ret.fadeIn('slow');
-   // });
-
-   // ret.waitForImages(function() {
-   //    imgTag.fadeTo('slow', 1);
-   //    ret.removeClass('unloaded');
-   // });
 
    return ret.append(unveilImgTag);
 }
@@ -242,7 +280,7 @@ function focusedAction() {
    if ($this.val() === DEFAULT_INPUT_MESSAGE)
       $this.val('');
 
-   if (!$tog.prop('checked')) {
+   if (!$tog.prop('checked') && $(window).width() < 750) {
       wasChecked = false;
       $tog.prop('checked', true);
       $tog.change();
@@ -281,7 +319,7 @@ function submitAction() {
       guess = new titleObject($('.textField').val()),
       title = $DOC.data('wikiPageTitle'),
       wasChecked = true,
-      lim = $('.goodWords').height() + 10;
+      lim = $('.good_words').height() + 10;
 
    if ($menu.scrollTop() > lim) {
       $menu.animate({ scrollTop: lim }, wasChecked ? 300 : 1, 'swing', updateMenu(guess, 600, 'slow'));
@@ -313,10 +351,10 @@ text nodes (to avoid xss), and correct words are wrapped in an extra <span>
 for highlighting. Newly guessed correct words are also packaged into 
 elements for the list of good words. Results returned in object containing
 an sNode (single jQuery node with the new history entry) and a wNodeList 
-(possibly empty array of jQuery selectableContainer-class nodes each 
+(possibly empty array of jQuery selectable_container-class nodes each 
 representing a new good word)*/
 function getNewMenuHtml(guess, title) {
-   var sNode = $('<hr class="guessDivide"><div class="guessContainer"><div class="inner menuText"></div></div>'),
+   var sNode = $('<hr"><div class="guess_container"><div class="inner menuText"></div></div>'),
       inner = sNode.find('.inner'),
       wNodeList = [],
       s = '';
@@ -326,7 +364,7 @@ function getNewMenuHtml(guess, title) {
          if (guess.normTokens[i] === title.normTokens[j]) {
             inner.append(document.createTextNode(s));
             s = '';
-            inner.append($('<span class="goodWord"></span>').text(guess.origTokens[i] + ' '));
+            inner.append($('<span class="good_word"></span>').text(guess.origTokens[i] + ' '));
             if (title.guessed[j] === 0) {
                wNodeList.push(makeWordNode(title.origTokens[j]));
             }
@@ -339,6 +377,9 @@ function getNewMenuHtml(guess, title) {
       }
    }
    inner.append(document.createTextNode(s));
+   console.log('\t---ln: 342 from ' + this + '---');
+   console.log(sNode);
+   console.log(sNode.html());
    return { 'words': wNodeList, 'hist': sNode };
 }
 
@@ -354,13 +395,13 @@ function addNewGuessHistory(histNode, slideDuration, fadeDuration) {
 each one into the document over a specified fadeDuration*/
 function addNewGoodWords(wordNodeList, fadeDuration) {
    for (var i = wordNodeList.length - 1; i >= 0; i--) {
-      $(wordNodeList[i]).hide().appendTo('.goodWords').fadeIn('fadeDuration');
+      $(wordNodeList[i]).hide().appendTo('.good_words').fadeIn('fadeDuration');
    }
 }
 
-/*makeWordNode returns a "goodWord"-style jQ node with input text string*/
+/*makeWordNode returns a "good_word"-style jQ node with input text string*/
 function makeWordNode(word) {
-   var sock = $('<div class="selectableContainer"><span class="word menuText"></span></div>'),
+   var sock = $('<div class="selectable_container"><span class="word menuText"></span></div>'),
       tmp = sock.find('.word')[0];
    $(tmp).text(word);
    $(tmp).click(insertableElementClickAction);

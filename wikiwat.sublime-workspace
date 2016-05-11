@@ -4,6 +4,102 @@
 		"selected_items":
 		[
 			[
+				"shad",
+				"box-shadow"
+			],
+			[
+				"over",
+				"overflow"
+			],
+			[
+				"c_",
+				"c_detail_text	 _variables.scss"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"font",
+				"font-style"
+			],
+			[
+				"sele",
+				"selectableContainer	(index.html)"
+			],
+			[
+				"pan",
+				"panelbutton"
+			],
+			[
+				"ex",
+				"ext	@extend"
+			],
+			[
+				"gr",
+				"gridinactive"
+			],
+			[
+				"inc",
+				"inc	@include"
+			],
+			[
+				"rel",
+				"relative"
+			],
+			[
+				"verti",
+				"vertical-align"
+			],
+			[
+				"pb",
+				"padding_band	 _variables.scss"
+			],
+			[
+				"lin",
+				"line-height"
+			],
+			[
+				"m",
+				"margin"
+			],
+			[
+				"mgn",
+				"margin"
+			],
+			[
+				"accent",
+				"accent_border_header_width	 _variables.scss"
+			],
+			[
+				"pa",
+				"padding_band	 _variables.scss"
+			],
+			[
+				"b",
+				"bg	background"
+			],
+			[
+				"variab",
+				"variable-exists	Sass-function"
+			],
+			[
+				"w3",
+				"w3cHex:peru	W3C peru (Hex)"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"margin-b",
+				"margin-bottom: "
+			],
+			[
+				"inlin",
+				"inline-block"
+			],
+			[
 				"keyup",
 				"keyupAction"
 			],
@@ -172,20 +268,8 @@
 				"background-blend-mode"
 			],
 			[
-				"pa",
-				"padding-bottom"
-			],
-			[
 				"w",
 				"word-wrap"
-			],
-			[
-				"b",
-				"baseline"
-			],
-			[
-				"m",
-				"middle"
 			],
 			[
 				"in",
@@ -210,10 +294,6 @@
 			[
 				"ba",
 				"background-color"
-			],
-			[
-				"font",
-				"font-weight"
 			],
 			[
 				"li",
@@ -272,41 +352,74 @@
 	"buffers":
 	[
 		{
-			"contents": "[\n	{ \"keys\": [\"ctrl+shift+c\"],  \"command\": \"toggle_fold_comments\" }\n]",
-			"file": "/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Fold Comments/Default (Windows).sublime-keymap",
-			"file_size": -1,
-			"file_write_time": -1,
+			"file": "scss/_floatingwidget.scss",
 			"settings":
 			{
-				"buffer_size": 69,
-				"line_ending": "Windows",
-				"read_only": true,
-				"scratch": true
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "UnusableImages.js",
+			"file": "scss/skeleton.scss",
 			"settings":
 			{
-				"buffer_size": 2239,
-				"line_ending": "Windows",
-				"name": "var UNUSABLE_IMAGES=["
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Get the Manaphy Egg (in Pokémon Ranger)\n\n\nhttps://www.wikihow.com/api.php?action=query&format=json&prop=info%7C&prop=templates%7Cflagged%7Cpageimages%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0\n\n&prop=templates%7Cflagged%7Cpageimages%7Cimages",
+			"file": "js/main.js",
 			"settings":
 			{
-				"buffer_size": 262,
-				"line_ending": "Windows",
-				"name": "Get the Manaphy Egg (in Pokémon Ranger)"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "var STD_PUNCT = /[\\'!\"#$%&()*+,\\-.\\/:;<=>?@\\[\\]^_`{|}~]/g;\nvar NUM_INITIAL_IMAGES = 3;\nvar MIN_PAGE_IMAGES = 3; //must be >= NUM_INITIAL_IMAGES\nvar DEFAULT_INPUT_MESSAGE = 'Guess What\\'s Going on!';\n\nvar gPageTitle;\n\nasyncGetRandomUsablePage().done(asyncQueryForAndLoadImages, setPageName);\n\nfunction setPageName(pageInfo) {\n   gPageTitle = new titleObject(pageInfo.title);\n   console.log(gPageTitle);\n}\n\n$(document).data('readyDeferred', $.Deferred()).ready(function() {\n   $(document).data('readyDeferred').resolve();\n\n   disableButton();\n   $('#f_textInput').css('color', '#9EB8A0');\n\n   $('#f_textInput').focus(function() {\n      $('#f_textInput').css('color', '#262b26');\n      if ($(this).val() === DEFAULT_INPUT_MESSAGE)\n         $(this).val('');\n   });\n\n   $('#f_textInput').keyup(function() {\n\n      if ($(this).val() !== '')\n         enableButton();\n      else\n         disableButton();\n   });\n\n   $('#f_textInput').blur(function() {\n      if ($(this).val() !== '')\n         enableButton();\n      else {\n         $(this).val(DEFAULT_INPUT_MESSAGE);\n         $(this).css('color', '#9EB8A0');\n         disableButton();\n      }\n   });\n\n   $('#f_button').click();\n\n}); //End $(document).ready(function() {\n\nfunction findMatches(guess, title) {\n   var guessWordsMatched = [];\n   for (var i = 0; i < title.normTokens.length; i++) {\n      for (var j = 0; j < guess.normTokens.length; j++) {\n         if (title.normTokens[i] === guess.normTokens[j]) {\n            if (guess.guessed[j] === 0) {\n               guess.guessed[j] = 1;\n               title[i] = 1;\n               guessWordsMatched.push(j);\n            }\n         }\n      }\n   }\n   return guessWordsMatched;\n}\n\nfunction submitAction() {\n   var guess = new titleObject($('#f_textInput').val());\n   var wordsMatched = findMatches(guess, gPageTitle);\n   console.log(wordsMatched.sort());\n}\n\nfunction titleObject(str) {\n   this.origString = str;\n   this.origTokens = str.match(/\\S+/g); //original chars/punct\n   this.normTokens =\n      diacritics2url.replaceDiacritics(str.toLowerCase().replace(STD_PUNCT, '')).match(/\\S+/g);\n   this.guessed = zeroArray(this.origTokens.length);\n}\n\nfunction zeroArray(l) {\n   var res = new Array(l);\n   while (--l >= 0) {\n      res[l] = 0;\n   }\n   return res;\n}\n\nfunction disableButton() {\n   $('#f_button').attr('disabled', 'true');\n   $('.buttonLabel').css('color', '#9EB8A0');\n}\n\nfunction enableButton() {\n   $('#f_button').removeAttr('disabled');\n   $('.buttonLabel').css('color', '#444f45');\n}\n\nfunction isUnusableImage(imageTitle, pageTitle) {\n   console.log(\"comparing \" + imageTitle + \" & \" + pageTitle);\n   if (!imageTitle.includes(pageTitle)) {\n      console.log(\"\\t\" + imageTitle + \" !== \" + pageTitle);\n      return true;\n   }\n   return false;\n}\n\nfunction filterUnusableImages(imageArray, pageTitle) {\n   //filter out those dumb article metadata images that are sometimes delivered\n   if (imageArray != null) { // != is intentional, checks for undefined\n      for (var i = imageArray.length - 1; i >= 0; i--) {\n         if (isUnusableImage(imageArray[i].title, pageTitle))\n            imageArray.splice(i, 1);\n      }\n   }\n}\n\nfunction asyncGetRandomUsablePage() {\n   /* Handles the work of getting information about a random \n   article and determining whether it will be usable*/\n   $.ajax({ //get random page using mediawiki API\n      url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',\n      dataType: 'jsonp',\n      success: function(jsonpData) {\n         /*The mediawiki api answers our request with a complex json object structure.\n         However, all of the data we're interested in is kept in a sub-object, \"pageInfo\"\n         Accessing it requires making this series of calls:\n            var page = jsonpData.query.pages;\n            var pageId = Object.keys(page)[0];\n            var pageInfo = page[pageId.toString()];\n         To avoid creating extra variables, I condense this to the single unreadable line below: */\n         var pageInfo = jsonpData.query.pages[Object.keys(jsonpData.query.pages)[0].toString()];\n         console.log(\"raw page images: \");\n         console.log(JSON.stringify(pageInfo.images));\n         var pageImages = pageInfo.images;\n         console.log(pageInfo.fullurl);\n\n         filterUnusableImages(pageImages, pageInfo.title);\n\n         if (pageImages == null || // == is intentional, checks for undefined\n            pageImages.length < MIN_PAGE_IMAGES ||\n            pageInfo.title.length > 256) {\n\n            return asyncGetRandomUsablePage(); //try again\n         }\n      }\n   });\n}\n\nfunction asyncQueryForAndLoadImages(pageInfo) {\n   var deff = $.Deferred();\n   $.ajax({ //make another async. request for image urls\n      url: synthImageInfoQuery(pageInfo.images),\n      dataType: 'jsonp',\n      success: function(jsonpData) {\n         //create array and fill w/ slightly more accessable image data\n         var images = [];\n         var keys = Object.keys(jsonpData.query.pages);\n\n         for (var i = 0; i < keys.length; i++) {\n            //put image objects in new array\n            var current = jsonpData.query.pages[keys[i].toString()];\n            images.push(current);\n         }\n\n         for (var i = 0; i < NUM_INITIAL_IMAGES && images.length !== 0; i++) {\n            //Get random int in range [0, images.length-1]\n            var randIndex = Math.floor(Math.random() * images.length);\n\n            var nextImageInfo = images[randIndex].imageinfo[0];\n            console.log(nextImageInfo);\n\n            images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down\n\n            $.when($(document).data('readyDeferred')).then(function() {\n               if ($('#img' + i).length) { //if image (placeholder) element exists \n                  $('#img' + i).attr('src', nextImageInfo.url);\n               } else {\n                  $('.wrap').append(synthImageHtml(nextImageInfo, i));\n               }\n            });\n         }\n      }\n   });\n}\n\nfunction synthImageInfoQuery(pageImages) {\n   //base url to query api for image sources\n   var queryUrl = 'https://www.wikihow.com/api.php?action=query&format=json&prop=imageinfo&titles=';\n   //append image titles seperated by '%7C' (url encoded '|')\n   for (var i = 0; i < pageImages.length; i++) {\n      queryUrl = queryUrl + pageImages[i].title;\n      if (i < pageImages.length - 1)\n         queryUrl = queryUrl + '%7C'; //url-encoded '|'\n      else\n         queryUrl = queryUrl + '&iiprop=url%7Csize&iiurlwidth=500'; //additional query properties\n   }\n   queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces\n   return queryUrl;\n}\n\nfunction synthImageHtml(nextImageInfo, i) {\n   var imgTag = '<img class=\"pageImage\" src=\"' + nextImageInfo.url + '\" id=\"img' + i + '\" />';\n   return '<div class=\"box floatyWrapper\">\\n' + imgTag + '\\n</div>\\n';\n}\n\nfunction setFixedInputPosition() {\n   if($('body').width()<=500)\n      $(\"#f_area\").css(\"bottom\", Math.max(0, ($(document).scrollTop() + $(window).height()) - $(\".siteFooter\").offset().top));\n   else\n      $(\"#f_area\").css(\"bottom\", 0);\n}\n\n$(window).scroll(setFixedInputPosition);\n$(window).resize(setFixedInputPosition);\n",
+			"file": "menu/giveup.html",
 			"settings":
 			{
-				"buffer_size": 7214,
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scss/modules/_grid.scss",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scss/base/_normalize.scss",
+			"settings":
+			{
+				"buffer_size": 7594,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scss/base/_functions.scss",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scss/base/_variables.scss",
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		}
@@ -318,16 +431,36 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 490.0,
-		"last_filter": "insta",
+		"height": 443.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"insta",
-				"Package Control: Install Package"
+				"cle",
+				"CleanCSS: Clean current file"
+			],
+			[
+				"fold",
+				"Code Folding: Unfold All"
 			],
 			[
 				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"css",
+				"CleanCSS: Clean current file"
+			],
+			[
+				"brack",
+				"BracketHighlighter: Match Brackets (ignore threshold)"
+			],
+			[
+				"insta",
 				"Package Control: Install Package"
 			],
 			[
@@ -391,7 +524,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 725.0
+		"width": 534.0
 	},
 	"console":
 	{
@@ -413,17 +546,38 @@
 	"expanded_folders":
 	[
 		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat",
-		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/res"
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/images",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/js",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/menu",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/base",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/modules"
 	],
 	"file_history":
 	[
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/menustyle.scss",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/modules/_media-queries.scss",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/skeleton.css",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/modules/_buttons.scss",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/images/favicon.png",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/ToggleWords.sublime-settings",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/skeleton.scss",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/CleanCSS/CleanCSS.sublime-settings",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/scss/modules/_grid.scss",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/CSS Extended Completions/css_style_completions.sublime-settings",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/css_style_completions.sublime-settings",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/index.html",
+		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/UnusableImages.js",
+		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Fold Comments/Default (Windows).sublime-keymap",
 		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/detectMobile.js",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Fold Comments/foldcomments.sublime-settings",
 		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/getUnusableImages.js",
 		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/Diacritics2Url.js",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
-		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/BracketHighlighter/Example.sublime-keymap",
 		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/res/Diacritics2Url.js",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
@@ -434,7 +588,6 @@
 		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/pagestyle.css",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/CSS3/CSS3.sublime-settings",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/SublimeCodeIntel.sublime-settings",
-		"/C/Users/Adam/Documents/JavaScript/wikiguess/WikiWat/index.html",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/Emmet.sublime-settings",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/AppendSemiColon/Default.sublime-keymap",
@@ -443,7 +596,6 @@
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Emmet/Emmet.sublime-settings",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Emmet/Default (Windows).sublime-keymap",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/Default (Windows).sublime-keymap",
-		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/Tern.sublime-keymap",
 		"/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/ColorHelper/color_helper.sublime-settings",
@@ -473,7 +625,7 @@
 	],
 	"find":
 	{
-		"height": 43.0
+		"height": 58.0
 	},
 	"find_in_files":
 	{
@@ -488,6 +640,62 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"submit",
+			"togg",
+			"slid",
+			"floating",
+			"$padding",
+			"padding",
+			"transform",
+			"desktop_only",
+			"getNewImageHtml",
+			"updateMenu",
+			"addNewgood_words",
+			"Things",
+			"Things.length",
+			"j",
+			"255, 255, 255, 1",
+			"goodWord",
+			"guessContainer",
+			" class=\"guessDivide\"",
+			"guess",
+			"game_card",
+			"goodWords",
+			"selectableContainer",
+			"translate",
+			"ans_btn_width",
+			"v_ans_margin",
+			"\"/>",
+			"input",
+			".toggleLabelIcon",
+			"type=\"button\" ",
+			"mobilehidden",
+			"400px",
+			"min",
+			"larger",
+			"50%",
+			"capSection",
+			"hoverShadow",
+			"margin",
+			"z-index",
+			"desktop",
+			" gpanel icon",
+			"class=\"panel_button\"",
+			"game_panel",
+			"four columns",
+			"game_button_panel",
+			"          ",
+			"overflow: hidden",
+			"game_button_panel",
+			"button",
+			"border",
+			"v_margin",
+			"h_margin",
+			"inherit",
+			";",
+			"larger-than-phablet",
+			"band",
+			"logo",
 			"input",
 			"Link",
 			"FA",
@@ -559,47 +767,23 @@
 			"current.imageinfo[0]",
 			"imageinfo",
 			"currentInfo.aspectRatio",
-			"nextImage",
-			"images[randIndex].imageinfo[0]",
-			"red",
-			"line",
-			"line-hei",
-			"<span class=\"vertAligner\"></span>",
-			";\n",
-			"border",
-			"webkit",
-			";\n",
-			"10px",
-			"tabs",
-			"ctrl+shift+x",
-			"ctrl+shift",
-			"ctrl+alt+x",
-			"ctrl+alt",
-			"x",
-			"alt+ctrl",
-			"ctrl+alt",
-			"x",
-			"id",
-			"down",
-			"\": ",
-			"ctrl+d",
-			"swap_line_up",
-			"swap_line_down",
-			"up",
-			"}",
-			"\\\">\");",
-			"\\\">\";",
-			"f",
-			"F",
-			"9",
-			"phase"
+			"nextImage"
 		],
-		"highlight": false,
+		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"addNewGoodWords",
+			"good_word",
+			"guess_container",
+			"card",
+			"good_words",
+			"selectable_container",
+			".widget_header i",
+			"game",
+			"game_panel",
 			"}"
 		],
 		"reverse": false,
@@ -611,266 +795,104 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Adam/AppData/Roaming/Sublime Text 3/Packages/Fold Comments/Default (Windows).sublime-keymap",
+					"file": "scss/_floatingwidget.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 69,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								69,
-								69
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"BracketHighlighterBusy": false,
-							"auto_complete": true,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
-							],
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "UnusableImages.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2239,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								167,
-								167
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"auto_complete": false,
-							"auto_name": "var UNUSABLE_IMAGES=[",
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_regex_content"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 262,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								262,
-								262
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"auto_name": "Get the Manaphy Egg (in Pokémon Ranger)",
-							"bh_regions":
-							[
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
 							],
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": true
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"expand_region_settings": "{\"stack\": [{\"start\": 1088, \"end\": 1096}], \"hash\": \"0868635f068aa6cfc3cff9a1881bc37e\"}",
+							"open_with_edit": true,
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -880,19 +902,122 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
+					"file": "scss/skeleton.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7214,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5241,
-								6026
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"expand_region_settings": "{\"stack\": [{\"start\": 2716, \"end\": 2988}], \"hash\": \"d2ce28a2894711ebd6666cd00765093e\"}",
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -901,71 +1026,658 @@
 							"auto_complete": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
 							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"expand_region_settings": "{\"stack\": [{\"start\": 5955, \"end\": 5962}], \"hash\": \"85db3c7c1f1859a2e7ee5cacb1736bac\"}",
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 3,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3366.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "menu/giveup.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete": false,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"expand_region_settings": "{\"stack\": [{\"start\": 387, \"end\": 393}], \"hash\": \"f01cac39f51a77c05e51b1595a5330be\"}",
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "scss/modules/_grid.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "scss/base/_normalize.scss",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 7594,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6383,
+								6407
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6042.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "scss/base/_functions.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "scss/base/_variables.scss",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Material Monokai Soda (SL).tmTheme",
+							"expand_region_settings": "{\"stack\": [{\"start\": 2387, \"end\": 2393}], \"hash\": \"0e75b0cc17e8e5cd55c1f8c6ce255250\"}",
+							"syntax": "Packages/Syntax Highlighting for Sass/Syntaxes/SCSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -988,20 +1700,38 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				2
+			],
+			[
+				0,
+				1,
+				1,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.419569769655,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.908379888268,
 			1.0
 		]
 	},
 	"menu_visible": true,
+	"output.CSS Extended Completions":
+	{
+		"height": 0.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -1014,7 +1744,7 @@
 	"project": "wikiwat.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 112.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1060,7 +1790,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 221.0,
+	"side_bar_width": 169.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

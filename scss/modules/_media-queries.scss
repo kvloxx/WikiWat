@@ -44,6 +44,12 @@
   }
 }
 
+@mixin bp-smaller-than-mobile {
+   @media (#{$bp-smaller-than-mobile}) {
+    @content;
+  }
+}
+
 @mixin bp-tablet {
   @media (#{$bp-larger-than-tablet}) {
     @content;

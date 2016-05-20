@@ -164,6 +164,7 @@ body {
 
 .panels{
   z-index: 3;
+
 }
 
 
@@ -192,15 +193,20 @@ body {
   }
 
   &.hint{
-    .content{
+    .panelbutton{
+      margin: 0 0 $padding $padding;
+      @include bp-gridactive {
+      margin: 0 0 $v_btn_margin $h_btn_margin;
+    }
     }
   }
 
   &.words{
     .content{
-        padding: 0 $padding $padding $padding;
+        padding: 0 $padding 0 $padding;
       @include bp-gridactive {
         padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+        min-height: 1.5rem * 1.6;
       }
     }
   }
@@ -208,8 +214,10 @@ body {
   &.history{
   
     .content{
+        padding: 0 $padding;
+      @include bp-gridactive {
       padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
-      
+      }
     }
   }
 }
@@ -220,12 +228,17 @@ body {
   z-index: 1;
 
   width: 22%;
-  margin: 0 0 0 $padding;
   padding: $padding_button_mobile;
 
   background-color: $c_container_highlight;
   line-height: 1;
   border: $panel_button_border;
+
+  &:nth-of-type(n+2){
+    @include bp-gridinactive {
+    margin: 0 0 0 4%;
+  }
+  }
 
   @include bp-gridactive {
     margin: 0 0 0 2.4%;
@@ -280,7 +293,7 @@ body {
   padding: $padding_button_mobile $padding_button_mobile*2;
   background-color: $c_container_highlight;
   cursor: default;
-  margin: 0 $padding $padding 0;
+  margin: 0 $padding 0 0;
 
   @include bp-gridactive {
     margin: 0 2*$padding_button_mobile 2*$padding_button_mobile 0;
@@ -294,8 +307,10 @@ body {
     @include floating(0);
     background-color: $c_light;
   }
-
 }
+
+
+
 .counter{
   margin-left: $padding/2;
   font-family: $ff_arvo;
@@ -347,34 +362,37 @@ body {
   }
 }
 
-.history.panel .card{
+.empty_message{
+  color: $c_detail_text;
+  font-style: italic;
+}
+
+.history_log{
   position: relative;
   @include bp-gridactive {
-  background-color: $c_container_highlight;
+  background-color: $c_container_bg;
+  overflow-y: auto;
   padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
   font-style: italic;
   font-weight: 400;
-    transform: translate(0, $card_height+$card_clearance);
+    
   }
   hr{
     border-style: dotted;
     border-color: $c_detail_text;
     margin: $padding 0;
+
+    &:last-of-type{
+      visibility: hidden;
+      margin: 0;
+    }
   }
-}
-
-.history_log_clip{
-  @extend .card_clip;
-}
-
-.history_log{
-  @extend .card;
+  background-color:$c_container_bg; 
+  height: auto;
   left: 0;
   right: 0;
-  padding: 0 $padding;
-  @include bp-gridactive {
+  padding: $padding;
 
-  }
 }
 
 .good_word{

@@ -36,10 +36,10 @@
    box-shadow: none;
 
    @include bp-gridactive {
-      left:0;
       position: relative;
+      left:0;
       top:0;
-
+      height: auto;
       overflow: visible;
       width: 100%;
       margin: 0;
@@ -67,6 +67,7 @@
       @include floating(0);
       position: relative;
       top:0;
+      height: auto;
       background-color: transparent;
       overflow: visible;
       width: 100%;
@@ -75,6 +76,7 @@
 }
 
 .widget_header {
+
    position: absolute;
    right: 0;
    bottom: 43px + 2*$padding;
@@ -87,6 +89,17 @@
    background-color: $c_container_bg;
    border-top: $accent_border_header;
 
+   &::before{
+      position: absolute;
+
+      content: "";
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 100%;
+
+      z-index: 2;
+   }
    .band{
       margin: 0;
 
@@ -133,6 +146,8 @@ input[type="text"].textField {
    width: $ans_txt_width_mobile;
    margin: $padding $h_ans_margin;
 
+   color: #8a8a89;
+   font-style: italic;
    @include bp-gridactive {
       width: $ans_txt_width_desktop;
    }

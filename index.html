@@ -12,8 +12,8 @@
   <meta name="theme-color" content="#93B874">
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600|Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600|Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,500,600,700|Kreon:400,700,300|Crete+Round:400,400italic,600' rel='stylesheet' type='text/css'> -->
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -22,6 +22,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <!-- <link rel="icon" href="https://cloud.githubusercontent.com/assets/14935003/14973727/65833dfa-10b9-11e6-85bd-24b3a895b0bb.png"> -->
   <link rel="icon" href="https://cloud.githubusercontent.com/assets/14935003/14973727/65833dfa-10b9-11e6-85bd-24b3a895b0bb.png">
+
 </head>
 
 <body>
@@ -50,15 +51,15 @@
             <i class="material-icons">&#xE8FD;</i>
             <div>Rules</div>
           </button>
-          <button class="gb panelbutton" title="New article" id="restart">
+          <button type="button" class="gb panelbutton" title="New article" id="restart">
             <i class="material-icons">&#xE5D5;</i>
             <div>Restart</div>
           </button>
-          <button class="gb panelbutton" title="Reveal title" id="giveup">
+          <button type="button" class="gb panelbutton" title="Reveal title" id="giveup">
             <i class="material-icons">&#xE812;</i>
             <div>Give Up</div>
           </button>
-          <button class="gb panelbutton" title="We live in a digital age." id="share">
+          <button type="button" class="gb panelbutton" title="We live in a digital age." id="share">
             <i class="material-icons">&#xE80D;</i>
             <div>Share</div>
           </button>
@@ -69,47 +70,37 @@
               <div class="band">
                 <h6>Hint</h6>
               </div>
-              <button class="panelbutton" title="Reveal image" id="imagehint">
+              <button type="button" class="panelbutton" title="Reveal image" id="imagehint">
                 <i class="material-icons">&#xE3C4;</i>
                 <div>Image</div>
               </button>
-              <button class="panelbutton" title="Reveal word" id="wordhint">
+              <button type="button" class="panelbutton" title="Reveal word" id="wordhint">
                 <i class="material-icons">&#xE8D2;</i>
                 <div>Word</div>
               </button>
             </div>
             <div class="words panel row">
               <div class="band">
-                <h6>Words</h6><span class="word counter">(3/5)</span>
+                <h6>Words</h6><span class="word counter"></span>
               </div>
               <div class="content good_words">
+                <span class="empty_message">Correct words will appear here</span>
               </div>
             </div>
             <div class="history panel row">
-              <div class="history_log_clip">
-                <div class="history_log">
-                  <div class="guess_container">
-                    <div class="inner menuText">Here is an old guess. <span class="good_word">Make </span>is <span class="good_word">a </span>correct word. </div>
-                  </div>
-                  <hr>
-                  <div class="guess_container">
-                    <div class="inner menuText">Here is an old guess. <span class="good_word">Make </span>is <span class="good_word">a </span>correct word. </div>
-                  </div>
-                  <hr>
-                  <div class="guess_container">
-                    <div class="inner menuText">Here is an old guess. <span class="good_word">Make </span>is <span class="good_word">a </span>correct word. </div>
-                  </div>
-                </div>
-              </div>
               <div class="band">
-                <h6>History</h6><span class="word counter">(3)</span>
+                <h6>History</h6><span class="hist counter"></span>
               </div>
+              <div class="content history_log"></div>
             </div>
           </div>
         </div>
       </div>
       <div class="wrap row eight columns">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>
@@ -122,11 +113,11 @@
       </div>
       <input class="toggle" type="checkbox" />
     </header>
-    <form class="guessSection">
-      <input class="textField" type="text" maxlength="256" value="whatever." autocomplete="off" />
-      <button type="submit" class="panelbutton submitbutton" action="javascript:submitAction()">
+    <form class="guessSection" action="javascript:submitAction()">
+      <input class="textField" type="text" maxlength="256" value="How to..." autocomplete="off" />
+      <button type="submit" class="panelbutton submitbutton">
         <i class="material-icons">&#xE5CA;</i>
-        <div>Submit</div>
+        <div>Guess</div>
       </button>
     </form>
   </div>

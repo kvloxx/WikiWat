@@ -21,13 +21,13 @@ button {
   box-sizing: border-box;
 
   &:disabled{
-    border: 1px solid lightgray;
-    color: lightgray;
-    i{color: lightgray}
+    border: 1px solid $c_disabled_text;
+    color: $c_disabled_text;
+    i{color: $c_disabled_text}
 
     &:hover, &:active{
-      border: 1px solid lightgray;
-      color: lightgray;
+      border: 1px solid $c_disabled_text;
+      color: $c_disabled_text;
       background-color: $c_container_highlight;
       box-shadow: none;
     }

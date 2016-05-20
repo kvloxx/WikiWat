@@ -460,16 +460,16 @@ button {
   box-sizing: border-box; }
   .button:disabled,
   button:disabled {
-    border: 1px solid lightgray;
-    color: lightgray; }
+    border: 1px solid lightgrey;
+    color: lightgrey; }
     .button:disabled i,
     button:disabled i {
-      color: lightgray; }
+      color: lightgrey; }
     .button:disabled:hover, .button:disabled:active,
     button:disabled:hover,
     button:disabled:active {
-      border: 1px solid lightgray;
-      color: lightgray;
+      border: 1px solid lightgrey;
+      color: lightgrey;
       background-color: #f6f8f7;
       box-shadow: none; }
 

@@ -1,9 +1,11 @@
 var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g,
+   SEP_PUNCT = /["(),<>?@\[\]_{}]/g,
    NUM_INITIAL_IMAGES = 1,
    MIN_PAGE_IMAGES = 4, //must be >= NUM_INITIAL_IMAGES
-   DEFAULT_INPUT_MESSAGE = 'whatever.',
-   GAMECARD_SLIDE_DELAY = 450;
-BP_GRID_ACTIVE = 750;
+   DEFAULT_INPUT_MESSAGE = 'How to...',
+   GAMECARD_SLIDE_DELAY = 450,
+   BP_GRID_ACTIVE = 750,
+   gFirstScroll;
 $DOC = $(document),
    promisedUsablePage = asyncQueryForRandomUsablePage();
 
@@ -18,12 +20,16 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 
    $.when(promisedUsablePage).done(function(pageInfo) {
       $DOC.data('wikiPageTitle', new titleObject(pageInfo.title));
+      initializeCounters();
    });
 
    $DOC.data('readyDeferred').resolve();
 
-   /*   $(window).scroll(setFixedInputPosition);
-      $(window).resize(setFixedInputPosition);*/
+   $DOC.data('fixedFloatWidth', $('.game.panel').width());
+   $DOC.data('fixedFloatLeft', $('.game.panel').offset().left);
+
+   $(window).scroll(scrollAction);
+   $(window).resize(resizeAction);
    var $panel_buttons = $('.gb');
    $panel_buttons.blur(gPanelButtonBlurAction);
    $panel_buttons.click(gPanelButtonPressedAction);
@@ -31,6 +37,7 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
    $('#imagehint').click(addImageToDocument);
    $('#wordhint').click(giveWordHint);
 
+   // $('.guessSection').submit(submitAction);
 
    $textField.focus(focusedAction);
    $textField.keyup(keyupAction);
@@ -42,7 +49,76 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
       console.log($DOC.data('wikiPageTitle').origString);
       $textField.val($DOC.data('wikiPageTitle').origString);
    });
+
+   gFirstScroll = false;
 }); //End $DOC.ready
+
+function resizeAction() {
+   var $gamepanel = $('.game.panel'),
+      // logMaxHeight = document.getElementsByClassName('widget_header')[0].getBoundingClientRect().top - $('.hint.panel').outerHeight() - $('.words.panel').outerHeight() - $('.history.panel .band').outerHeight();
+      logMaxHeight = $('.widget_header')[0].getBoundingClientRect().top - ($('.menu_clip').height() - $('.history_log').height()) - 20 - 20;
+
+   // e=document.getElementsByClassName('widget_header')[0].getBoundingClientRect().top;
+   $DOC.data('fixedFloatWidth', $gamepanel.width());
+   $DOC.data('fixedFloatLeft', $gamepanel.offset().left);
+
+   if (isGridActive()) {
+      $('.history_log').css('max-height', logMaxHeight + 'px');
+   }
+   console.log('\t---ln: 52 from ' + this + '---');
+   isGridActive();
+   scrollAction();
+}
+
+function isGridActive() {
+   return ($('.trim').css('display') !== 'none');
+}
+
+function scrollAction() {
+   if ($(document.activeElement).hasClass('gb')) {
+      $(document.activeElement).blur();
+   }
+   if (isGridActive()) {
+      if (!gFirstScroll) {
+         gFirstScroll = true;
+         resizeAction();
+         return;
+      }
+      var $gamepanel = $('.game.panel');
+
+      if ($DOC.scrollTop() >= $gamepanel.offset().top + $gamepanel.height()) {
+         $('.menu_clip').css({
+            position: 'fixed',
+            width: $DOC.data('fixedFloatWidth'),
+            top: '20px',
+            left: $DOC.data('fixedFloatLeft')
+         });
+      } else {
+         $('.menu_clip').css({
+            position: '',
+            width: '',
+            top: '',
+            left: '',
+         });
+      }
+   } else {
+      $('.menu_clip').css({
+         position: '',
+         width: '',
+         top: '',
+         left: '',
+      });
+   }
+
+   // var offset = $DOC.scrollTop() - $gamepanel.offset().top + $gamepanel.height();
+   // if (offset<0) {
+   //    $('.menu_clip').css("top", "20px");
+   //    $('.menu_clip').css("transform", "translate(0," + offset + "px)");
+   // } else {
+   //    $('.menu_clip').css("top", "0px");
+   //    $('.menu_clip').css("transform", "none");
+   // }
+}
 
 function gPanelButtonPressedAction() {
    var pagelink = 'menu/' + $(this).attr('id') + '.html';
@@ -55,7 +131,7 @@ function gPanelButtonPressedAction() {
          $(this).delay(GAMECARD_SLIDE_DELAY);
          $(this).dequeue();
       });
-   } else{
+   } else {
       $('.card, .menu_clip').queue(function() {
          if ($('.card iframe').attr("src") !== pagelink) {
             $('.card iframe').attr("src", pagelink);
@@ -93,6 +169,7 @@ function titleObject(str) {
    this.normTokens =
       diacritics2url.replaceDiacritics(str.toLowerCase().replace(STD_PUNCT, ''))
       .match(/\S+/g);
+   this.wordTokens = str.replace(SEP_PUNCT, '').match(/\S+/g);
    this.guessed = zeroArray(this.origTokens.length);
 }
 
@@ -200,7 +277,7 @@ function giveWordHint() {
    if (tmp.length >= 1) {
       var n = Math.floor(Math.random() * tmp.length);
       title.guessed[tmp[n]]++;
-      addNewGoodWords(makeWordNode(title.origTokens[tmp[n]]), 'slow');
+      addNewGoodWords(makeWordNode(title.wordTokens[tmp[n]]), 'slow');
       if (tmp.length === 1) {
          disable($(this)); //disable button calling this as a listener funct.  
       }
@@ -250,7 +327,7 @@ function removeLoaderClass() {
 wrapped in a page image wrapper*/
 function getNewImageHtml(nextImageInfo) {
    var ret = $('<div class="box_wrapper floatyWrapper row"></div>'),
-      unveilImgTag = $('<img class="pageImage loader u-max-full-width" src="res/subtle_loader.gif"/>');
+      unveilImgTag = $('<img class="pageImage loader u-max-full-width" src="http://i.imgur.com/WYp19wj.gif"/>');
 
    /*
    TODO: make media delivery responsive/make sense (this isn't quite it)
@@ -276,7 +353,7 @@ function focusedAction() {
    var $this = $(this),
       $tog = $('.toggle');
    /*NOTE: hard coded color value of focused textbox text*/
-   $this.css('color', '#262b26');
+   $this.css({ color: '#222', 'font-style': 'normal' });
    if ($this.val() === DEFAULT_INPUT_MESSAGE)
       $this.val('');
 
@@ -305,7 +382,7 @@ function blurAction() {
       enable($('.guessSubmit'));
    else {
       $this.val(DEFAULT_INPUT_MESSAGE);
-      $this.css('color', '#A6C090');
+      $this.css({ color: '#8a8a89', 'font-style': 'italic' });
       disable($('.guessSubmit'));
    }
 }
@@ -316,24 +393,32 @@ Updates to guess history and known words are performed.
 The menu is scrolled to put the new history entry into view.*/
 function submitAction() {
    var $menu = $('.menu'),
-      guess = new titleObject($('.textField').val()),
-      title = $DOC.data('wikiPageTitle'),
-      wasChecked = true,
-      lim = $('.good_words').height() + 10;
+      str = $('.textField').val(),
+      guess = new titleObject(str.replace(/^\s*how\s+to\s+/gi, '')),
+      title = $DOC.data('wikiPageTitle');
 
-   if ($menu.scrollTop() > lim) {
-      $menu.animate({ scrollTop: lim }, wasChecked ? 300 : 1, 'swing', updateMenu(guess, 600, 'slow'));
-   } else {
-      updateMenu(guess, 'slow', 'slow');
-   }
-
+   updateMenu(guess, 'slow', 'slow');
    $('.textField').val('');
+}
+
+function initializeCounters() {
+   $('.word.counter').data('num', 0);
+   console.log($('.word.counter').data('num'));
+   $('.hist.counter').data('num', 0);
+   $('.word.counter').data('outof', $DOC.data('wikiPageTitle').normTokens.length);
+   $('.word.counter').text('(0/' + $('.word.counter').data('outof') + ')');
+   $('.hist.counter').text('(0)');
 }
 
 function insertableElementClickAction() {
    var $textField = $('.textField');
-   console.log("BUHHHHHHHHH YO");
-   $textField.val($textField.val() + ' ' + $(this).text());
+
+   $textField.focus();
+   if($textField.val()===''){
+   $textField.val($(this).text().trim());
+}else{
+   $textField.val($textField.val() + ' '+ $(this).text().trim());
+}
 }
 
 /*updateMenu delegates the creation of new DOM nodes for the guess
@@ -354,7 +439,7 @@ an sNode (single jQuery node with the new history entry) and a wNodeList
 (possibly empty array of jQuery selectable_container-class nodes each 
 representing a new good word)*/
 function getNewMenuHtml(guess, title) {
-   var sNode = $('<hr"><div class="guess_container"><div class="inner menuText"></div></div>'),
+   var sNode = $('<div class="guess_container"><div class="inner menuText"></div></div><hr>'),
       inner = sNode.find('.inner'),
       wNodeList = [],
       s = '';
@@ -364,7 +449,9 @@ function getNewMenuHtml(guess, title) {
          if (guess.normTokens[i] === title.normTokens[j]) {
             inner.append(document.createTextNode(s));
             s = '';
-            inner.append($('<span class="good_word"></span>').text(guess.origTokens[i] + ' '));
+            var gw=$('<span class="good_word"></span>').text(guess.origTokens[i].trim()+' ');
+            gw.click(insertableElementClickAction);
+            inner.append(gw);
             if (title.guessed[j] === 0) {
                wNodeList.push(makeWordNode(title.origTokens[j]));
             }
@@ -387,16 +474,30 @@ function getNewMenuHtml(guess, title) {
 into the history list in the menu. New entry fades in over fadeDuration
 while older entries slide down over slideDuration*/
 function addNewGuessHistory(histNode, slideDuration, fadeDuration) {
-   $(histNode).hide().insertAfter('.guessHistory .menuHeadline').slideDown(
+   console.log('\t---ln: 441 from ' + this + '---');
+   console.log(histNode);
+   $(histNode).hide().prependTo('.history_log').slideDown(
       slideDuration).fadeIn(fadeDuration);
+   var oldnum = $('.hist.counter').data('num');
+   $('.hist.counter').data('num', oldnum + 1);
+   $('.hist.counter').text('(' + (oldnum + 1) + ')');
 }
 
 /*addNewGoodWords iterates over the list of new good word nodes and fades 
 each one into the document over a specified fadeDuration*/
 function addNewGoodWords(wordNodeList, fadeDuration) {
+   var oldnum = $('.word.counter').data('num'),
+      outof = $('.word.counter').data('outof');
+   if (oldnum === 0) {
+      $('.empty_message').remove();
+   }
+
    for (var i = wordNodeList.length - 1; i >= 0; i--) {
       $(wordNodeList[i]).hide().appendTo('.good_words').fadeIn('fadeDuration');
+      oldnum++;
    }
+   $('.word.counter').data('num', oldnum);
+   $('.word.counter').text('(' + oldnum + '/' + outof + ')');
 }
 
 /*makeWordNode returns a "good_word"-style jQ node with input text string*/

@@ -857,7 +857,7 @@ body {
       line-height: 1.8; } }
 
 .band {
-  box-shadow: 0 0 0px rgba(0, 0, 0, 0.21);
+  box-shadow: none;
   position: static;
   top: 0;
   right: 0;

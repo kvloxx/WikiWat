@@ -108,7 +108,7 @@ body {
 }
 
 .band {
-  @include floating(0);
+  box-shadow: none;
 
   position: static;
   top: 0;

@@ -75,8 +75,6 @@ function resizeAction() {
             gMobileLayout = false;
             $('.history_log').removeAttr('style');
 
-            $('.mainrow').removeAttr('style');
-
             $('.menu_clip').removeAttr('style');
 
             $('.sliding_up_mobile').removeAttr('style');
@@ -92,8 +90,6 @@ function resizeAction() {
             gMobileLayout = true;
 
             $('.history_log').removeAttr('style');
-
-            $('.mainrow').removeAttr('style');
 
             $('.menu_clip').removeAttr('style');
 
@@ -147,7 +143,6 @@ function scrollAction() {
         var $gamepanel = $('.game.panel');
 
         if ($DOC.scrollTop() >= $gamepanel.offset().top + $gamepanel.height()) {
-            if (!gScrollBelowTheLine) {
                 gScrollBelowTheLine = true;
                 console.log('\t---ln: 109 from ' + this + '---');
                 $('.history_log').css({
@@ -156,7 +151,7 @@ function scrollAction() {
                     "max-height": $('.answer')[0].getBoundingClientRect().top - $('.history_log')[0].getBoundingClientRect().top - 30
                 });
                 $('.mainrow').css({
-                    "min-height": 20 + $gamepanel.outerHeight(true) + $('.menu_clip').outerHeight(true)
+                    "min-height": Math.max(20 + $gamepanel.outerHeight(true) + $('.menu_clip').outerHeight(true) ,  $('.mainrow').css("max-height"))
                 });
                 $('.menu_clip').css({
                     position: 'fixed',
@@ -166,9 +161,8 @@ function scrollAction() {
                 });
 
 
-            }
         } else {
-            if (gScrollBelowTheLine) {
+            
                 gScrollBelowTheLine = false;
                 console.log('\t---ln: 122 from ' + this + '---');
                 $('.menu_clip').css({
@@ -177,7 +171,6 @@ function scrollAction() {
                     top: '',
                     left: '',
                 });
-            }
         }
     } else {
         if (gDiff > 0) {

@@ -1150,6 +1150,7 @@ body {
     padding: 6px;
     background-color: #93b874;
     margin: 0;
+    max-width: none;
     width: 100%;
     text-align: center;
     text-justify: inter-word; }

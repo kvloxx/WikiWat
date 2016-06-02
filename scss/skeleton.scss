@@ -498,6 +498,7 @@ body {
         padding: $padding_mobile;
         background-color: $c_main;
         margin: 0;
+        max-width: none;
         width: 100%;
         text-align: center;
         text-justify: inter-word;

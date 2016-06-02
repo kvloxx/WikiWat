@@ -61,6 +61,8 @@ $band_height_mobile: 43px+ 2*$padding_band;
 $band_height: 2.4rem * 1.5;
 $card_height: 250px;
 $menu_height: 300px;
+$text_field_height: 43px;
+$widget_header_height: 25px;
 $card_clearance: 0px;
 $accent_border_header_width: 3px;
 //distance above bottom of header (to avoid peeking shadow)
@@ -69,11 +71,13 @@ $logo_height: logo-height(8);
 $h_btn_margin: 5%;
 $v_btn_margin: 5%;
 
-$answer_width_desktop: 98%;
+$answer_width_desktop: 95%;
 $answer_width_mobile: 95%;
 $h_ans_margin: 1.5%;
 $ans_btn_to_txt_ratio_mobile: 5;
 $ans_btn_to_txt_ratio_desktop: 8;
+
+$answer_height: $text_field_height + ($padding * 3) + $widget_header_height + $accent_border_header_width;
 
 $ans_btn_width_mobile: (100 - 3 * $h_ans_margin)/($ans_btn_to_txt_ratio_mobile + 1);
 $ans_btn_width_desktop: (100 - 3 * $h_ans_margin)/($ans_btn_to_txt_ratio_desktop + 1);
@@ -84,3 +88,4 @@ $ans_txt_width_desktop: $ans_btn_to_txt_ratio_desktop * $ans_btn_width_desktop;
 $accent_border_header: $accent_border_header_width solid $c_link;
 $accent_border_footer: 2px solid $c_link;
 $panel_button_border: .5px solid $c_detail_text;
+

@@ -28,108 +28,113 @@
 <body>
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <header class="top_header row">
-      <div class="backdrop">
-        <div class="trim mobileonly"></div>
-      </div>
-      <img class="eight columns" src="https://cloud.githubusercontent.com/assets/14935003/14973678/bdda1d44-10b8-11e6-95b3-a6df10b93df1.png" alt="Wiki What?" />
-      <h5 class="tagline twelve columns">Embrace the Inscrutable.</h5>
-    </header>
-    <div class="row mainrow">
-      <div class="panels row four columns">
-        <div class="game panel row">
-          <div class="card_clip">
-            <div class="card">
-              <iframe src="menu/rules.html" frameborder="0"></iframe>
-              <div class="scrim"> </div>
+  
+    <div class="main container">
+      <header class="top_header row">
+        <div class="backdrop">
+          <div class="trim mobileonly"></div>
+        </div>
+        <img class="eight columns" src="https://cloud.githubusercontent.com/assets/14935003/14973678/bdda1d44-10b8-11e6-95b3-a6df10b93df1.png" alt="Wiki What?" />
+        <h5 class="tagline twelve columns">Embrace the Inscrutable.</h5>
+      </header>
+      <div class="row mainrow">
+        <div class="panels row four columns">
+          <div class="game panel row">
+            <div class="card_clip">
+              <div class="card">
+                <iframe src="menu/rules.html" frameborder="0"></iframe>
+                <div class="scrim"> </div>
+              </div>
+            </div>
+            <div class="band mobile_header">
+              <h6>Game</h6></div>
+            <button class="gb panelbutton" title="How to play" id="rules">
+              <i class="material-icons">&#xE8FD;</i>
+              <div>Rules</div>
+            </button>
+            <button type="button" class="gb panelbutton" title="New article" id="restart">
+              <i class="material-icons">&#xE5D5;</i>
+              <div>Restart</div>
+            </button>
+            <button type="button" class="gb panelbutton" title="Reveal title" id="giveup">
+              <i class="material-icons">&#xE812;</i>
+              <div>Give Up</div>
+            </button>
+            <button type="button" class="gb panelbutton" title="We live in a digital age." id="share">
+              <i class="material-icons">&#xE80D;</i>
+              <div>Share</div>
+            </button>
+          </div>
+          <div class="menu_clip">
+            <div class="menu sliding_up_mobile">
+              <div class="hint panel row">
+                <div class="band">
+                  <h6>Hint</h6>
+                </div>
+                <button type="button" class="panelbutton" title="Reveal image" id="imagehint">
+                  <i class="material-icons">&#xE3C4;</i>
+                  <div>Image</div>
+                </button>
+                <button type="button" class="panelbutton" title="Reveal word" id="wordhint">
+                  <i class="material-icons">&#xE8D2;</i>
+                  <div>Word</div>
+                </button>
+              </div>
+              <div class="words panel row">
+                <div class="band">
+                  <h6>Words</h6><span class="word counter"></span>
+                </div>
+                <div class="content good_words">
+                  <span class="empty_message">Correctly guessed words will appear here</span>
+                </div>
+              </div>
+              <div class="history panel row">
+                <div class="band">
+                  <h6>History</h6><span class="hist counter"></span>
+                </div>
+                <div class="content history_log"></div>
+              </div>
             </div>
           </div>
-          <div class="band mobile_header">
-            <h6>Game</h6></div>
-          <button class="gb panelbutton" title="How to play" id="rules">
-            <i class="material-icons">&#xE8FD;</i>
-            <div>Rules</div>
-          </button>
-          <button type="button" class="gb panelbutton" title="New article" id="restart">
-            <i class="material-icons">&#xE5D5;</i>
-            <div>Restart</div>
-          </button>
-          <button type="button" class="gb panelbutton" title="Reveal title" id="giveup">
-            <i class="material-icons">&#xE812;</i>
-            <div>Give Up</div>
-          </button>
-          <button type="button" class="gb panelbutton" title="We live in a digital age." id="share">
-            <i class="material-icons">&#xE80D;</i>
-            <div>Share</div>
-          </button>
         </div>
-        <div class="menu_clip">
-          <div class="menu sliding_up_mobile">
-            <div class="hint panel row">
-              <div class="band">
-                <h6>Hint</h6>
-              </div>
-              <button type="button" class="panelbutton" title="Reveal image" id="imagehint">
-                <i class="material-icons">&#xE3C4;</i>
-                <div>Image</div>
-              </button>
-              <button type="button" class="panelbutton" title="Reveal word" id="wordhint">
-                <i class="material-icons">&#xE8D2;</i>
-                <div>Word</div>
-              </button>
-            </div>
-            <div class="words panel row">
-              <div class="band">
-                <h6>Words</h6><span class="word counter"></span>
-              </div>
-              <div class="content good_words">
-                <span class="empty_message">Correct words will appear here</span>
-              </div>
-            </div>
-            <div class="history panel row">
-              <div class="band">
-                <h6>History</h6><span class="hist counter"></span>
-              </div>
-              <div class="content history_log"></div>
-            </div>
-          </div>
+        <div class="wrap row eight columns">
         </div>
-      </div>
-      <div class="wrap row eight columns">
       </div>
     </div>
-  </div>
-  <!-- FLOATING ANSWER WIDGET -->
-  <div class="answer">
-    <header class="widget_header sliding_up_mobile">
-      <div class="band">
-        <i class="material-icons mobile_only">&#xE5CE;</i>
-        <h6>Guess</h6>
-      </div>
-      <input class="toggle" type="checkbox" />
-    </header>
-    <form class="guessSection" action="javascript:submitAction()">
-      <input class="textField" type="text" maxlength="256" value="How to..." autocomplete="off" />
-      <button type="submit" class="panelbutton submitbutton">
-        <i class="material-icons">&#xE5CA;</i>
-        <div>Guess</div>
-      </button>
-    </form>
-  </div>
+    <!-- FLOATING ANSWER WIDGET -->
+
+    <div class="answer">
+      <header class="widget_header sliding_up_mobile">
+        <div class="band">
+          <i class="material-icons mobile_only">&#xE5CE;</i>
+          <h6>Guess</h6>
+        </div>
+        <input class="toggle" type="checkbox" />
+      </header>
+      <form class="guessSection" action="javascript:submitAction()">
+        <input class="textField" type="text" maxlength="256" value="How to..." autocomplete="off" />
+        <button type="submit" class="panelbutton submitbutton">
+          <i class="material-icons">&#xE5CA;</i>
+          <div>Guess</div>
+        </button>
+      </form>
+    </div>
+  
   <footer class="page_footer">
     <div class="footer_band">
       <h6 class="footer_title"><i>WikiWhat?</i> • 2016 Adam Smith</h6>
     </div>
-    <div class="container">
-      <a target="_blank" href="" class="navItem">About</a><span class="linkspacer"></span>
-      <a target="_blank" href="" class="navItem">Thanks</a><span class="linkspacer"></span>
-      <a target="_blank" href="" class="navItem">Share</a><span class="linkspacer"></span>
-      <a target="_blank" href="https://wikihow.com" class="navItem">WikiHow</a><span class="linkspacer"></span>
-      <a target="_blank" href="https://github.com/kvloxx" class="navItem">GitHub</a>
-      <br>
-      <span style="font-family: 'Arial';">¯\_(ツ)_/¯</span>
-    </div>
+  
+      <div class="container">
+        <a target="_blank" href="" class="navItem">About</a><span class="linkspacer"></span>
+        <a target="_blank" href="" class="navItem">Thanks</a><span class="linkspacer"></span>
+        <a target="_blank" href="" class="navItem">Share</a><span class="linkspacer"></span>
+        <a target="_blank" href="https://wikihow.com" class="navItem">WikiHow</a><span class="linkspacer"></span>
+        <a target="_blank" href="https://github.com/kvloxx" class="navItem">GitHub</a>
+        <br>
+        <span style="font-family: 'Arial';">¯\_(ツ)_/¯</span>
+      </div>
+  
   </footer>
   <!--scripts–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>

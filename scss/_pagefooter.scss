@@ -1,0 +1,58 @@
+.page_footer {
+    position: relative;
+    margin: auto;
+    padding: 0 0 0 0;
+
+    // background-color: $c_main;
+    color: $c_link;
+
+    .container {
+        padding: $padding_mobile;
+        background-color: $c_main;
+        margin: 0;
+        max-width: none;
+        width: 100%;
+        text-align: center;
+        text-justify: inter-word;
+    }
+
+    &:before {
+        @include bp-gridactive {
+            content: "";
+            height: 10px;
+            visibility: hidden;
+            display: block;
+            opacity: 0;
+            height: 10px;
+        }
+    }
+}
+
+.footer_band {
+    @include floating(3);
+
+    top: 0;
+    width: 100%;
+    background-color: $c_container_bg;
+
+    // border-top: $panel_button_border;
+    border-bottom: $accent_border_header;
+}
+
+.footer_logo {
+    float: left;
+    max-height: 20px;
+}
+
+.footer_title {
+    margin: 0;
+    padding: 2px;
+    color: $c_detail_text;
+    text-align: center;
+}
+
+.linkspacer {
+    display: inline-block;
+    width: 3%;
+    text-align: center;
+}

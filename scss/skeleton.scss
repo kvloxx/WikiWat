@@ -26,7 +26,8 @@
 @import "modules/tables";
 @import "modules/spacing";
 @import "modules/media-queries";
-@import "floatingwidget";
+@import "floatingwidget"; 
+@import "pagefooter"; 
 
 // /* variables */
 * {
@@ -57,7 +58,11 @@ body {
     &:after {
         content: "";
         width: $answer_width_desktop;
-        height: $answer_height;
+        height: $answer_height + 2*$margin;
+
+        @include bp-gridactive {
+            height: $answer_height;
+        }
     }
 }
 
@@ -180,8 +185,11 @@ body {
     }
 
 
-    &.game {}
+    &.game {
+        
+    }
 }
+
 
 .hint {
     .panelbutton {
@@ -358,9 +366,11 @@ body {
 .card_clip {
     position: relative;
     z-index: 0;
+    top: $band_height_mobile - $padding_band;
 
     @include bp-gridactive {
         position: absolute;
+        top: auto;
         bottom: -$card_height;
         overflow: hidden;
         height: $card_height;
@@ -454,6 +464,15 @@ body {
         margin-top: 0;
     }
 }
+.spacie{
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: lime;
+    line-height: 0;
+    border-radius: $b-rad;
+    visibility: hidden;
+}
 
 .box_wrapper {
     @include floating(2);
@@ -486,61 +505,3 @@ body {
     font-style: italic;
 }
 
-.page_footer {
-    position: relative;
-    margin: auto;
-    padding: 0 0 0 0;
-
-    // background-color: $c_main;
-    color: $c_link;
-
-    .container {
-        padding: $padding_mobile;
-        background-color: $c_main;
-        margin: 0;
-        max-width: none;
-        width: 100%;
-        text-align: center;
-        text-justify: inter-word;
-    }
-
-    &:before {
-        @include bp-gridactive {
-            content: "";
-            height: 10px;
-            visibility: hidden;
-            display: block;
-            opacity: 0;
-            height: 10px;
-        }
-    }
-}
-
-.footer_band {
-    @include floating(3);
-
-    top: 0;
-    width: 100%;
-    background-color: $c_container_bg;
-
-    // border-top: $panel_button_border;
-    border-bottom: $accent_border_header;
-}
-
-.footer_logo {
-    float: left;
-    max-height: 20px;
-}
-
-.footer_title {
-    margin: 0;
-    padding: 2px;
-    color: $c_detail_text;
-    text-align: center;
-}
-
-.linkspacer {
-    display: inline-block;
-    width: 3%;
-    text-align: center;
-}

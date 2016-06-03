@@ -5,11 +5,10 @@
     left: (100 - $answer_width_mobile) / 2;
     width: $answer_width_mobile;
     margin: 0;
-    margin-bottom: (100 - $answer_width_mobile) / 2;
+    margin-bottom: $margin;
     padding: 0;
-
+    @include floating(5);
     @include bp-gridactive {
-        @include floating(5);
 
         left: (100 - $answer_width_desktop) / 2;
         width: $answer_width_desktop;
@@ -21,7 +20,7 @@
     @extend .answer;
 
     // top: $menu_height -$text_field_height;
-
+    bottom: $text_field_height + 2*$padding;
     overflow: hidden;
     height: $menu_height;
     width: $answer_width_mobile;
@@ -30,6 +29,7 @@
 
     @include bp-gridactive {
         position: relative;
+        bottom: auto;
         left: 0;
         top: 0;
         height: auto;
@@ -69,8 +69,6 @@
 }
 
 .widget_header {
-    @include floating(5);
-
     position: relative;
     right: 0;
 
@@ -133,8 +131,6 @@
 }
 
 .guessSection {
-    @include floating(5);
-
     background-color: $c_container_bg;
     position: relative;
     padding: 0;

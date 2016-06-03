@@ -675,6 +675,50 @@ ol,
 form {
   margin-bottom: 2.5rem; }
 
+.page_footer {
+  position: relative;
+  margin: auto;
+  padding: 0 0 0 0;
+  color: #487841; }
+  .page_footer .container {
+    padding: 6px;
+    background-color: #93b874;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    text-align: center;
+    text-justify: inter-word; }
+  @media (min-width: 750px) {
+    .page_footer:before {
+      content: "";
+      height: 10px;
+      visibility: hidden;
+      display: block;
+      opacity: 0;
+      height: 10px; } }
+
+.footer_band {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 3px solid #487841; }
+
+.footer_logo {
+  float: left;
+  max-height: 20px; }
+
+.footer_title {
+  margin: 0;
+  padding: 2px;
+  color: #8a8a89;
+  text-align: center; }
+
+.linkspacer {
+  display: inline-block;
+  width: 3%;
+  text-align: center; }
+
 /* variables */
 body {
   background-color: #f6f8f7;

@@ -10,7 +10,6 @@ var STD_PUNCT = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g,
 
 var gFirstScroll = false,
     gDiff = 0,
-    gScrollBelowTheLine = false;
     gMobileLayout = !isGridActive();
 
 $.when( //coordinates page loading (a masterpiece)
@@ -73,35 +72,20 @@ function resizeAction() {
     if (isGridActive()) {
         if (gMobileLayout) {
             gMobileLayout = false;
-            $('.history_log').removeAttr('style');
-
-            $('.menu_clip').removeAttr('style');
-
-            $('.sliding_up_mobile').removeAttr('style');
-            
-            $('.widget_header i').removeAttr('style');
-
-            $('.widget_header .band').removeAttr('style');
-            
-            $('.toggle').removeAttr('checked');
+            nukeStyles();
         }
     } else {
         if (!gMobileLayout) {
             gMobileLayout = true;
-
-            $('.history_log').removeAttr('style');
-
-            $('.menu_clip').removeAttr('style');
-
-            $('.sliding_up_mobile').removeAttr('style');
-
-            $('.widget_header i').removeAttr('style');
-
-            $('.widget_header .band').removeAttr('style');
-
-            $('.toggle').removeAttr('checked');
+            nukeStyles();
         }
     }
+}
+
+function nukeStyles() {
+    $('.history_log, .menu_clip, .sliding_up_mobile, .widget_header, .widget_header i, .widget_header .band, .guessSection').removeAttr('style');
+    $('.answer').css('box-shadow', ''); //done separately to preserve custom 'bottom' prop
+    $('.toggle').removeAttr('checked');
 }
 
 // function updateHistoryLogHeight(){
@@ -119,69 +103,56 @@ function scrollAction() {
     if ($(document.activeElement).hasClass('gb')) {
         $(document.activeElement).blur();
     }
-
-    gDiff = $DOC.scrollTop() + $(window).height() - ($DOC.height() - $('.page_footer').height());
-
-    
-
     if (isGridActive()) {
         if (!gFirstScroll) {
             gFirstScroll = true;
             resizeAction();
             return;
         }
+        var $gamepanel = $('.game.panel');
+
+        var dorf = $('.history_log')[0].getBoundingClientRect().top + $('.history_log').outerHeight() - ($('.wrap')[0].getBoundingClientRect().top + $('.wrap').outerHeight());
+        console.log('dorf: ' + dorf);
+        if (dorf > 0) {
+            console.log("dorflo");
+
+        }
+        gDiff = $(window).scrollTop() + $(window).height() - $('.page_footer').offset().top;
 
         if (gDiff > 0) {
             console.log('\t---ln: 91 from ' + this + '---');
             $('.answer, .menu_clip').css({ bottom: gDiff });
-            // $('.history').css({ max-height: gDiff });
         } else {
             console.log('\t---ln: 95 from ' + this + '---');
             $('.answer, .menu_clip').css({ bottom: 0 });
         }
-
-        var $gamepanel = $('.game.panel');
-
-        if ($DOC.scrollTop() >= $gamepanel.offset().top + $gamepanel.height()) {
-                gScrollBelowTheLine = true;
-                console.log('\t---ln: 109 from ' + this + '---');
-                $('.history_log').css({
-
-                    // height: ($('.menu').innerHeight() - ($('.hint').outerHeight(true) + $('.words').outerHeight(true)) - $('.history band').outerHeight(true))
-                    "max-height": $('.answer')[0].getBoundingClientRect().top - $('.history_log')[0].getBoundingClientRect().top - 30
-                });
-                $('.mainrow').css({
-                    "min-height": Math.max(20 + $gamepanel.outerHeight(true) + $('.menu_clip').outerHeight(true) ,  $('.mainrow').css("max-height"))
-                });
-                $('.menu_clip').css({
-                    position: 'fixed',
-                    width: $DOC.data('fixedFloatWidth'),
-                    top: '20px',
-                    left: $DOC.data('fixedFloatLeft')
-                });
-
-
+        var space = $(window).scrollTop() - ($gamepanel.offset().top + $gamepanel.height())
+        if (space > 0) {
+            console.log('\t---ln: 109 from ' + this + '---');
+            $('.spacie').css({
+                position: 'relative'
+            });
+            $('.history_log').css({
+                "max-height": $('.answer')[0].getBoundingClientRect().top - $('.history_log')[0].getBoundingClientRect().top - 30
+            });
+            $('.menu_clip').css({
+                position: 'fixed',
+                width: $DOC.data('fixedFloatWidth'),
+                top: 20,
+                left: $DOC.data('fixedFloatLeft')
+            });
         } else {
-            
-                gScrollBelowTheLine = false;
-                console.log('\t---ln: 122 from ' + this + '---');
-                $('.menu_clip').css({
-                    position: '',
-                    width: '',
-                    top: '',
-                    left: '',
-                });
-        }
-    } else {
-        if (gDiff > 0) {
-            console.log('\t---ln: 91 from ' + this + '---');
-            $('.menu_clip').css({ bottom: gDiff + $('.guessSection').height()});
-            $('.answer').css({ bottom: gDiff });
-            // $('.history').css({ max-height: gDiff });
-        } else {
-            console.log('\t---ln: 95 from ' + this + '---');
-            $('.menu_clip').css({ bottom: $('.guessSection').height()});
-            $('.answer').css({ bottom: 0 });
+            console.log('\t---ln: 122 from ' + this + '---');
+            $('.menu_clip').css({
+                position: '',
+                width: '',
+                top: '',
+                left: '',
+            });
+            $('.spacie').css({
+                position: 'absolute',
+                height: $('.menu_clip').outerHeight(true)
+            });
         }
     }
 }
@@ -252,6 +223,12 @@ function slide() {
         $('.widget_header .band').css({
             'border-bottom': '.5px solid #8a8a89'
         });
+        $('.widget_header, .guessSection').css({
+            'box-shadow': 'none'
+        });
+        $('.answer').css({
+            'box-shadow': '0 0 10px rgba(0, 0, 0, 0.16)'
+        });
     } else {
         $('.sliding_up_mobile').css({
             "transform": "translate(0,-" + $('.menu').height() + "px)"
@@ -261,6 +238,12 @@ function slide() {
         });
         $('.widget_header .band').css({
             'border-bottom': 'none'
+        });
+        $('.answer').css({
+            'box-shadow': 'none'
+        });
+        $('.widget_header, .guessSection').css({
+            'box-shadow': '0 0 10px rgba(0, 0, 0, 0.16)'
         });
     }
 }
@@ -476,7 +459,11 @@ function submitAction() {
         guess = new titleObject(str.replace(/^\s*how\s+to\s+/gi, '')),
         title = $DOC.data('wikiPageTitle');
 
-    updateMenu(guess, 'slow', 'slow');
+    if (isGridActive()) {
+        updateMenu(guess, 'slow', 'slow');
+    } else {
+        updateMenuMobile(guess, 'slow', 'slow');
+    }
     $('.textField').val('');
 }
 
@@ -505,10 +492,14 @@ and coordinates their addition to the document with respect to their
 elements' animation speeds*/
 function updateMenu(guess, slideDuration, fadeDuration) {
     var newHtml = getNewMenuHtml(guess, $DOC.data('wikiPageTitle'));
-    addNewGuessHistory(newHtml.hist, slideDuration, fadeDuration);
     addNewGoodWords(newHtml.words, fadeDuration);
+    return addNewGuessHistory(newHtml.hist, slideDuration, fadeDuration);
+}
 
-
+function updateMenuMobile(guess, slideDuration, fadeDuration) {
+    if (!$('.toggle').prop('checked'))
+        $('.toggle').trigger('click');
+    return updateMenu(guess, slideDuration, fadeDuration);
 }
 
 /*getNewMenuHtml goes through the new guess word-by-word and creates
@@ -555,13 +546,11 @@ function getNewMenuHtml(guess, title) {
 into the history list in the menu. New entry fades in over fadeDuration
 while older entries slide down over slideDuration*/
 function addNewGuessHistory(histNode, slideDuration, fadeDuration) {
-    console.log('\t---ln: 441 from ' + this + '---');
-    console.log(histNode);
-    $(histNode).hide().prependTo('.history_log').slideDown(
-        slideDuration).fadeIn(fadeDuration);
     var oldnum = $('.hist.counter').data('num');
     $('.hist.counter').data('num', oldnum + 1);
     $('.hist.counter').text('(' + (oldnum + 1) + ')');
+    return $(histNode).hide().prependTo('.history_log').slideDown(
+        slideDuration).fadeIn(fadeDuration).promise();
 }
 
 /*addNewGoodWords iterates over the list of new good word nodes and fades 

@@ -1,0 +1,91 @@
+@import "base/variables";
+
+.overlay {
+    height: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 5;
+
+    //we're being lazy
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    transition: 0.5s ease;
+    text-align: center;
+}
+
+.overlay_info_wrapper {
+    @include floating(6);
+
+    display: inline-block;
+    margin: auto;
+    position: relative;
+    top: 25vh;
+    height: auto;
+    padding: $padding;
+    background-color: $c_container_bg;
+    border-radius: $b-rad;
+    width: 75%;
+    padding: 25px;
+
+    @include bp-gridactive {
+        padding: $margin;
+        width: 50%;
+    }
+}
+
+.close_link {
+    position: absolute;
+    top: $padding;
+    right: $padding;
+}
+
+.win_screen {
+    h2 {}
+
+    h6 {
+        font-size: 1.6rem;
+
+        .counter {
+            font-size: 3rem;
+        }
+    }
+
+    a {
+        font-family: $ff_arvo;
+        font-weight: 700;
+        font-size: 4rem;
+        text-decoration: underline;
+        line-height: 1;
+
+        u {
+            font-family: $font-family;
+            display: block;
+            font-size: 1.5rem;
+            text-decoration: underline;
+            margin-top: 5px;
+        }
+
+        &:after {
+            display: block;
+            content: '';
+            height: 15px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    button {
+        min-width: 140px;
+        &:first-of-type {
+            margin-right: $padding / 2;
+        }
+
+        &:last-of-type {
+            margin-left: $padding / 2;
+        }
+    }
+}

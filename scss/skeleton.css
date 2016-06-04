@@ -204,7 +204,7 @@ body {
   font-size: 1.5em;
   line-height: 1.6;
   font-weight: 400;
-  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Raleway", "Trebuchet MS", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222; }
 
 a {
@@ -515,14 +515,14 @@ input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focu
 
 .button.button-primary,
 button.button-primary {
-  color: #fff;
-  background-color: #33c3f0;
-  border-color: #33c3f0; }
+  color: #487841;
+  background-color: #fff;
+  border-color: #487841; }
 
 input[type="submit"].button-primary, input[type="reset"].button-primary, input[type="button"].button-primary {
   color: #fff;
-  background-color: #33c3f0;
-  border-color: #33c3f0; }
+  background-color: #487841;
+  border-color: #487841; }
 
 .button.button-primary:hover,
 button.button-primary:hover {
@@ -578,12 +578,12 @@ textarea {
   padding-bottom: 6px; }
 
 input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="text"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus {
-  border: 1px solid #33c3f0;
+  border: 1px solid #487841;
   outline: 0; }
 
 textarea:focus,
 select:focus {
-  border: 1px solid #33c3f0;
+  border: 1px solid #93b874;
   outline: 0; }
 
 label,
@@ -800,6 +800,8 @@ input[type="text"].textField {
   @media (min-width: 750px) {
     input[type="text"].textField {
       width: 84.88889%; } }
+  input[type="text"].textField:focus {
+    outline: #93b874; }
 
 .panelbutton.submitbutton {
   position: relative;
@@ -858,6 +860,70 @@ input[type="text"].textField {
   display: inline-block;
   width: 3%;
   text-align: center; }
+
+.overlay {
+  height: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  -webkit-transition: 0.5s ease;
+          transition: 0.5s ease;
+  text-align: center; }
+
+.overlay_info_wrapper {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  top: 25vh;
+  height: auto;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  width: 75%;
+  padding: 25px; }
+  @media (min-width: 750px) {
+    .overlay_info_wrapper {
+      padding: 20px;
+      width: 50%; } }
+
+.close_link {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
+.win_screen h6 {
+  font-size: 1.6rem; }
+  .win_screen h6 .counter {
+    font-size: 3rem; }
+.win_screen a {
+  font-family: "Arvo", "Rockwell", "Palatino Linotype", "Book Antiqua", "Georgia", Palatino, serif;
+  font-weight: 700;
+  font-size: 4rem;
+  text-decoration: underline;
+  line-height: 1; }
+  .win_screen a u {
+    font-family: "Raleway", "Trebuchet MS", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: block;
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin-top: 5px; }
+  .win_screen a:after {
+    display: block;
+    content: '';
+    height: 15px; }
+  .win_screen a:hover {
+    text-decoration: underline; }
+.win_screen button {
+  min-width: 140px; }
+  .win_screen button:first-of-type {
+    margin-right: 5px; }
+  .win_screen button:last-of-type {
+    margin-left: 5px; }
 
 html, body {
   overflow-x: hidden; }
@@ -937,7 +1003,7 @@ body {
   .band h6 {
     display: inline-block;
     margin: 0;
-    font-family: "Arvo", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: "Arvo", "Rockwell", "Palatino Linotype", "Book Antiqua", "Georgia", Palatino, serif;
     font-size: 2.0rem;
     color: #8a8a89;
     line-height: 1; }
@@ -989,6 +1055,10 @@ body {
     margin-bottom: 0;
     overflow: auto;
     position: relative; } }
+.history #numGuesses:before {
+  content: '('; }
+.history #numGuesses:after {
+  content: ')'; }
 
 .history_log {
   position: relative;
@@ -1018,8 +1088,7 @@ body {
   width: 22%;
   padding: 2px;
   background-color: #f6f8f7;
-  line-height: 1;
-  border: 0.5px solid #8a8a89; }
+  line-height: 1; }
   @media (max-width: 749px) {
     .panelbutton:nth-of-type(n+2) {
       margin: 0 0 0 4%; } }
@@ -1041,11 +1110,12 @@ body {
     padding: 0;
     padding-top: 2px;
     line-height: 1; }
-  .panelbutton:hover {
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.18); }
   .panelbutton:active {
     box-shadow: 0 0 0px rgba(0, 0, 0, 0.21);
+    color: #487841;
     background-color: #adc996; }
+    .panelbutton:active i {
+      color: #487841; }
   @media (min-width: 1200px) {
     .panelbutton.gb {
       height: 90%;
@@ -1080,7 +1150,7 @@ body {
 
 .counter {
   margin-left: 5px;
-  font-family: "Arvo", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-family: "Arvo", "Rockwell", "Palatino Linotype", "Book Antiqua", "Georgia", Palatino, serif;
   font-size: 1.5rem;
   color: #8a8a89; }
 
@@ -1155,7 +1225,6 @@ body {
   min-height: 75vh; }
   @media (min-width: 750px) {
     .mainrow {
-      overflow-y: hidden;
       padding: 20px 0; } }
 
 .wrap {
@@ -1168,6 +1237,7 @@ body {
 
 .spacie {
   display: inline-block;
+  position: absolute;
   margin-top: 0;
   margin-bottom: 0;
   background-color: lime;

@@ -204,7 +204,7 @@ body {
   font-size: 1.5em;
   line-height: 1.6;
   font-weight: 400;
-  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Raleway", "Trebuchet MS", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222; }
 
 a {
@@ -515,14 +515,14 @@ input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focu
 
 .button.button-primary,
 button.button-primary {
-  color: #fff;
-  background-color: #33c3f0;
-  border-color: #33c3f0; }
+  color: #487841;
+  background-color: #fff;
+  border-color: #487841; }
 
 input[type="submit"].button-primary, input[type="reset"].button-primary, input[type="button"].button-primary {
   color: #fff;
-  background-color: #33c3f0;
-  border-color: #33c3f0; }
+  background-color: #487841;
+  border-color: #487841; }
 
 .button.button-primary:hover,
 button.button-primary:hover {
@@ -578,12 +578,12 @@ textarea {
   padding-bottom: 6px; }
 
 input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="text"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus {
-  border: 1px solid #33c3f0;
+  border: 1px solid #487841;
   outline: 0; }
 
 textarea:focus,
 select:focus {
-  border: 1px solid #33c3f0;
+  border: 1px solid #93b874;
   outline: 0; }
 
 label,

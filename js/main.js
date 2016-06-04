@@ -23,6 +23,8 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 
     $.when(promisedUsablePage).done(function(pageInfo) {
         $DOC.data('wikiPageTitle', new titleObject(pageInfo.title));
+        $DOC.data('wikiPageURL', pageInfo.fullurl);
+        prepareOverlay(pageInfo);
         initializeCounters();
     });
 
@@ -41,30 +43,29 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
     $('#imagehint').click(addImageToDocument);
     $('#wordhint').click(giveWordHint);
 
-    // $('.guessSection').submit(submitAction);
-
     $textField.focus(focusedAction);
     $textField.keyup(keyupAction);
     $textField.blur(blurAction);
     $tog.change(slide);
 
-    $('#giveup').click(function() {
-        console.log('loasdl');
-        console.log($DOC.data('wikiPageTitle').origString);
-        $textField.val($DOC.data('wikiPageTitle').origString);
-    });
-    gMobileLayout = !isGridActive();
+    $('.close_link').click(closeOverlay);
+    $('.top_header').click(winAction);
 
 }); //End $DOC.ready
+
+function prepareOverlay(pageInfo) {
+    $('.page_link').attr('href', pageInfo.fullurl);
+    $('.page_link').prepend('<span>How to ' + pageInfo.title + '</span>');
+}
 
 function isGridActive() {
     return ($('.trim').css('display') !== 'none');
 }
 
 function resizeAction() {
-    gDiff = $DOC.scrollTop() + $(window).height() - ($DOC.height() - $('.page_footer').height());
-
     var $gamepanel = $('.game.panel');
+
+    gDiff = $DOC.scrollTop() + $(window).height() - ($DOC.height() - $('.page_footer').height());
 
     $DOC.data('fixedFloatWidth', $gamepanel.width());
     $DOC.data('fixedFloatLeft', $gamepanel.offset().left);
@@ -83,21 +84,10 @@ function resizeAction() {
 }
 
 function nukeStyles() {
-    $('.history_log, .menu_clip, .sliding_up_mobile, .widget_header, .widget_header i, .widget_header .band, .guessSection').removeAttr('style');
+    $('.history_log, .menu_clip, .sliding_up_mobile, .widget_header, .widget_header i, .widget_header .band, .guessSection, .spacie').removeAttr('style');
     $('.answer').css('box-shadow', ''); //done separately to preserve custom 'bottom' prop
     $('.toggle').removeAttr('checked');
 }
-
-// function updateHistoryLogHeight(){
-//     var logMaxHeight=  $('.answer')[0].getBoundingClientRect().top - $('.history_log')[0].getBoundingClientRect().top;
-
-//     if (isGridActive()) {
-//         $('.history_log').css('max-height', logMaxHeight-20 + 'px');
-//     }
-//     else {
-//         $('.history_log').css('max-height', 'unset');
-//     }
-// }
 
 function scrollAction() {
     if ($(document.activeElement).hasClass('gb')) {
@@ -120,15 +110,12 @@ function scrollAction() {
         gDiff = $(window).scrollTop() + $(window).height() - $('.page_footer').offset().top;
 
         if (gDiff > 0) {
-            console.log('\t---ln: 91 from ' + this + '---');
             $('.answer, .menu_clip').css({ bottom: gDiff });
         } else {
-            console.log('\t---ln: 95 from ' + this + '---');
             $('.answer, .menu_clip').css({ bottom: 0 });
         }
         var space = $(window).scrollTop() - ($gamepanel.offset().top + $gamepanel.height())
         if (space > 0) {
-            console.log('\t---ln: 109 from ' + this + '---');
             $('.spacie').css({
                 position: 'relative'
             });
@@ -139,15 +126,21 @@ function scrollAction() {
                 position: 'fixed',
                 width: $DOC.data('fixedFloatWidth'),
                 top: 20,
-                left: $DOC.data('fixedFloatLeft')
+                left: $DOC.data('fixedFloatLeft'),
+            });
+            $('.menu_clip .panel').css({
+                'box-shadow': '0 0 8px rgba(0, 0, 0, 0.16)'
             });
         } else {
-            console.log('\t---ln: 122 from ' + this + '---');
             $('.menu_clip').css({
                 position: '',
                 width: '',
                 top: '',
                 left: '',
+                'box-shadow': ''
+            });
+            $('.menu_clip .panel').css({
+                'box-shadow': ''
             });
             $('.spacie').css({
                 position: 'absolute',
@@ -158,6 +151,10 @@ function scrollAction() {
 }
 
 function gPanelButtonPressedAction() {
+    if ($(this).attr('id') === 'giveup') {
+        lossAction();
+        return;
+    }
     var pagelink = 'menu/' + $(this).attr('id') + '.html';
     if ($(window).width() < BP_GRID_ACTIVE) {
         $('.card').queue(function() {
@@ -248,10 +245,18 @@ function slide() {
     }
 }
 
+function openOverlay() {
+    $('.overlay').height('100%');
+}
+
+function closeOverlay() {
+    $('.overlay').height('0');
+}
+
 function asyncQueryForRandomUsablePage() {
     /* request random article and see if it has enough usable images*/
     return $.ajax({ //get random page using mediawiki API
-        url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0',
+        url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0#',
         dataType: 'jsonp'
     }).then(function(data) {
         /*The mediawiki api answers our request with a complex json object structure.
@@ -262,10 +267,11 @@ function asyncQueryForRandomUsablePage() {
            var pageInfo = page[pageId.toString()];
         This is condensed to the lines below: */
         var pageInfo = data.query.pages[Object.keys(data.query.pages)[0].toString()];
-
+        console.log(pageInfo);
         console.log(pageInfo.fullurl);
         console.log(pageInfo.images);
         filterUnusableImages(pageInfo.images);
+
 
         if (pageInfo.images == null || // == is intentional, checks for undefined
             pageInfo.images.length < MIN_PAGE_IMAGES ||
@@ -310,9 +316,20 @@ function addImageToDocument() {
 
         var wrappedImage = getNewImageHtml(nextImageInfo);
         $wrap.append(wrappedImage);
+        incrementCounter('numImageHints');
+
+        // var oldnum = $('.numImageHints.counter').data('num');
+        // $('.numImageHints.counter').data('num', oldnum + 1);
+        // $('.numImageHints.counter').text(oldnum + 1);
+
+        // if (oldnum + 1 === 1) {
+        //     $('.text_images').text('image');
+        // } else if (oldnum + 1 === 2) {
+        //     $('.text_images').text('images');
+        // }
         $(wrappedImage.find('img')[0]).unveil(0, function() {
             $(this).load(function() {
-                resizeAction();
+                scrollAction();
             })
         });
         if (images.length < 1) {
@@ -336,6 +353,15 @@ function giveWordHint() {
     if (tmp.length >= 1) {
         var n = Math.floor(Math.random() * tmp.length);
         title.guessed[tmp[n]]++;
+        incrementCounter('numWordHints');
+        // var oldnum = $('.numWordHints.counter').data('num');
+        // $('.numWordHints.counter').data('num', oldnum + 1);
+        // $('.numWordHints.counter').text(oldnum + 1);
+        // if (oldnum + 1 === 1) {
+        //     $('.text_hints').text('hint');
+        // } else if (oldnum + 1 === 2) {
+        //     $('.text_hints').text('hints');
+        // }
         addNewGoodWords(makeWordNode(title.wordTokens[tmp[n]]), 'slow');
         if (tmp.length === 1) {
             disable($(this)); //disable button calling this as a listener funct.  
@@ -349,34 +375,15 @@ function addImagesToDocument(images, _) { //argument _ is extra passed in from $
     var $wrap = $('.wrap');
     $DOC.data('undisplayedImages', images);
     for (var i = 0; i < NUM_INITIAL_IMAGES && images.length !== 0; i++) {
-        var randIndex = Math.floor(Math.random() * images.length);
-        console.log('\t---ln: 120 from ' + this + '---');
-        console.log(images);
-        console.log("var i = " + i);
-        console.log(randIndex);
-        console.log(images[randIndex]);
-        console.log(images[randIndex].imageinfo);
-        console.log('=============== Done');
-        var nextImageInfo = images[randIndex].imageinfo[0];
-
+        var randIndex = Math.floor(Math.random() * images.length),
+            nextImageInfo = images[randIndex].imageinfo[0];
         images.splice(randIndex, 1); //removes used image from array and shifts all subsequent indexes down 1
 
         var wrappedImage = getNewImageHtml(nextImageInfo);
-
-        // var numImgs=$wrap.find('.pageImage').length;
-        // console.log(numImgs);
-
-        // if(numImgs%2===0)
-        // {
-        //    $wrap.append('<div class="row"></div>');
-        // }
-        // $($wrap.children().last()).append(wrappedImage);
         $wrap.append(wrappedImage);
-        console.log('\t---ln: 142 from ' + this + '---');
-        console.log(wrappedImage[0]);
         $(wrappedImage.find('img')[0]).unveil(0, function() {
             $(this).load(function() {
-                resizeAction();
+                scrollAction();
             })
         });
     }
@@ -403,12 +410,8 @@ function getNewImageHtml(nextImageInfo) {
        unveilImgTag.attr('data-src', nextImageInfo.thumburl);
        console.log('thumb');
     } else {*/
-    console.log('reg!');
     unveilImgTag.attr('data-src', nextImageInfo.url);
     // }
-
-    console.log(nextImageInfo.size);
-
     return ret.append(unveilImgTag);
 }
 
@@ -460,20 +463,77 @@ function submitAction() {
         title = $DOC.data('wikiPageTitle');
 
     if (isGridActive()) {
-        updateMenu(guess, 'slow', 'slow');
+        if (updateMenu(guess, 'slow', 'slow')) {
+            winAction(true);
+        }
     } else {
-        updateMenuMobile(guess, 'slow', 'slow');
+        if (updateMenuMobile(guess, 'slow', 'slow')) {
+            winAction(true);
+        }
     }
     $('.textField').val('');
 }
 
+function winAction() {
+
+    makeWinOverlay();
+    openOverlay();
+}
+
+function lossAction() {
+    makeLossOverlay()
+    openOverlay();
+}
+
+function makeWinOverlay() {
+    $('.win_screen h2').text('Yep!');
+    $('.win_screen h2 + h6').html('<i>Of course</i> we\'re learning');
+}
+
+function makeLossOverlay() {
+    $('.win_screen h2').text('¯\\_(ツ)_/¯');
+    $('.win_screen h2 + h6').html('We were going for');
+    $('.score').hide();
+}
+
 function initializeCounters() {
-    $('.word.counter').data('num', 0);
-    console.log($('.word.counter').data('num'));
-    $('.hist.counter').data('num', 0);
-    $('.word.counter').data('outof', $DOC.data('wikiPageTitle').normTokens.length);
-    $('.word.counter').text('(0/' + $('.word.counter').data('outof') + ')');
-    $('.hist.counter').text('(0)');
+    $('.counter').data('num', 0);
+    $('#numImageHints').data('num', NUM_INITIAL_IMAGES);
+
+    $('#numImageHints').data('labelInfo', ['image', 'images']);
+    $('#numWordHints').data('labelInfo', ['hint', 'hints']);
+    $('#numGuesses').data('labelInfo', ['try', 'tries']);
+    $('#numWords').data('outof', $DOC.data('wikiPageTitle').normTokens.length);
+
+    $('.counter').text('0');
+    $('#numImageHints').text(NUM_INITIAL_IMAGES);
+    $('#numWords').text('(0/' + $('#numWords').data('outof') + ')');
+}
+
+function incrementCounter(counterID) {
+    var $counter = $('#' + counterID),
+        oldnum = $counter.data('num');
+
+    $counter.data('num', oldnum + 1);
+    $counter.text(oldnum + 1);
+
+    if (counterID === 'numWords') {
+        var outof = $counter.data('outof');
+        if (oldnum + 1 !== 0) {
+            $('.empty_message').remove();
+        }
+        $counter.text('(' + (oldnum + 1) + '/' + outof + ')');
+    }
+
+    var labelInfo = $counter.data('labelInfo');
+    if (labelInfo) {
+        var $label= $('#' + counterID + '_label');
+        if (oldnum + 1 === 1) {
+            $label.text(labelInfo[0]);
+        } else if (oldnum + 1 === 2) {
+            $label.text(labelInfo[1]);
+        }
+    }
 }
 
 function insertableElementClickAction() {
@@ -493,7 +553,8 @@ elements' animation speeds*/
 function updateMenu(guess, slideDuration, fadeDuration) {
     var newHtml = getNewMenuHtml(guess, $DOC.data('wikiPageTitle'));
     addNewGoodWords(newHtml.words, fadeDuration);
-    return addNewGuessHistory(newHtml.hist, slideDuration, fadeDuration);
+    addNewGuessHistory(newHtml.hist, slideDuration, fadeDuration);
+    return newHtml.win;
 }
 
 function updateMenuMobile(guess, slideDuration, fadeDuration) {
@@ -514,10 +575,14 @@ function getNewMenuHtml(guess, title) {
     var sNode = $('<div class="guess_container"><div class="inner menuText"></div></div><hr>'),
         inner = sNode.find('.inner'),
         wNodeList = [],
-        s = '';
+        s = '',
+        win = true;
 
     for (var i = 0; i < guess.normTokens.length; i++) {
         for (var j = 0; j < title.normTokens.length; j++) {
+            if (i === j && guess.normTokens[i] !== title.normTokens[j]) {
+                win = false;
+            }
             if (guess.normTokens[i] === title.normTokens[j]) {
                 inner.append(document.createTextNode(s));
                 s = '';
@@ -536,38 +601,35 @@ function getNewMenuHtml(guess, title) {
         }
     }
     inner.append(document.createTextNode(s));
-    console.log('\t---ln: 342 from ' + this + '---');
-    console.log(sNode);
-    console.log(sNode.html());
-    return { 'words': wNodeList.reverse(), 'hist': sNode };
+    return { 'words': wNodeList.reverse(), 'hist': sNode, 'win': win };
 }
 
 /*addNewGuessHistory animates the new guess history entry element node
 into the history list in the menu. New entry fades in over fadeDuration
 while older entries slide down over slideDuration*/
 function addNewGuessHistory(histNode, slideDuration, fadeDuration) {
-    var oldnum = $('.hist.counter').data('num');
-    $('.hist.counter').data('num', oldnum + 1);
-    $('.hist.counter').text('(' + (oldnum + 1) + ')');
-    return $(histNode).hide().prependTo('.history_log').slideDown(
-        slideDuration).fadeIn(fadeDuration).promise();
+    // var oldnum = $('.hist.counter').data('num');
+    // $('.hist.counter').data('num', oldnum + 1);
+    // $('.hist.counter').text('(' + (oldnum + 1) + ')');
+    // $('.win_screen .hist.counter').text(oldnum + 1);
+    // if (oldnum + 1 === 1) {
+    //     $('.text_tries').text('try');
+    // } else if (oldnum + 1 === 2) {
+    //     $('.text_tries').text('tries');
+    // }
+    incrementCounter('numGuesses');
+    $(histNode).hide().prependTo('.history_log').slideDown(
+        slideDuration).fadeIn(fadeDuration);
 }
 
 /*addNewGoodWords iterates over the list of new good word nodes and fades 
 each one into the document over a specified fadeDuration*/
 function addNewGoodWords(wordNodeList, fadeDuration) {
-    var oldnum = $('.word.counter').data('num'),
-        outof = $('.word.counter').data('outof');
 
     for (var i = wordNodeList.length - 1; i >= 0; i--) {
         $(wordNodeList[i]).hide().appendTo('.good_words').fadeIn('fadeDuration');
-        oldnum++;
+        incrementCounter('numWords');
     }
-    if (oldnum !== 0) {
-        $('.empty_message').remove();
-    }
-    $('.word.counter').data('num', oldnum);
-    $('.word.counter').text('(' + oldnum + '/' + outof + ')');
 }
 
 /*makeWordNode returns a "good_word"-style jQ node with input text string*/
@@ -631,13 +693,3 @@ function synthImageInfoQuery(pageImages) {
     queryUrl = queryUrl.replace(/ /g, '+'); //url-encode spaces
     return queryUrl;
 }
-
-// /*setFixedInputPosition calculates and sets the horizontal offset of the 
-// floating input field so that it always remains above the page footer*/
-// function setFixedInputPosition() {
-//     if (window.innerWidth > 541)
-//         $("#f_area").css("bottom", Math.max(0, ($DOC.scrollTop() + $(window).height()) -
-//             $(".siteFooter").offset().top));
-//     else
-//         $("#f_area").css("bottom", 0);
-// }

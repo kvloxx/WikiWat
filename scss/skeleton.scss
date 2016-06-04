@@ -28,11 +28,9 @@
 @import "modules/media-queries";
 @import "floatingwidget"; 
 @import "pagefooter"; 
+@import "overlay"; 
 
 // /* variables */
-* {
-    // border: 0.5px dotted gray;
-}
 
 html, body {
     overflow-x: hidden;
@@ -212,15 +210,20 @@ body {
     }
 }
 
-// height: 100%;
 .history {
     @include bp-gridactive {
         margin-bottom: 0;
         overflow: auto;
         position: relative;
 
-        // top: 0;
-        // bottom: 500px;
+    }
+    #numGuesses{
+        &:before{
+            content: '(';
+        }
+        &:after{
+            content: ')';
+        }
     }
 }
 
@@ -267,7 +270,7 @@ body {
     padding: $padding_button_mobile;
     background-color: $c_container_highlight;
     line-height: 1;
-    border: $panel_button_border;
+    // border: $panel_button_border;
 
     &:nth-of-type(n+2) {
         @include bp-gridinactive {
@@ -300,13 +303,16 @@ body {
     }
 
     &:hover {
-        @include floating(3);
+        // @include floating(3);
     }
 
     &:active {
         @include floating(0);
-
+        color: $c_link;
         background-color: $c_light;
+        i {
+        color: $c_link;
+        }
     }
 
     &.gb {
@@ -450,7 +456,6 @@ body {
     min-height: 75vh;
 
     @include bp-gridactive {
-        overflow-y: hidden;
         padding: (2 * $padding) 0;
     }
 }
@@ -466,6 +471,7 @@ body {
 }
 .spacie{
     display: inline-block;
+    position: absolute;
     margin-top: 0;
     margin-bottom: 0;
     background-color: lime;

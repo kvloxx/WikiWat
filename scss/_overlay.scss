@@ -1,38 +1,31 @@
+
 @import "base/variables";
 
 .overlay {
-    height: 0;
-    width: 100%;
     position: fixed;
-    z-index: 5;
-
+    top: 0;
     //we're being lazy
     left: 0;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 5;
+
     overflow: hidden;
-    transition: 0.5s ease;
+    height: 0;
+    width: 100%;
+
+    background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
+
+    transition: 0.5s ease;
 }
 
 .overlay_info_wrapper {
     @include floating(6);
 
-    display: inline-block;
-    margin: auto;
     position: relative;
-    top: 25vh;
-    height: auto;
-    padding: $padding;
-    background-color: $c_container_bg;
-    border-radius: $b-rad;
-    width: 75%;
-    padding: 25px;
+    display: inline-block;
+    box-sizing: border-box;
 
-    @include bp-gridactive {
-        padding: $margin;
-        width: 50%;
-    }
+    margin: auto;
 }
 
 .close_link {
@@ -42,11 +35,12 @@
 }
 
 .win_screen {
-    h2 {}
+    h2 {
+        color: $c_detail_text;
+    }
 
     h6 {
         font-size: 1.6rem;
-
         .counter {
             font-size: 3rem;
         }
@@ -54,22 +48,26 @@
 
     a {
         font-family: $ff_arvo;
-        font-weight: 700;
         font-size: 4rem;
-        text-decoration: underline;
+        font-weight: 700;
         line-height: 1;
+        text-decoration: underline;
 
         u {
-            font-family: $font-family;
             display: block;
+
+            margin-top: 5px;
+
+            font-family: $font-family;
             font-size: 1.5rem;
             text-decoration: underline;
-            margin-top: 5px;
         }
 
         &:after {
-            display: block;
             content: '';
+
+            display: block;
+
             height: 15px;
         }
 
@@ -80,12 +78,118 @@
 
     button {
         min-width: 140px;
+
         &:first-of-type {
             margin-right: $padding / 2;
         }
-
         &:last-of-type {
             margin-left: $padding / 2;
         }
+    }
+}
+
+.contains_win_screen {
+    top: 25vh;
+
+    height: auto;
+    width: 75%;
+    padding: 25px;
+
+    background-color: $c_container_bg;
+    border-radius: $b-rad;
+
+    @include bp-gridactive {
+        width: 50%;
+        padding: $margin;
+    }
+}
+
+.contains_attribs {
+    top: 10vh;
+
+    height: 70vh;
+    width: 75%;
+    padding-left: $margin;
+
+    background-color: $c_container_bg;
+    border-radius: $b-rad;
+
+    @include bp-gridactive {
+        width: 50%;
+    }
+
+    .close_link{
+        right: 20px;
+        z-index: 1;
+    }
+
+    &:before{
+        content: '';
+
+        position: absolute;
+        top: 0;
+        right: 20px;
+        left: 0;
+        z-index: 1;
+
+        height: 10px;
+
+        background-color: inherit;
+    }
+
+    &:after{
+        content: '';
+
+        position: absolute;
+        right: 20px;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+
+        height: 10px;
+
+        background-color: inherit;
+    }
+}
+
+.attribs {
+    position: relative;
+    box-sizing: border-box;
+
+    overflow: auto;
+    height: 100%;
+    width:100%;
+    margin: 0;
+    padding-right: 25px;
+
+    text-align: left;
+
+    h5{
+        font-family: $ff_arvo;
+    }
+
+    & > h5{
+        margin-top: 2* $padding;
+    }
+
+    h5 {
+        margin-bottom: 5px;
+    }
+
+    div {
+        bottom: 0;
+        height: 20px;
+    }
+    p{
+        line-height: 1.3;
+        margin-bottom: $padding;
+        &:last-of-type{
+            margin-bottom: $margin;
+        }
+    }
+    li {
+        list-style-position: inside;
+        text-indent: -1rem;
+        padding-left: 1rem;
     }
 }

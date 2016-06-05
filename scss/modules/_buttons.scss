@@ -1,6 +1,5 @@
 // Buttons
 //––––––––––––––––––––––––––––––––––––––––––––––––––
-
 .button,
 button {
   display: inline-block;
@@ -19,6 +18,7 @@ button {
   border: 1px solid $border-color;
   cursor: pointer;
   box-sizing: border-box;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 
   &:disabled{
     border: 1px solid $c_disabled_text;
@@ -113,8 +113,8 @@ input {
 .button.button-primary:hover,
 button.button-primary:hover {
   color: #fff;
-  background-color: $link-color;
-  border-color: $link-color;
+  background-color: $c_link;
+  border-color: $c_link;
 }
 
 input {
@@ -122,16 +122,16 @@ input {
   &[type="reset"].button-primary:hover,
   &[type="button"].button-primary:hover {
     color: #fff;
-    background-color: $link-color;
-    border-color: $link-color;
+    background-color: $c_link;
+    border-color: $c_link;
   }
 }
 
 .button.button-primary:focus,
 button.button-primary:focus {
   color: #fff;
-  background-color: $link-color;
-  border-color: $link-color;
+  background-color: $c_link;
+  border-color: $c_link;
 }
 
 input {
@@ -139,8 +139,8 @@ input {
   &[type="reset"].button-primary:focus,
   &[type="button"].button-primary:focus {
     color: #fff;
-    background-color: $link-color;
-    border-color: $link-color;
+    background-color: $c_link;
+    border-color: $c_link;
   }
   &[type="email"],
   &[type="number"],

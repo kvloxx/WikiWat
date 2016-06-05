@@ -2,159 +2,205 @@
 <html lang="en">
 
 <head>
-    <!-- Basic Page Needs
+  <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta charset="utf-8">
-    <title>WikiWat?</title>
-    <!-- Mobile Specific Metas
+  <meta charset="utf-8">
+  <title>WikiWat?</title>
+  <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=no" />
-    <meta name="theme-color" content="#93B874">
-    <!-- FONT
+  <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=no" />
+  <meta name="theme-color" content="#93B874">
+  <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <!-- <link href="http:f//fonts.googleapis.com/css?family=Raleway:400,300,600|Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css"> -->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- CSS
+  <!-- <link href="http:f//fonts.googleapis.com/css?family=Raleway:400,300,600|Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css"> -->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="scss/skeleton.css">
-    <!-- Favicon
+  <link rel="stylesheet" href="scss/skeleton.css">
+  <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <!-- <link rel="icon" href="https://cloud.githubusercontent.com/assets/14935003/14973727/65833dfa-10b9-11e6-85bd-24b3a895b0bb.png"> -->
-    <link rel="icon" href="https://cloud.githubusercontent.com/assets/14935003/14973727/65833dfa-10b9-11e6-85bd-24b3a895b0bb.png">
+  <link rel="icon" href="https://raw.githubusercontent.com/kvloxx/WikiWat/master/images/favicon.png">
 </head>
 
 <body>
-    <!-- Primary Page Layout
+  <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <div class="main container">
-        <header class="top_header row">
-            <div class="backdrop">
-                <div class="trim"></div>
+  <div class="main container">
+    <header class="top_header row">
+      <div class="backdrop">
+        <div class="trim"></div>
+      </div>
+      <img class="eight columns" src="https://raw.githubusercontent.com/kvloxx/WikiWat/master/images/wikiwhat%20logo%20colorized1.png" alt="Wiki What?" />
+      <h5 class="tagline twelve columns">Embrace the Inscrutable.</h5>
+    </header>
+    <div class="row mainrow">
+      <div class="panels row four columns">
+        <div class="game panel row">
+          <div class="card_overlay"> </div>
+          <div class="card_clip">
+            <div class="card">
+              <!-- <iframe src="menu/rules.html" frameborder="0"></iframe>
+                            <div class="scrim"> </div> -->
+              <div class="restart_confirmation card_message">
+                <h6>Discard all guesses and fetch new article?</h6>
+                <button class="card_close">Cancel</button>
+                <button class="button-primary card_restart" title="New article" onClick="history.go()">K.</button>
+              </div>
+              <div class="giveup_confirmation card_message">
+                <h6>End game and reveal article title?</h6>
+                <button class="card_close">Cancel</button>
+                <button class="button-primary card_giveup" title="New article">K.</button>
+              </div>
+              <div class="sharingsux card_message">
+              </div>
             </div>
-            <img class="eight columns" src="https://cloud.githubusercontent.com/assets/14935003/14973678/bdda1d44-10b8-11e6-95b3-a6df10b93df1.png" alt="Wiki What?" />
-            <h5 class="tagline twelve columns">Embrace the Inscrutable.</h5>
-        </header>
-        <div class="row mainrow">
-            <div class="panels row four columns">
-                <div class="game panel row">
-                    <div class="card_clip">
-                        <div class="card">
-                            <iframe src="menu/rules.html" frameborder="0"></iframe>
-                            <div class="scrim"> </div>
-                        </div>
-                    </div>
-                    <div class="band mobile_header">
-                        <h6>Game</h6></div>
-                    <button class="gb panelbutton" title="How to play" id="rules">
-                        <i class="material-icons">&#xE8FD;</i>
-                        <div>Rules</div>
-                    </button>
-                    <button type="button" class="gb panelbutton" title="New article" id="restart">
-                        <i class="material-icons">&#xE5D5;</i>
-                        <div>Restart</div>
-                    </button>
-                    <button type="button" class="gb panelbutton" title="Reveal title" id="giveup">
-                        <i class="material-icons">&#xE812;</i>
-                        <div>Give Up</div>
-                    </button>
-                    <button type="button" class="gb panelbutton" title="We live in a digital age." id="share">
-                        <i class="material-icons">&#xE80D;</i>
-                        <div>Share</div>
-                    </button>
-                </div>
-                <div class="spacie"></div>
-                <div class="menu_clip">
-                    <div class="menu sliding_up_mobile">
-                        <div class="hint panel row">
-                            <div class="band">
-                                <h6>Hint</h6>
-                            </div>
-                            <button type="button" class="panelbutton" title="Reveal image" id="imagehint">
-                                <i class="material-icons">&#xE3C4;</i>
-                                <div>Image</div>
-                            </button>
-                            <button type="button" class="panelbutton" title="Reveal word" id="wordhint">
-                                <i class="material-icons">&#xE8D2;</i>
-                                <div>Word</div>
-                            </button>
-                        </div>
-                        <div class="words panel row">
-                            <div class="band">
-                                <h6>Words</h6><span id="numWords" class="counter"></span>
-                            </div>
-                            <div class="content good_words">
-                                <span class="empty_message">Correctly guessed words will appear here</span>
-                            </div>
-                        </div>
-                        <div class="history panel row">
-                            <div class="band">
-                                <h6>History</h6><span id="numGuesses" class="counter"></span>
-                            </div>
-                            <div class="content history_log"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="wrap row eight columns">
-            </div>
+          </div>
+          <div class="band mobile_header">
+            <h6>Game</h6></div>
+          <button class="gb panelbutton" title="How to play" id="rules">
+            <i class="material-icons">&#xE8FD;</i>
+            <div>Rules</div>
+          </button>
+          <button type="button" class="gb panelbutton" title="New article" id="restart">
+            <i class="material-icons">&#xE5D5;</i>
+            <div>Restart</div>
+          </button>
+          <button type="button" class="gb panelbutton" title="Reveal title" id="giveup">
+            <i class="material-icons">&#xE812;</i>
+            <div>Give Up</div>
+          </button>
+          <button type="button" class="gb panelbutton" title="We live in a digital age." id="share">
+            <i class="material-icons">&#xE80D;</i>
+            <div>Share</div>
+          </button>
         </div>
+        <div class="spacie"></div>
+        <div class="menu_clip">
+          <div class="menu sliding_up_mobile">
+            <div class="hint panel row">
+              <div class="band">
+                <h6>Hint</h6>
+              </div>
+              <button type="button" class="panelbutton" title="Reveal image" id="imagehint">
+                <i class="material-icons">&#xE3C4;</i>
+                <div>Image</div>
+              </button>
+              <button type="button" class="panelbutton" title="Reveal word" id="wordhint">
+                <i class="material-icons">&#xE8D2;</i>
+                <div>Word</div>
+              </button>
+            </div>
+            <div class="words panel row">
+              <div class="band">
+                <h6>Words</h6><span id="numWords" class="counter"></span>
+              </div>
+              <div class="content good_words">
+                <span class="empty_message">Correctly guessed words will appear here</span>
+              </div>
+            </div>
+            <div class="history panel row">
+              <div class="band">
+                <h6>History</h6><span class="numGuesses counter"></span>
+              </div>
+              <div class="content history_log"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <noscript>
+        <div>
+          <h1>¯\_(ツ)_/¯</h1>
+          <h4>It looks like Javascript is disabled.</h4>
+          <h6><a target="_blank" href="http://www.wikihow.com/Enable-JavaScript-on-Your-Computer">(Nothing wikiHow can't fix!)</a></h6>
+        </div>
+      </noscript>
+      <div class="wrap row eight columns">
+      </div>
     </div>
-    <!-- FLOATING ANSWER WIDGET -->
-    <div class="answer">
-        <header class="widget_header sliding_up_mobile">
-            <div class="band">
-                <i class="material-icons mobile_only">&#xE5CE;</i>
-                <h6>Guess</h6>
-            </div>
-            <input class="toggle" type="checkbox" />
-        </header>
-        <form class="guessSection" action="javascript:submitAction()">
-            <input class="textField" type="text" maxlength="256" value="How to..." autocomplete="off" />
-            <button type="submit" class="panelbutton submitbutton">
-                <i class="material-icons">&#xE5CA;</i>
-                <div>Guess</div>
-            </button>
-        </form>
+  </div>
+  <!-- FLOATING ANSWER WIDGET -->
+  <div class="answer">
+    <header class="widget_header sliding_up_mobile">
+      <div class="band">
+        <i class="material-icons mobile_only">&#xE5CE;</i>
+        <h6>Guess</h6>
+      </div>
+      <input class="toggle" type="checkbox" />
+    </header>
+    <form class="guessSection" action="javascript:submitAction()">
+      <input class="textField" type="text" maxlength="256" value="How to..." autocomplete="off" />
+      <button type="submit" class="panelbutton submitbutton">
+        <i class="material-icons">&#xE5CA;</i>
+        <div>Guess</div>
+      </button>
+    </form>
+  </div>
+  <footer class="page_footer desktop_only">
+    <div class="footer_band">
+      <h6 class="footer_title"><i>WikiWhat?</i> • 2016 Adam Smith</h6>
     </div>
-    <footer class="page_footer desktop_only">
-        <div class="footer_band">
-            <h6 class="footer_title"><i>WikiWhat?</i> • 2016 Adam Smith</h6>
-        </div>
-        <div class="container">
-            <a target="_blank" href="" class="navItem">About</a><span class="linkspacer"></span>
-            <a target="_blank" href="" class="navItem">Thanks</a><span class="linkspacer"></span>
-            <a target="_blank" href="" class="navItem">Share</a><span class="linkspacer"></span>
-            <a target="_blank" href="https://wikihow.com" class="navItem">WikiHow</a><span class="linkspacer"></span>
-            <a target="_blank" href="https://github.com/kvloxx" class="navItem">GitHub</a>
-            <br>
-            <span style="font-family: 'Arial';">¯\_(ツ)_/¯</span>
-        </div>
-    </footer>
-    <div class="overlay">
-        <div class="overlay_info_wrapper">
-            <a href="javascript:void(0)" class="close_link">
-                <i class="material-icons close_icon">&#xE5CD;</i>
-            </a>
-            <div class="win_screen">
-                <h2>Yep!</h2>
-                <h6><i>Of course</i> we're learning</h6>
-                <a class="page_link" target="_blank" href="javascript:void(0)"></a>
-                <h6 class="score">You guessed it in<span id="numGuesses" class="counter"></span> <span id="numGuesses_label">tries</span>,
+    <div class="container">
+      <a href="javascript:void(0)" class="navItem about">About</a><span class="linkspacer"></span>
+      <a target="_blank" href="" class="navItem">Share</a><span class="linkspacer"></span>
+      <a target="_blank" href="https://wikihow.com" class="navItem">WikiHow</a><span class="linkspacer"></span>
+      <a target="_blank" href="https://github.com/kvloxx" class="navItem">GitHub</a>
+      <br>
+      <span style="font-family: 'Arial';">¯\_(ツ)_/¯</span>
+    </div>
+  </footer>
+  <div class="overlay">
+    <div class="overlay_info_wrapper">
+      <a href="javascript:void(0)" class="close_link"> <i class="material-icons close_icon">&#xE5CD;</i> </a>
+      <div class="attribs overlay_info">
+        <h5>Content</h5>
+        <p>All article and image content is retrieved in real time from <a href="http://www.wikihow.com">wikihow.com</a>. Text is shared under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">creative commons license</a>. Images may be licensed differently. Specific licensing information can be determined by navigating to the image in its original context, i.e. the wikiHow article linked to the title that appears at the end of a game, and clicking the image to show its expanded information. The treatment of any copyrighted image material as part of this web game is intended only as entertaining commentary and is protected under fair use.</p>
+        <h5>Attributions</h5>
+        <ul>
+          <li>Page layout built on the <a href="http://getskeleton.com/">Skeleton</a> framework by <a href="https://twitter.com/dhg">Dave Gamache</a>, implemented in <a href="https://github.com/whatsnewsaes/Skeleton-Sass">SASS</a> by <a href="http://www.sethcoelen.com/">Seth Coelen</a>.</li>
+          <li>Images retrieved via the <a href="https://www.mediawiki.org/wiki/API:Main_page">MediaWiki API</a> and loaded using <a href="http://luis-almeida.github.io/unveil/">unveil.js</a>.</li>
+          <li>Titles processed with assistance from the very helpful script <a href="https://github.com/MOuli90/Diacritics2Url">Diacritics2Url.js</a> by Alexander Kopp.</li>
+          <li>Also <a href="https://jquery.com/">jQuery’s</a> all up in this thing.</li>
+          <li>Page colors and styles were inspired by <a href="http://www.wikihow.com">wikiHow</a>.</li>
+          <li>Icon content is from Google's <a href="https://design.google.com/icons/">Material Icon library</a>.</li>
+          <li>The "wiki" in the logo is set in <em>Arvo</em>, designed by <a href="https://plus.google.com/110835161102775862873">Anton Koovit</a> and published by <a href="https://www.google.com/fonts/specimen/Arvo">Google Fonts</a> under an <a href="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL">Open Font License</a>.</li>
+        </ul>
+        <h5> About </h5>
+        <p>Adam Smith made this game in his free time to share his fascination with (and sincere affection for) wikiHow and its community with others who might also appreciate it. Ideas, impressions, and issues regarding the project can be directed to its <a href="http://kvloxx.github.io/WikiWat/">github page</a>.</p>
+      </div>
+      <div class="win_screen overlay_info">
+        <h2>Yep!</h2>
+        <h6><i>Of course</i> we're learning</h6>
+        <a class="page_link" target="_blank" href="javascript:void(0)"></a>
+        <h6 class="score">You guessed it in<span class="numGuesses counter"></span> <span id="numGuesses_label">tries</span>,
                  from<span id ="numImageHints" class="counter"></span> <span id="numImageHints_label">images</span>,
                  with<span id="numWordHints" class= "counter"></span> <span id="numWordHints_label">hints</span>.</h6>
-                <button class="end_share" title="ur p impressive.">Share</button>
-                <button class="button-primary end_restart" title="New article" onClick="history.go()">Play Again?</button>
-            </div>
-        </div>
+        <button class="end_share" title="ur p impressive.">Share</button>
+        <button class="button-primary end_restart" title="New article" onClick="history.go()">Play Again?</button>
+      </div>
     </div>
-    <!--scripts–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  </div>
+  <!--scripts–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src='js/jquery.unveil.js'></script>
+  <script type="text/javascript" src="js/Diacritics2Url.js"></script>
+  <script type="text/javascript" src="js/UnusableImages.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script>
+  (function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min.js"></script>
-    <script type="text/javascript" src='js/jquery.unveil.js'></script>
-    <script type="text/javascript" src="js/Diacritics2Url.js"></script>
-    <script type="text/javascript" src="js/UnusableImages.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+  ga('create', 'UA-78777245-1', 'auto');
+  ga('send', 'pageview');
+  </script>
 </body>
 
 </html>

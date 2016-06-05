@@ -19,9 +19,7 @@ $dark-grey: #333 !default;
 $primary-color: #487841 !default;
 $secondary-color: lighten($dark-grey, 13.5%) !default;
 $border-color: #bbb !default;
-$link-color: #487841 !default;
 $font-color: #222 !default;
-
 
 // Typography
 $font-family: "Raleway", "Trebuchet MS", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
@@ -40,15 +38,28 @@ $global-radius: 4px !default;
 
 //==========CUSTOM VARIABLES===============
 // custom colors (prefixed $c_)
-$c_main: #93b874;
-$c_link: #487841;
-$c_light: #adc996;
-$c_dark: #444f45;
-$c_container_highlight: #f6f8f7;
-$c_bg: #ecebe8;
-$c_detail_text: #8a8a89;
+$c_main: #73BE6F;
+$c_link: #53757F;
+$c_light: #87BCCB;
+$c_dark: #73BE6F;
+$c_container_highlight: #EEF1F2;
+$c_bg: #F3F5EB;
+$c_detail_text: #6C6C6C;
 $c_container_bg: #fff;
 $c_disabled_text: lightgrey;
+$c_accent_border: #fff;
+
+
+
+// $c_main: #93b874;
+// $c_link: #487841;
+// $c_light: #adc996;
+// $c_dark: #444f45;
+// $c_container_highlight: #f6f8f7;
+// $c_bg: #ecebe8;
+// $c_detail_text: #8a8a89;
+// $c_container_bg: #fff;
+// $c_disabled_text: lightgrey;
 //numbers
 $b-rad: 4px;
 $padding_mobile: 6px;
@@ -59,7 +70,7 @@ $padding_button_mobile: 2px;
 $padding_band: 10px;
 $band_height_mobile: 43px+ 2*$padding_band;
 $band_height: 2.4rem * 1.5;
-$card_height: 250px;
+$card_height: 120px;
 $menu_height: 300px;
 $text_field_height: 43px;
 $widget_header_height: 25px;

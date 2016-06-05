@@ -913,21 +913,25 @@ input[type="text"].textField {
   .win_screen a:hover {
     text-decoration: underline; }
 .win_screen button {
-  min-width: 140px; }
-  .win_screen button:first-of-type {
-    margin-right: 5px; }
-  .win_screen button:last-of-type {
-    margin-left: 5px; }
+  min-width: 100px; }
+  @media (min-width: 750px) {
+    .win_screen button {
+      min-width: 140px; }
+      .win_screen button:first-of-type {
+        margin-right: 5px; }
+      .win_screen button:last-of-type {
+        margin-left: 5px; } }
 
 .contains_win_screen {
-  top: 25vh;
+  top: 5vh;
   height: auto;
-  width: 75%;
+  width: 90%;
   padding: 25px;
   background-color: #fff;
   border-radius: 4px; }
   @media (min-width: 750px) {
     .contains_win_screen {
+      top: 25vh;
       width: 50%;
       padding: 20px; } }
 
@@ -982,21 +986,21 @@ input[type="text"].textField {
     bottom: 0;
     height: 20px; }
   .attribs p {
-    line-height: 1.3;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    line-height: 1.3; }
     .attribs p:last-of-type {
       margin-bottom: 20px; }
   .attribs li {
-    list-style-position: inside;
+    padding-left: 1rem;
     text-indent: -1rem;
-    padding-left: 1rem; }
+    list-style-position: inside; }
 
 .card_overlay {
   position: fixed;
   display: none;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 2;
   height: 100%;
   width: 100%;
   opacity: 0; }
@@ -1028,20 +1032,24 @@ input[type="text"].textField {
   .card_message h6 {
     margin-bottom: 5px; }
   .card_message button {
-    height: 42.5%;
-    width: 42.5%;
-    margin: 10px;
-    padding: 0; }
+    width: auto;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px; }
     @media (min-width: 750px) {
       .card_message button {
+        height: 42.5%;
+        width: 42.5%;
+        margin: 10px;
+        padding: 0;
         margin: 5% 0 5% 2.4%; } }
 
 .card_clip {
   position: absolute;
-  top: 66px;
+  top: 69px;
   right: -2%;
   left: -2%;
-  z-index: 0;
+  z-index: 2;
   overflow: hidden;
   height: 122px; }
   @media (min-width: 750px) {

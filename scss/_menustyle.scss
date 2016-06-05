@@ -4,7 +4,7 @@
     display          : none;
     top              : 0;
     left             : 0;
-    z-index          : 0;
+    z-index          : 2;
 
     height           : 100%;
     width            : 100%;
@@ -47,12 +47,17 @@
         margin-bottom : 5px;
     }
     button{
-        height  : 50 - $v_btn_margin * 3 / 2;
-        width   : 50 - $h_btn_margin * 3 / 2;
-        margin  : $padding;
-        padding : 0;
+        width: auto;
+        height: auto;
+        padding-left: $padding;
+        padding-right: $padding;
 
         @include bp-gridactive {
+            height  : 50 - $v_btn_margin * 3 / 2;
+            width   : 50 - $h_btn_margin * 3 / 2;
+            margin  : $padding;
+            padding : 0;
+       
             margin : $v_btn_margin 0 $v_btn_margin 2.4%;
         }
     }
@@ -60,10 +65,10 @@
 
 .card_clip {
     position : absolute;
-    top      : $band_height_mobile + $accent_border_header_width;
+    top      : $band_height_mobile + 2* $accent_border_header_width;
     right    : -2%;
     left     : -2%;
-    z-index  : 0;
+    z-index  : 2;
 
     overflow : hidden;
     height   : $card_height + 2px;

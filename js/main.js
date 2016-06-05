@@ -42,7 +42,7 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 
    $('#imagehint').click(addImageToDocument);
    $('#wordhint').click(giveWordHint);
-   $('.card_overlay, button .card_close').click(closeCard);
+   $('.card_overlay, button.card_close').click(closeCard);
 
    $textField.focus(focusedAction);
    $textField.keyup(keyupAction);
@@ -64,7 +64,11 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function() {
 }); //End $DOC.ready
 
 function openCard() {
-   $('.card, .menu_clip').addClass('slid');
+   nukeStyles();
+   if (isGridActive()) {
+      $('.menu_clip').addClass('slid');
+   }
+   $('.card').addClass('slid');
    $('.card_overlay').addClass('selected');
    $('.card_clip').addClass('higherZIndex');
 }
@@ -74,7 +78,6 @@ function closeCard() {
    $('.card_message').removeClass('selected');
    $('.card, .menu_clip').removeClass('slid');
    $('.card_clip').removeClass('higherZIndex');
-
 }
 
 function prepareOverlay(pageInfo) {
@@ -180,38 +183,7 @@ function gPanelButtonPressedAction() {
       $('.sharingsux').addClass('selected');
       return;
    }
-
-   /* var pagelink = 'menu/' + $(this).attr('id') + '.html';
-    if ($(window).width() < BP_GRID_ACTIVE) {
-        $('.card').queue(function() {
-            if ($('.card iframe').attr("src") !== pagelink) {
-                $('.card iframe').attr("src", pagelink);
-            }
-            $(this).addClass('slid');
-            $(this).delay(GAMECARD_SLIDE_DELAY);
-            $(this).dequeue();
-        });
-    } else {
-        $('.card, .menu_clip').queue(function() {
-            if ($('.card iframe').attr("src") !== pagelink) {
-                $('.card iframe').attr("src", pagelink);
-            }
-            $(this).addClass('slid');
-            $(this).delay(GAMECARD_SLIDE_DELAY);
-            $(this).dequeue();
-        });
-    }*/
 }
-
-/*function gPanelButtonBlurAction() {
-    $('.card, .menu_clip').queue(function() {
-        $(this).removeClass('slid');
-        $(this).delay(GAMECARD_SLIDE_DELAY);
-        $(this).dequeue();
-    });
-    console.log('\t---ln: 329 from ' + this + '---');
-    console.log($('.card'));
-}*/
 
 function disable(jQueryObj) {
    return jQueryObj.attr('disabled', 'true');
@@ -233,7 +205,9 @@ function titleObject(str) {
 
 function slide() {
    var $this = $(this);
-
+   $('.sliding_up_mobile').css({
+      "transform": "translate(0,0)"
+   });
    if (!$this.prop('checked')) {
       $('.sliding_up_mobile').css({
          "transform": "translate(0,0)"
@@ -251,6 +225,7 @@ function slide() {
          'box-shadow': '0 0 10px rgba(0, 0, 0, 0.16)'
       });
    } else {
+      closeCard();
       $('.sliding_up_mobile').css({
          "transform": "translate(0,-" + $('.menu').height() + "px)"
       });

@@ -1,4 +1,3 @@
-
 /*
 * Skeleton V2.0.4
 * Copyright 2014, Dave Gamache
@@ -28,465 +27,458 @@
 @import "floatingwidget";
 @import "pagefooter";
 @import "overlay";
-@import "menustyle";
+@import "card";
 
-noscript{
-    text-align: center;
-    color: #C3C0B7;
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, .5);
-   position: relative;
-   top:100px;
-    h1{
-        font-size: 10rem;
-    }
-    a{
-        position: relative;
-        z-index: 3;
-    }
+noscript {
+  text-align: center;
+  color: #C3C0B7;
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, .5);
+  position: relative;
+  top: 100px;
+  h1 {
+    font-size: 10rem;
+  }
+  a {
+    position: relative;
+    z-index: 3;
+  }
 
- 
 }
 
 html, body {
-    overflow-x : hidden;
+  overflow-x: hidden;
 }
 
 body {
-    background-color : $c_bg;
+  background-color: $c_bg;
 }
 
 .mobile_only {
-    @include bp-gridactive {
-        display : none;
-    }
+  @include bp-gridactive {
+    display: none;
+  }
 }
 
 .desktop_only {
-    @include bp-gridinactive {
-        display : none;
-    }
+  @include bp-gridinactive {
+    display: none;
+  }
 }
 
 .main.container {
-    &:after {
-        content : "";
+  &:after {
+      content: "";
 
-        height  : $answer_height + 2*$margin;
-        width   : $answer_width_desktop;
-
-        @include bp-gridactive {
-            height : $answer_height;
-        }
+      height: $answer_height + 2*$margin;
+      width: $answer_width_desktop;
+    @include bp-gridactive {
+      height: $answer_height;
     }
+  }
 }
 
 .top_header {
-    position : relative;
-    z-index  : 2;
+  position: relative;
+  z-index: 2;
 
-    img {
-        margin-top : 4%;
-        @include bp-gridactive {
-            max-width   : 500px;
-            margin      : $margin;
-            margin-left : 0;
-        }
+  img {
+    margin-top: 4%;
+    @include bp-gridactive {
+      max-width: 500px;
+      margin: $margin;
+      margin-left: 0;
     }
+  }
 }
 
 .backdrop {
-    position         : absolute;
-    right            : -50%;
-    left             : -50%;
-    z-index          : -1;
+  position: absolute;
+  right: -50%;
+  left: -50%;
+  z-index: -1;
 
-    height           : 100%;
+  height: 100%;
 
-    background-color : $c_main;
+  background-color: $c_main;
 }
 
 .trim {
-    display : none;
-    @include bp-gridactive {
-        @include floating(4);
-        position         : absolute;
-        display          : inline-block;
-        bottom           : 0;
+  display: none;
+  @include bp-gridactive {
+    @include floating(4);
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
 
-        height           : $trim_height;
-        width            : 100%;
-        margin-bottom    : 0;
+    height: $trim_height;
+    width: 100%;
+    margin-bottom: 0;
 
-        background-color : $c_container_bg;
-        border-top       : $accent_border_header;
-    }
+    background-color: $c_container_bg;
+    border-top: $accent_border_header;
+  }
 }
 
 .tagline {
-    color: $c_detail_text;
-    line-height : 1.8;
-    @include bp-gridactive {
-        margin-left : 0;
-        line-height : 1.8;
-    }
+  color: $c_detail_text;
+  line-height: 1.8;
+  @include bp-gridactive {
+    margin-left: 0;
+    line-height: 1.8;
+  }
 }
 
 .band {
-    position         : static;
-    top              : 0;
-    right            : 0;
-    left             : 0;
-    z-index          : 1;
+  position: static;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
 
-    height           : auto;
-    margin           : 0 $padding $padding $padding;
+  height: auto;
+  margin: 0 $padding $padding $padding;
 
-    background-color : $c_container_bg;
-    border-bottom    : $panel_button_border;
-    box-shadow       : none;
+  background-color: $c_container_bg;
+
+  border-bottom: $panel_button_border;
+  box-shadow: none;
+
+  @include bp-gridactive {
+    margin: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+  }
+
+  h6 {
+    display: inline-block;
+
+    margin: 0;
+
+    font-family: $ff_arvo;
+    font-size: 2.0rem;
+    color: $c_detail_text;
+    line-height: 1;
 
     @include bp-gridactive {
-        margin : 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+      margin: $v_btn_margin 0 0 0;
     }
+  }
 
+  &.mobile_header {
+    @include bp-gridinactive {
+      @include floating(4);
+
+      position: absolute;
+      top: 0;
+      right: -50%;
+      left: -50%;
+
+      height: $band_height_mobile;
+
+      border-top: $accent_border_header;
+    }
     h6 {
-        display     : inline-block;
-
-        margin      : 0;
-
-        font-family : $ff_arvo;
-        font-size   : 2.0rem;
-        color       : $c_detail_text;
-        line-height : 1;
-
-        @include bp-gridactive {
-            margin : $v_btn_margin 0 0 0;
-        }
+      @extend .desktop_only;
     }
-
-    &.mobile_header {
-        @include bp-gridinactive {
-            @include floating(4);
-
-            position   : absolute;
-            top        : 0;
-            right      : -50%;
-            left       : -50%;
-
-            height     : $band_height_mobile;
-
-            border-top : $accent_border_header;
-        }
-        h6 {
-            @extend .desktop_only;
-        }
-    }
+  }
 }
 
 .panels {
-    z-index : 3;
-    height  : auto;
+  z-index: 3;
+  height: auto;
 }
 
 .panel {
-    position : relative;
-    padding  : ($padding_band + $accent_border_header_width) 0 $padding_band 0;
+  position: relative;
+  padding: ($padding_band + $accent_border_header_width) 0 $padding_band 0;
 
-    @include bp-gridactive {
-        @include floating(2);
+  @include bp-gridactive {
+    @include floating(2);
 
-        overflow      : visible;
-        margin-bottom : $margin;
-        padding       : ($padding_band + $accent_border_header_width) 0 $padding_band 0;
-        padding       : 0;
+    overflow: visible;
+    margin-bottom: $margin;
+    padding: ($padding_band + $accent_border_header_width) 0 $padding_band 0;
+    padding: 0;
 
-        background    : $c_container_bg;
-        border-top    : $accent_border_header;
-    }
-    &.game {
-        
-    }
+    background: $c_container_bg;
+    border-top: $accent_border_header;
+  }
+  &.game {
+
+  }
 }
 
 .hint {
-    .panelbutton {
-        margin : 0 0 $padding $padding;
-        @include bp-gridactive {
-            margin : 0 0 $v_btn_margin $h_btn_margin;
-        }
+  .panelbutton {
+    margin: 0 0 $padding $padding;
+    @include bp-gridactive {
+      margin: 0 0 $v_btn_margin $h_btn_margin;
     }
+  }
 }
 
 .words {
-    .content {
-        padding : 0 $padding 0 $padding;
-        @include bp-gridactive {
-            min-height : 1.5rem * 1.6;
-            padding    : 0 $h_btn_margin $v_btn_margin $h_btn_margin;
-        }
+  .content {
+    padding: 0 $padding 0 $padding;
+    @include bp-gridactive {
+      min-height: 1.5rem * 1.6;
+      padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
     }
+  }
 }
 
 .history {
-    .numGuesses{
-        &:before{
-            content : '(';
-        }
-        &:after{
-            content : ')';
-        }
+  .numGuesses {
+    &:before {
+      content: '(';
     }
-    @include bp-gridactive {
-        position      : relative;
+    &:after {
+      content: ')';
+    }
+  }
+  @include bp-gridactive {
+    position: relative;
 
-        overflow      : auto;
-        margin-bottom : 0;
-    }
+    overflow: auto;
+    margin-bottom: 0;
+  }
 }
 
 .history_log {
-    position : relative;
-    right    : 0;
-    left     : 0;
+  position: relative;
+  right: 0;
+  left: 0;
 
-    // height: auto;
-    padding  : $padding;
-    color: $c_detail_text;
-    // background-color:$c_container_bg;
-    // height: 100%;
-    padding  : 0 $padding;
+  padding: $padding;
+  color: $c_detail_text;
+  padding: 0 $padding;
 
-    @include bp-gridactive {
-        overflow-y  : auto;
-        // height: 100%;
-        // top: 0;
-        max-height  : 100vh;
-        padding     : 0 $h_btn_margin $v_btn_margin $h_btn_margin;
+  @include bp-gridactive {
+    overflow-y: auto;
+    max-height: 100vh;
+    padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
 
-        font-style  : italic;
-        font-weight : 400;
+    font-style: italic;
+    font-weight: 400;
+  }
+  hr {
+    margin: $padding 0;
+
+    border-color: $c_detail_text;
+    border-style: dotted;
+
+    &:last-of-type {
+      visibility: hidden;
+      margin: 0;
     }
-    hr {
-        margin       : $padding 0;
-
-        border-color : $c_detail_text;
-        border-style : dotted;
-
-        &:last-of-type {
-            visibility : hidden;
-            margin     : 0;
-        }
-    }
+  }
 }
 
 .panelbutton {
-    position         : relative;
-    float            : left;
-    z-index          : 1;
+  position: relative;
+  float: left;
+  z-index: 1;
 
-    width            : 22%;
-    padding          : $padding_button_mobile;
+  width: 22%;
+  padding: $padding_button_mobile;
 
-    background-color : $c_container_highlight;
-    line-height      : 1;
+  background-color: $c_container_highlight;
+  line-height: 1;
 
-    // border: $panel_button_border;
-    &:nth-of-type(n+2) {
-        @include bp-gridinactive {
-            margin : 0 0 0 4%;
-        }
+  &:nth-of-type(n+2) {
+    @include bp-gridinactive {
+      margin: 0 0 0 4%;
     }
+  }
 
-    @include bp-gridactive {
-        height        : 50 - $v_btn_margin * 3 / 2;
-        width         : 50 - $h_btn_margin * 3 / 2;
-        margin        : 0 0 0 2.4%;
-        margin-bottom : $v_btn_margin;
-        margin-left   : $h_btn_margin;
-        padding       : $padding_button_mobile;
-    }
+  @include bp-gridactive {
+    height: 50 - $v_btn_margin * 3 / 2;
+    width: 50 - $h_btn_margin * 3 / 2;
+    margin: 0 0 0 2.4%;
+    margin-bottom: $v_btn_margin;
+    margin-left: $h_btn_margin;
+    padding: $padding_button_mobile;
+  }
+
+  i {
+    vertical-align: middle;
+
+    margin: auto;
+
+    color: $c_detail_text;
+  }
+
+  div {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: $padding_button_mobile;
+
+    line-height: 1;
+  }
+
+  &:hover {
+    // @include floating(3);
+  }
+
+  &:active {
+    @include floating(0);
+
+    background-color: $c_light;
+    color: $c_link;
 
     i {
-        vertical-align : middle;
-
-        margin         : auto;
-
-        color          : $c_detail_text;
+      color: $c_link;
     }
+  }
 
-    div {
-        width       : 100%;
-        margin      : 0;
-        padding     : 0;
-        padding-top : $padding_button_mobile;
-
-        line-height : 1;
+  &.gb {
+    @include bp-desktophd {
+      height: 100 - $v_btn_margin * 2;
+      width: 25 - $h_btn_margin * 5 / 4;
+      margin-bottom: $v_btn_margin;
+      margin-left: $h_btn_margin;
     }
-
-    &:hover {
-        // @include floating(3);
-    }
-
-    &:active {
-        @include floating(0);
-
-        background-color : $c_light;
-        color            : $c_link;
-
-        i {
-            color : $c_link;
-        }
-    }
-
-    &.gb {
-        @include bp-desktophd {
-            height        : 100 - $v_btn_margin * 2;
-            width         : 25 - $h_btn_margin * 5 / 4;
-            margin-bottom : $v_btn_margin;
-            margin-left   : $h_btn_margin;
-        }
-    }
+  }
 }
 
 .selectable_container {
-    display          : inline-block;
+  display: inline-block;
 
-    margin           : 0 $padding 0 0;
-    padding          : $padding_button_mobile ($padding_button_mobile * 2);
+  margin: 0 $padding 0 0;
+  padding: $padding_button_mobile ($padding_button_mobile * 2);
 
-    cursor           : default;
-    background-color : $c_container_highlight;
-    border: 1px solid $border-color;
-    border-radius    : $global-radius;
-    color: $c_detail_text;
-    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-    @include bp-gridactive {
-        margin : 0 (2 * $padding_button_mobile) (2 * $padding_button_mobile) 0;
-    }
+  cursor: default;
+  background-color: $c_container_highlight;
+  border: 1px solid $border-color;
+  border-radius: $global-radius;
+  color: $c_detail_text;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  @include bp-gridactive {
+    margin: 0 (2 * $padding_button_mobile) (2 * $padding_button_mobile) 0;
+  }
 
-    &:hover {
-        text-decoration : underline;
-        border           : $panel_button_border;
-    }
+  &:hover {
+    text-decoration: underline;
+    border: $panel_button_border;
+  }
 
-    &:active {
-        @include floating(0);
-        background-color : $c_light;
-    }
+  &:active {
+    @include floating(0);
+    background-color: $c_light;
+  }
 }
 
 .menuText em {
-    cursor      : default;
-    font-style  : normal;
-    font-weight : bold;
+  cursor: default;
+  font-style: normal;
+  font-weight: bold;
 
-    &:hover {
-        text-decoration : underline;
-    }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .counter {
-    margin-left : $padding / 2;
+  margin-left: $padding / 2;
 
-    font-family : $ff_arvo;
-    font-size   : 1.5rem;
-    color       : $c_detail_text;
+  font-family: $ff_arvo;
+  font-size: 1.5rem;
+  color: $c_detail_text;
 }
 
 .empty_message {
-    font-style : italic;
-    color      : $c_detail_text;
+  font-style: italic;
+  color: $c_detail_text;
 }
 
 .good_word {
-    font-style  : normal;
-    font-weight : 600;
-    color       : $c_link;
+  font-style: normal;
+  font-weight: 600;
+  color: $c_link;
 
-    &:hover {
-        cursor          : default;
-        text-decoration : underline;
-    }
+  &:hover {
+    cursor: default;
+    text-decoration: underline;
+  }
 }
 
 .scrim {
-    position       : absolute;
-    bottom         : 0;
+  position: absolute;
+  bottom: 0;
 
-    height         : 10%;
-    width          : 90%;
+  height: 10%;
+  width: 90%;
 
-    background     : -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%);
-    /* FF3.6-15 */
-    background     : -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background     : linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%);
+  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(246, 248, 247, 1) 86%, rgba(246, 248, 247, 1) 100%);
 
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    // filter: progid : DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#f6f8f7', GradientType=0);
-    /* IE6-9 */
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  // filter: progid : DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#f6f8f7', GradientType=0);
+  /* IE6-9 */
 }
 
 .mainrow {
-    min-height : 75vh;
-    @include bp-gridactive {
-        padding : (2 * $padding) 0;
-    }
+  min-height: 75vh;
+  @include bp-gridactive {
+    padding: (2 * $padding) 0;
+  }
 }
 
 .wrap {
-    position   : relative;
-    z-index    : -1;
+  position: relative;
+  z-index: -1;
 
-    margin-top : $margin;
+  margin-top: $margin;
 
-    @include bp-gridactive {
-        margin-top : 0;
-    }
+  @include bp-gridactive {
+    margin-top: 0;
+  }
 }
 
-.spacie{
-    position         : absolute;
-    display          : inline-block;
-    visibility       : hidden;
+.spacie {
+  position: absolute;
+  display: inline-block;
+  visibility: hidden;
 
-    margin-top       : 0;
-    margin-bottom    : 0;
+  margin-top: 0;
+  margin-bottom: 0;
 
-    background-color : lime;
-    line-height      : 0;
-    border-radius    : $b-rad;
+  background-color: lime;
+  line-height: 0;
+  border-radius: $b-rad;
 }
 
 .box_wrapper {
-    @include floating(2);
+  @include floating(2);
 
-    /*   min-height: 100px;
-    min-width: 100px; */
-    display          : inline-block;
+  /*   min-height: 100px;
+  min-width: 100px; */
+  display: inline-block;
 
-    margin           : auto;
-    margin-bottom    : $margin;
-    padding          : $padding_mobile;
+  margin: auto;
+  margin-bottom: $margin;
+  padding: $padding_mobile;
 
-    background-color : $c_container_bg;
-    line-height      : 0;
-    border-radius    : $b-rad;
+  background-color: $c_container_bg;
+  line-height: 0;
+  border-radius: $b-rad;
 
-    &:last-of-type {
-        margin-bottom : 0;
-    }
-    @include bp-gridactive {
-        padding : $padding;
-    }
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+  @include bp-gridactive {
+    padding: $padding;
+  }
 }
 
 .pageImage {
-    @include floating(1);
-    width: 100%;
+  @include floating(1);
+  width: 100%;
 }
 
 .tagline {
-    margin     : auto;
-    font-style : italic;
+  margin: auto;
+  font-style: italic;
 }

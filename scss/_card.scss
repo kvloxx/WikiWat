@@ -1,0 +1,134 @@
+@import "base/functions";
+@import "modules/media-queries";
+@import "base/variables";
+
+.card_overlay {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  height: 100%;
+  width: 100%;
+
+  //background-color : rgba(31,122,242, 0.89);
+  opacity: 0;
+
+  @include bp-gridactive {
+    z-index: 2;
+  }
+}
+
+.restart_confirmation {
+  position: relative;
+  left: 0;
+}
+
+.unselected {
+  display: none;
+}
+
+.card_message.selected, .selected {
+  display: inline-block;
+}
+
+.slid {
+  outline: none;
+  transform: translate(0, $card_height + $card_clearance);
+}
+
+.card_message {
+  display: none;
+
+  height: 100%;
+  width: 100%;
+
+  text-align: center;
+
+  h6 {
+    margin-bottom: 5px;
+  }
+  button {
+    width: auto;
+    height: auto;
+    padding-left: $padding;
+    padding-right: $padding;
+
+    @include bp-gridactive {
+      height: 50 - $v_btn_margin * 3 / 2;
+      width: 50 - $h_btn_margin * 3 / 2;
+      padding: 0;
+      margin: $v_btn_margin 0 $v_btn_margin 2.4%;
+    }
+  }
+}
+
+.card_clip {
+  position: absolute;
+  top: $band_height_mobile + 2* $accent_border_header_width;
+  right: -2%;
+  left: -2%;
+  z-index: 0;
+  //z-index: 2;
+
+  overflow: hidden;
+  height: $card_height + 2px;
+
+  @include bp-gridactive {
+    position: absolute;
+    top: auto;
+    right: -2px;
+    bottom: -$card_height;
+    left: -2px;
+    z-index: 1;
+
+    height: 0;
+    padding-right: 2px;
+    padding-left: 2px;
+    transition: height 0s linear 0.4s;
+  }
+}
+
+.card_clip.higherZIndex {
+  height: $card_height + 2px;
+  transition: height 0s linear;
+  //visibility: visible;
+  z-index: 2;
+}
+
+.card {
+  @include floating(1);
+
+  position: absolute;
+  top: -$card-height - 2px;
+  right: 2px;
+  bottom: 0;
+  left: 2px;
+  z-index: 7;
+  box-sizing: border-box;
+
+  height: $card_height;
+  padding: 15px;
+  padding-top: 20px;
+
+  background-color: $c_container_bg;
+
+  transition: transform .4s ease;
+
+  @include bp-gridactive {
+    @include floating(2);
+
+    right: 2px;
+    left: 2px;
+    // left: 2px;
+    // right: 2px;
+    z-index: -1;
+
+    margin: 0;
+    // position : absolute;
+    // top      : -($card_height + $card_clearance);
+    // position: static;
+    padding: $padding;
+  }
+}

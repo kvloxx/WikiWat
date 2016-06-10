@@ -1,174 +1,178 @@
-.answer {
-    z-index: 1;
-    position: fixed;
-    bottom: 0;
-    left: (100 - $answer_width_mobile) / 2;
-    width: $answer_width_mobile;
-    margin: 0;
-    margin-bottom: $margin;
-    padding: 0;
-    @include floating(5);
-    @include bp-gridactive {
+@import "modules/media-queries";
+@import "base/variables";
 
-        left: (100 - $answer_width_desktop) / 2;
-        width: $answer_width_desktop;
-        margin-bottom: 0;
-    }
+.answer {
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  left: (100 - $answer_width_mobile) / 2;
+  width: $answer_width_mobile;
+  margin: 0;
+  margin-bottom: $margin;
+  padding: 0;
+  @include floating(5);
+  @include bp-gridactive {
+
+    left: (100 - $answer_width_desktop) / 2;
+    width: $answer_width_desktop;
+    margin-bottom: 0;
+  }
 }
 
 .menu_clip {
-    @extend .answer;
+  @extend .answer;
+  z-index: 0;
 
-    // top: $menu_height -$text_field_height;
-    bottom: $text_field_height + 2*$padding;
-    overflow: hidden;
-    height: $menu_height;
-    width: $answer_width_mobile;
-    background: transparent;
-    box-shadow: none;
+  // top: $menu_height -$text_field_height;
+  bottom: $text_field_height + 2*$padding;
+  overflow: hidden;
+  height: $menu_height;
+  width: $answer_width_mobile;
+  background: transparent;
+  box-shadow: none;
 
-    @include bp-gridactive {
-        position: relative;
-        bottom: auto;
-        left: 0;
-        top: 0;
-        height: auto;
-        overflow: visible;
-        width: 100%;
-        margin: 0;
-        margin-bottom: $answer_height + $margin;
-        transition: transform .4s ease;
-    }
+  @include bp-gridactive {
+    position: relative;
+    bottom: auto;
+    left: 0;
+    top: 0;
+    height: auto;
+    overflow: visible;
+    width: 100%;
+    margin: 0;
+    margin-bottom: $answer_height + $margin;
+    transition: transform .4s ease;
+  }
 }
 
 .menu {
-    @include floating(3);
+  @include floating(3);
+
+  position: relative;
+  top: $menu_height;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: $menu_height;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: $c_container_bg;
+
+  @include bp-gridactive {
+    @include floating(0);
 
     position: relative;
-    top: $menu_height;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: $menu_height;
+    top: 0;
+    height: 100%;
+    background-color: transparent;
+    overflow: visible;
     width: 100%;
     margin: 0;
-    padding: 0;
-    background-color: $c_container_bg;
-
-    @include bp-gridactive {
-        @include floating(0);
-
-        position: relative;
-        top: 0;
-        height: 100%;
-        background-color: transparent;
-        overflow: visible;
-        width: 100%;
-        margin: 0;
-    }
+  }
 }
 
 .widget_header {
+  position: relative;
+  right: 0;
+
+  // bottom: 43px + 2*$padding;
+  left: 0;
+  height: $widget_header_height;
+  padding: $padding $h_ans_margin 0 $h_ans_margin;
+
+  // background-color: $c_container_bg;
+  background-color: $c_container_bg;
+  border-top: $accent_border_header;
+
+  &:before {
     position: relative;
-    right: 0;
-
-    // bottom: 43px + 2*$padding;
+    content: "";
     left: 0;
-    height: $widget_header_height;
-    padding: $padding $h_ans_margin 0 $h_ans_margin;
+    right: 0;
+    top: 0;
+    height: 100%;
+    z-index: 2;
+  }
 
-    // background-color: $c_container_bg;
-    background-color: $c_container_bg;
-    border-top: $accent_border_header;
+  .band {
+    margin: 0;
 
-    &:before {
-        position: relative;
-        content: "";
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 100%;
-        z-index: 2;
+    i {
+      position: absolute;
+      color: $c_detail_text;
+      bottom: 4px;
     }
 
-    .band {
-        margin: 0;
+    h6 {
+      margin: 0;
+      margin-left: 24px;
 
-        i {
-            position: absolute;
-            color: $c_detail_text;
-            bottom: 4px;
-        }
-
-        h6 {
-            margin: 0;
-            margin-left: 24px;
-
-            @include bp-gridactive {
-                margin-left: 0;
-            }
-        }
+      @include bp-gridactive {
+        margin-left: 0;
+      }
     }
+  }
 }
 
 .toggle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 5;
-    height: 100%;
-    width: 100%;
-    margin-bottom: 0;
-    padding: 0;
-    cursor: pointer;
-    opacity: 0;
-    outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  outline: none;
 
-    @include bp-gridactive {
-        height: 0;
-        width: 0;
-    }
+  @include bp-gridactive {
+    height: 0;
+    width: 0;
+  }
 }
 
 .guessSection {
-    background-color: $c_container_bg;
-    position: relative;
-    padding: 0;
-    height: auto;
-    overflow: hidden;
-    margin: 0;
+  background-color: $c_container_bg;
+  position: relative;
+  padding: 0;
+  height: auto;
+  overflow: hidden;
+  margin: 0;
 }
 
 input[type="text"].textField {
-    float: left;
-    height: $text_field_height;
-    width: 50%;
-    width: $ans_txt_width_mobile;
-    margin: $padding $h_ans_margin;
-    color: #8a8a89;
-    font-style: italic;
+  float: left;
+  height: $text_field_height;
+  width: 50%;
+  width: $ans_txt_width_mobile;
+  margin: $padding $h_ans_margin;
+  color: #8a8a89;
+  font-style: italic;
 
-    @include bp-gridactive {
-        width: $ans_txt_width_desktop;
-    }
+  @include bp-gridactive {
+    width: $ans_txt_width_desktop;
+  }
 
-    &:focus{
-        outline: $c_main;
-    }
+  &:focus {
+    outline: $c_main;
+  }
 }
 
 .panelbutton.submitbutton {
-    position: relative;
-    height: auto;
-    width: $ans_btn_width_mobile;
-    margin: $padding $h_ans_margin $padding 0;
+  position: relative;
+  height: auto;
+  width: $ans_btn_width_mobile;
+  margin: $padding $h_ans_margin $padding 0;
 
-    @include bp-gridactive {
-        width: $ans_btn_width_desktop;
-    }
+  @include bp-gridactive {
+    width: $ans_btn_width_desktop;
+  }
 }
 
 .sliding_up_mobile {
-    border-bottom: none;
-    transition: transform 0.5s ease;
+  border-bottom: none;
+  transition: transform 0.5s ease;
 }

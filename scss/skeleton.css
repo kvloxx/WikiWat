@@ -458,8 +458,7 @@ button {
   border: 1px solid #bbb;
   cursor: pointer;
   box-sizing: border-box;
-  -webkit-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-          transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
   .button:disabled,
   button:disabled {
     border: 1px solid lightgrey;
@@ -694,6 +693,7 @@ form {
       margin-bottom: 0; } }
 
 .menu_clip {
+  z-index: 0;
   bottom: 63px;
   overflow: hidden;
   height: 300px;
@@ -711,8 +711,7 @@ form {
       width: 100%;
       margin: 0;
       margin-bottom: 121px;
-      -webkit-transition: -webkit-transform .4s ease;
-              transition: transform .4s ease; } }
+      transition: transform .4s ease; } }
 
 .menu {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
@@ -816,8 +815,7 @@ input[type="text"].textField {
 
 .sliding_up_mobile {
   border-bottom: none;
-  -webkit-transition: -webkit-transform 0.5s ease;
-          transition: transform 0.5s ease; }
+  transition: transform 0.5s ease; }
 
 .page_footer {
   position: relative;
@@ -840,6 +838,17 @@ input[type="text"].textField {
       display: block;
       opacity: 0;
       height: 10px; } }
+  .page_footer:after {
+    content: "";
+    height: 221px;
+    display: block;
+    background-color: #73BE6F;
+    width: 100%;
+    background-image: -webkit-linear-gradient(bottom, #73BE6F, #2c5b29);
+    background-image: linear-gradient(to bottom, #73BE6F, #2c5b29); }
+    @media (min-width: 750px) {
+      .page_footer:after {
+        display: none; } }
 
 .footer_band {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
@@ -873,8 +882,7 @@ input[type="text"].textField {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  -webkit-transition: 0.5s ease;
-          transition: 0.5s ease; }
+  transition: 0.5s ease; }
 
 .overlay_info_wrapper {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
@@ -995,6 +1003,15 @@ input[type="text"].textField {
     text-indent: -1rem;
     list-style-position: inside; }
 
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/9/2014
+* Sass Version by Seth Coelen https://github.com/whatsnewsaes
+*/
 .card_overlay {
   position: fixed;
   display: none;
@@ -1020,9 +1037,7 @@ input[type="text"].textField {
 
 .slid {
   outline: none;
-  -webkit-transform: translate(0, 120px);
-      -ms-transform: translate(0, 120px);
-          transform: translate(0, 120px); }
+  transform: translate(0, 120px); }
 
 .card_message {
   display: none;
@@ -1040,7 +1055,6 @@ input[type="text"].textField {
       .card_message button {
         height: 42.5%;
         width: 42.5%;
-        margin: 10px;
         padding: 0;
         margin: 5% 0 5% 2.4%; } }
 
@@ -1049,7 +1063,7 @@ input[type="text"].textField {
   top: 69px;
   right: -2%;
   left: -2%;
-  z-index: 2;
+  z-index: 0;
   overflow: hidden;
   height: 122px; }
   @media (min-width: 750px) {
@@ -1060,13 +1074,15 @@ input[type="text"].textField {
       bottom: -120px;
       left: -2px;
       z-index: 1;
-      height: 122px;
+      height: 0;
       padding-right: 2px;
-      padding-left: 2px; } }
+      padding-left: 2px;
+      transition: height 0s linear 0.4s; } }
 
-@media (min-width: 750px) {
-  .card_clip.higherZIndex {
-    z-index: 2; } }
+.card_clip.higherZIndex {
+  height: 122px;
+  transition: height 0s linear;
+  z-index: 2; }
 
 .card {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
@@ -1081,8 +1097,7 @@ input[type="text"].textField {
   padding: 15px;
   padding-top: 20px;
   background-color: #fff;
-  -webkit-transition: -webkit-transform .4s ease;
-          transition: transform .4s ease; }
+  transition: transform .4s ease; }
   @media (min-width: 750px) {
     .card {
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.19);
@@ -1090,8 +1105,7 @@ input[type="text"].textField {
       left: 2px;
       z-index: -1;
       margin: 0;
-      padding: 10px;
-      padding-top: 10px; } }
+      padding: 10px; } }
 
 noscript {
   text-align: center;
@@ -1315,8 +1329,7 @@ body {
   border: 1px solid #bbb;
   border-radius: 4px;
   color: #6C6C6C;
-  -webkit-transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-          transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
   @media (min-width: 750px) {
     .selectable_container {
       margin: 0 4px 4px 0; } }
@@ -1357,10 +1370,11 @@ body {
   bottom: 0;
   height: 10%;
   width: 90%;
+  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #f6f8f7 86%, #f6f8f7 100%);
   /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #f6f8f7 86%, #f6f8f7 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #f6f8f7 86%, #f6f8f7 100%)
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #f6f8f7 86%, #f6f8f7 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   /* IE6-9 */ }
 

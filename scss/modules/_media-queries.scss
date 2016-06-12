@@ -9,7 +9,7 @@
 // Larger than mobile
 @media (#{$bp-larger-than-mobile}) {}
 
-// Larger than phablet 
+// Larger than phablet
 @media (#{$bp-larger-than-phablet}) {}
 
 // Larger than tablet (also point when grid becomes active)
@@ -46,6 +46,12 @@
 
 @mixin bp-smaller-than-mobile {
    @media (#{$bp-smaller-than-mobile}) {
+    @content;
+  }
+}
+
+@mixin bp-smaller-than-phablet {
+   @media (#{$bp-smaller-than-phablet}) {
     @content;
   }
 }

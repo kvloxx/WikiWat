@@ -20,8 +20,6 @@
 @import "modules/buttons";
 @import "modules/forms";
 @import "modules/lists";
-@import "modules/code";
-@import "modules/tables";
 @import "modules/spacing";
 @import "modules/media-queries";
 @import "floatingwidget";
@@ -68,10 +66,10 @@ body {
 
 .main.container {
   &:after {
-      content: "";
+    content: "";
 
-      height: $answer_height + 2*$margin;
-      width: $answer_width_desktop;
+    height: $answer_height + 2*$margin;
+    width: $answer_width_desktop;
     @include bp-gridactive {
       height: $answer_height;
     }
@@ -249,13 +247,13 @@ body {
   color: $c_detail_text;
   padding: 0 $padding;
 
+  font-style: italic;
+  font-weight: 400;
   @include bp-gridactive {
     overflow-y: auto;
     max-height: 100vh;
     padding: 0 $h_btn_margin $v_btn_margin $h_btn_margin;
 
-    font-style: italic;
-    font-weight: 400;
   }
   hr {
     margin: $padding 0;
@@ -333,7 +331,8 @@ body {
     }
   }
 }
-.fakepanelbutton{
+
+.fakepanelbutton {
   @extend .panelbutton;
   width: 75px;
   margin: 0;

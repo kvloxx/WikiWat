@@ -4,8 +4,8 @@ var STD_PUNCT             = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g,
     MIN_PAGE_IMAGES       = 4, //must be >= NUM_INITIAL_IMAGES
     DEFAULT_INPUT_MESSAGE = 'How to...',
     $DOC                  = $(document),
-    queryString           = window.location.search.substring(1),
-    promisedUsablePage    = asyncQueryForRandomUsablePage(queryString);
+    linkedPageId          = getPageParameter(),
+    promisedUsablePage    = asyncQueryForRandomUsablePage(linkedPageId);
 var gFirstScroll  = false,
     gDiff         = 0,
     gMobileLayout = !isGridActive();
@@ -58,10 +58,19 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function () {
     });
 }); //End $DOC.ready
 
+function getPageParameter() {
+    var queryStringParams = window.location.search.substring(1).split('&');
+    for (var i = 0, len = queryStringParams.length; i < len; i++) {
+        var param = queryStringParams[i].split('=');
+        if (param[0] === 'p') {
+            return param[1];
+        }
+    }
+}
 function copyURL() {
     if ($(this).hasClass('end_screen')) {
         var $url_text = $('.url_text.end_screen');
-    } else{
+    } else {
         var $url_text = $('.url_text.share_screen');
     }
     $url_text.focus();
@@ -76,13 +85,23 @@ function pageFoundAction(pageInfo) {
     $DOC.data('wikiPageId', pageInfo.pageid);
     $DOC.data('wikiPageURL', pageInfo.fullurl);
 
-    var directUrl = window.location.protocol + "//" + window.location.host + "?" + pageInfo.pageid;
+    var directUrl = encodeURI(window.location.protocol + "//" + window.location.host + window.location.pathname + "?p=" + pageInfo.pageid);
 
-    $('.a2a_kit').attr('data-a2a-url', directUrl);
+    // var tweetHref = 'https://twitter.com/intent/tweet?'+encodeURI('text=WikiWhat?&url=' + directUrl);
+    //
+    // $('.twitter').attr('href', tweetHref);
+    // var $fb = $('.facebook');
+    // var fbhref= $fb.attr('href');
+    // // $('.google_plus').attr('href', 'https://plusone.google.com/_/+1/confirm?hl=en&url=http%3A%2F%2F%20'+directUrl);
+    // console.log(fbhref.replace('INSERT_URL_HERE', directUrl));
+    // $fb.attr('href', fbhref.replace('INSERT_URL_HERE', directUrl));
+    // $('.a2a_kit').attr('data-a2a-url', directUrl);
     $('.url_text').val(directUrl);
     prepareOverlay(pageInfo);
     initializeCounters();
 }
+
+
 
 function openCard() {
     nukeStyles();
@@ -455,12 +474,12 @@ function getNewImageHtml(nextImageInfo) {
         resizeAction();
     });
     // TODO: make media delivery responsive/make sense (this isn't quite it)
-    if (!isGridActive()) {
-        unveilImgTag.attr('data-src', nextImageInfo.thumburl);
-        console.log('thumb');
-    } else {
+    // if (!isGridActive()) {
+    //     unveilImgTag.attr('data-src', nextImageInfo.thumburl);
+    //     console.log('thumb');
+    // } else {
         unveilImgTag.attr('data-src', nextImageInfo.url);
-    }
+    // }
     return ret.append(unveilImgTag);
 }
 
@@ -545,6 +564,8 @@ function makeOverlay(type) {
             // $('.win_screen h2').text('Yep!');
             $winScreen.find('h2 + h6').html('<i>Of course</i> we\'re learning');
             // $('.win_screen h2 + h6').html('<i>Of course</i> we\'re learning');
+            var $contains_win_screen = $('.contains_win_screen');
+            $contains_win_screen.css({top: ($(window).height() - $contains_win_screen.outerHeight(true)) / 2});
             break;
         case 'loss':
             $('.score').hide();
@@ -554,6 +575,9 @@ function makeOverlay(type) {
 
             $winScreen.find('h2 + h6').html('We were clearly going for');
             // $('.win_screen h2 + h6').html('We were clearly going for');
+
+            var $contains_win_screen = $('.contains_win_screen');
+            $contains_win_screen.css({top: ($(window).height() - $contains_win_screen.outerHeight(true)) / 2});
             break;
         case 'about':
             $overlayInfoWrapper.addClass('contains_attribs');

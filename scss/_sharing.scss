@@ -95,24 +95,13 @@ $share_button_width: 32px;
   transition: opacity 0.4s ease;
 
 }
-
+.copy_tooltip_text {
+  display: none;
+}
 .copy_tooltip:hover .copy_tooltip_text {
+  display: inherit;
   opacity: 1;
 }
-
-//.copy_tooltip .copy_tooltip_text:after {
-//  content: " ";
-//  position: absolute;
-//  bottom: 100%;
-//  right: 9.5px;
-//  border-width: 5px;
-//  border-style: solid;
-//  border-color: transparent transparent $c_link transparent;
-//
-//  @include bp-gridinactive {
-//    right: 10%;
-//  }
-//}
 
 .centered_buttons {
   position: relative;
@@ -124,13 +113,16 @@ $share_button_width: 32px;
   margin: auto;
   line-height: 1;
   border-radius: $b-rad;
-  border: $panel_button_border;
-  border-color: $border-color;
-
-  a {
+  //border: $panel_button_border;
+  //border-color: $border-color;
+  overflow-x: auto;
+  overflow-y: hidden;
+  .share_buttons a {
     margin: 0;
+    display: inline-block;
     //padding: 0;
     width: 32px;
+    height:32px;
     @include bp-gridactive {
       //width: 10%;
       max-width: 32px;
@@ -176,4 +168,13 @@ $share_button_width: 32px;
   .url_box{
     margin-bottom: 0;
   }
+}
+
+ul.share-buttons{
+  list-style: none;
+  padding: 0;
+}
+
+ul.share-buttons li{
+  display: inline-block;
 }

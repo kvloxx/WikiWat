@@ -4,7 +4,8 @@ var STD_PUNCT             = /[\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g,
     MIN_PAGE_IMAGES       = 4, //must be >= NUM_INITIAL_IMAGES
     DEFAULT_INPUT_MESSAGE = 'How to...',
     $DOC                  = $(document),
-    promisedUsablePage    = asyncQueryForRandomUsablePage();
+    queryString           = window.location.search.substring(1),
+    promisedUsablePage    = asyncQueryForRandomUsablePage(queryString);
 var gFirstScroll  = false,
     gDiff         = 0,
     gMobileLayout = !isGridActive();
@@ -21,12 +22,7 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function () {
         $tog       = $('.toggle'),
         $gamepanel = $('.game.panel');
 
-    $.when(promisedUsablePage).done(function (pageInfo) {
-        $DOC.data('wikiPageTitle', new TitleObject(pageInfo.title));
-        $DOC.data('wikiPageURL', pageInfo.fullurl);
-        prepareOverlay(pageInfo);
-        initializeCounters();
-    });
+    $.when(promisedUsablePage).done(pageFoundAction);
 
     $DOC.data('readyDeferred').resolve();
 
@@ -50,6 +46,7 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function () {
     $tog.change(slide);
 
     $('.close_link').click(closeOverlay);
+    $('.copy_link').click(copyURL);
     $('.about').click(function () {
         overlayAction('about');
     });
@@ -59,9 +56,33 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function () {
     $('.card_giveup').click(function () {
         overlayAction('loss');
     });
-
-
 }); //End $DOC.ready
+
+function copyURL() {
+    if ($(this).hasClass('end_screen')) {
+        var $url_text = $('.url_text.end_screen');
+    } else{
+        var $url_text = $('.url_text.share_screen');
+    }
+    $url_text.focus();
+    $url_text.select();
+    document.execCommand("copy");
+    $('.copy_tooltip_text').text('Copied!');
+
+}
+
+function pageFoundAction(pageInfo) {
+    $DOC.data('wikiPageTitle', new TitleObject(pageInfo.title));
+    $DOC.data('wikiPageId', pageInfo.pageid);
+    $DOC.data('wikiPageURL', pageInfo.fullurl);
+
+    var directUrl = window.location.protocol + "//" + window.location.host + "?" + pageInfo.pageid;
+
+    $('.a2a_kit').attr('data-a2a-url', directUrl);
+    $('.url_text').val(directUrl);
+    prepareOverlay(pageInfo);
+    initializeCounters();
+}
 
 function openCard() {
     nukeStyles();
@@ -75,9 +96,13 @@ function openCard() {
 
 function closeCard() {
     $('.card_overlay').removeClass('selected');
-    $('.card_message').removeClass('selected');
+    setTimeout(function () {
+        $('.card_message').removeClass('selected');
+    }, 400);
     $('.card, .menu_clip').removeClass('slid');
+
     $('.card_clip').removeClass('higherZIndex');
+
 }
 
 function prepareOverlay(pageInfo) {
@@ -191,8 +216,11 @@ function scrollAction() {
 
 function gPanelButtonPressedAction() {
     $('.card_message').removeClass('selected');
-    openCard();
     var $this = $(this);
+    if ($this.attr('id') === 'rules') {
+        overlayAction('rules');
+        return;
+    }
     if ($this.attr('id') === 'giveup') {
         $('.giveup_confirmation').addClass('selected');
     } else if ($this.attr('id') === 'restart') {
@@ -200,6 +228,7 @@ function gPanelButtonPressedAction() {
     } else if ($this.attr('id') === 'share') {
         $('.sharingsux').addClass('selected');
     }
+    openCard();
 }
 
 function disable(jQueryObj) {
@@ -288,10 +317,19 @@ function closeOverlay() {
     $('.overlay').height('0');
 }
 
-function asyncQueryForRandomUsablePage() {
+function asyncQueryForRandomUsablePage(pageid) {
     /* request random article and see if it has enough usable images*/
+    var pageid = pageid || null;
+    var newURL;
+    if (pageid != null) {
+        newURL = 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&pageids=' + pageid + '&inprop=url&imlimit=100';
+    } else {
+        newURL = 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0#';
+    }
+
+
     return $.ajax({ //get random page using mediawiki API
-        url: 'https://www.wikihow.com/api.php?action=query&format=json&prop=info%7Cimages&generator=random&inprop=url&imlimit=100&grnnamespace=0#',
+        url: newURL,
         dataType: 'jsonp'
     }).then(function (data) {
         /*The mediawiki api answers our request with a complex json object structure.
@@ -406,16 +444,11 @@ function addImagesToDocument(images, _) { //argument _ is extra passed in from $
     }
 }
 
-function updateAfterImageAdded() {
-    $(this).removeClass('loader');
-    scrollAction();
-}
-
 /*getNewImageHtml returns a new jQ node representing the input image
  wrapped in a page image wrapper*/
 function getNewImageHtml(nextImageInfo) {
     var ret          = $('<div class="box_wrapper floatyWrapper row"></div>'),
-        unveilImgTag = $('<img class="pageImage loader u-max-full-width" src="http://i.imgur.com/WYp19wj.gif"/>');
+        unveilImgTag = $('<img class="pageImage u-max-full-width" src="/images/ring.gif"/>');
 
     ret.resize(function () {
         console.log("HEYYYY");
@@ -497,27 +530,38 @@ function overlayAction(type) {
 }
 
 function makeOverlay(type) {
-    $('.overlay_info').hide();
-    $('.overlay_info_wrapper').removeClass('contains_attribs');
-    $('.overlay_info_wrapper').removeClass('contains_win_screen');
+
+    var $overlayInfoWrapper = $('.overlay_info_wrapper');
+    var $overlayInfo = $overlayInfoWrapper.find('.overlay_info');
+    var $winScreen = $('.win_screen');
+
+    $overlayInfo.hide();
+    $overlayInfoWrapper.removeClass('contains_attribs').removeClass('contains_win_screen').removeClass('contains_rules_screen');
     switch (type) {
         case 'win':
-            $('.win_screen').show();
             $('.score').show();
-            $('.overlay_info_wrapper').addClass('contains_win_screen');
-            $('.win_screen h2').text('Yep!');
-            $('.win_screen h2 + h6').html('<i>Of course</i> we\'re learning');
+            $overlayInfoWrapper.addClass('contains_win_screen');
+            $winScreen.show().find('h2').text('Yep!');
+            // $('.win_screen h2').text('Yep!');
+            $winScreen.find('h2 + h6').html('<i>Of course</i> we\'re learning');
+            // $('.win_screen h2 + h6').html('<i>Of course</i> we\'re learning');
             break;
         case 'loss':
-            $('.overlay_info_wrapper').addClass('contains_win_screen');
-            $('.win_screen').show();
             $('.score').hide();
-            $('.win_screen h2').text('¯\\_(ツ)_/¯');
-            $('.win_screen h2 + h6').html('We were clearly going for');
+            $overlayInfoWrapper.addClass('contains_win_screen');
+            $winScreen.show().find('h2').text('¯\\_(ツ)_/¯');
+            // $('.win_screen h2').text('¯\\_(ツ)_/¯');
+
+            $winScreen.find('h2 + h6').html('We were clearly going for');
+            // $('.win_screen h2 + h6').html('We were clearly going for');
             break;
         case 'about':
-            $('.overlay_info_wrapper').addClass('contains_attribs');
+            $overlayInfoWrapper.addClass('contains_attribs');
             $('.attribs').show();
+            break;
+        case 'rules':
+            $overlayInfoWrapper.addClass('contains_rules_screen');
+            $('.rules_screen').show();
             break;
     }
 }
@@ -635,6 +679,7 @@ function getNewMenuHtml(guess, title) {
  while older entries slide down over slideDuration*/
 function addNewGuessHistory(histNode, slideDuration, fadeDuration) {
     incrementCounter('numGuesses');
+    $('.empty_message_hist').remove();
     $(histNode).hide().prependTo('.history_log').slideDown(
         slideDuration).fadeIn(fadeDuration);
 }

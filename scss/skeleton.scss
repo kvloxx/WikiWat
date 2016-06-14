@@ -28,11 +28,12 @@
 @import "pagefooter";
 @import "overlay";
 @import "card";
+@import "sharing";
 
 noscript {
   text-align: center;
   color: #C3C0B7;
-  text-shadow: 0px 1px 0px rgba(255, 255, 255, .5);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
   position: relative;
   top: 100px;
   h1 {
@@ -85,8 +86,7 @@ body {
     margin-top: 4%;
     @include bp-gridactive {
       max-width: 500px;
-      margin: $margin;
-      margin-left: 0;
+      margin: $margin $margin $margin 0;
     }
   }
 }
@@ -195,7 +195,6 @@ body {
 
     overflow: visible;
     margin-bottom: $margin;
-    padding: ($padding_band + $accent_border_header_width) 0 $padding_band 0;
     padding: 0;
 
     background: $c_container_bg;
@@ -247,7 +246,6 @@ body {
   right: 0;
   left: 0;
 
-  padding: $padding;
   color: $c_detail_text;
   padding: 0 $padding;
 
@@ -262,8 +260,7 @@ body {
   hr {
     margin: $padding 0;
 
-    border-color: $c_detail_text;
-    border-style: dotted;
+    border: 1px dotted $border-color;
 
     &:last-of-type {
       visibility: hidden;
@@ -292,9 +289,7 @@ body {
   @include bp-gridactive {
     height: 50 - $v_btn_margin * 3 / 2;
     width: 50 - $h_btn_margin * 3 / 2;
-    margin: 0 0 0 2.4%;
-    margin-bottom: $v_btn_margin;
-    margin-left: $h_btn_margin;
+    margin: 0 0 $v_btn_margin $h_btn_margin;
     padding: $padding_button_mobile;
   }
 
@@ -309,8 +304,7 @@ body {
   div {
     width: 100%;
     margin: 0;
-    padding: 0;
-    padding-top: $padding_button_mobile;
+    padding: $padding_button_mobile 0 0;
 
     line-height: 1;
   }
@@ -338,6 +332,13 @@ body {
       margin-left: $h_btn_margin;
     }
   }
+}
+.fakepanelbutton{
+  @extend .panelbutton;
+  width: 75px;
+  margin: 0;
+  display: inline-block;
+
 }
 
 .selectable_container {
@@ -367,7 +368,7 @@ body {
   }
 }
 
-.menuText em {
+.menuText em, .empty_message_hist em {
   cursor: default;
   font-style: normal;
   font-weight: bold;
@@ -455,10 +456,9 @@ body {
 
   /*   min-height: 100px;
   min-width: 100px; */
-  display: inline-block;
+  display: block;
 
-  margin: auto;
-  margin-bottom: $margin;
+  margin: auto auto $margin;
   padding: $padding_mobile;
 
   background-color: $c_container_bg;

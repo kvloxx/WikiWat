@@ -50,9 +50,9 @@ $DOC.data('readyDeferred', $.Deferred()).ready(function () {
     $('.about').click(function () {
         overlayAction('about');
     });
-    $('.top_header').click(function () {
-        overlayAction('win');
-    });
+    // $('.top_header').click(function () {
+    //     overlayAction('win');
+    // });
     $('.card_giveup').click(function () {
         overlayAction('loss');
     });
@@ -737,7 +737,7 @@ function zeroArray(l) {
 }
 
 /*isUnusableImage checks the title of an image against a collection of
- titles known to belong to junk images (found in UnusableImages.js).
+ titles known to belong to junk images (found in UnusableImages.scripts).
  Returns true if a match is identified.
  Unusable (junk) images are parts of wikihow page templates that the server
  returns alongside actual article images*/

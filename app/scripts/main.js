@@ -359,9 +359,9 @@ function asyncQueryForRandomUsablePage(pageid) {
          var pageInfo = page[pageId.toString()];
          This is condensed to the lines below: */
         var pageInfo = data.query.pages[Object.keys(data.query.pages)[0].toString()];
-        console.log(pageInfo);
-        console.log(pageInfo.fullurl);
-        console.log(pageInfo.images);
+        // console.log(pageInfo);
+        // console.log(pageInfo.fullurl);
+        // console.log(pageInfo.images);
         filterUnusableImages(pageInfo.images);
 
 
@@ -423,7 +423,6 @@ function addImageToDocument() {
 }
 
 function giveWordHint() {
-    console.log("lol");
     var title = $DOC.data('wikiPageTitle');
     var tmp = [];
     for (var i = title.normTokens.length - 1; i >= 0; i--) {
@@ -470,7 +469,6 @@ function getNewImageHtml(nextImageInfo) {
         unveilImgTag = $('<img class="pageImage u-max-full-width" src="/images/ring.gif"/>');
 
     ret.resize(function () {
-        console.log("HEYYYY");
         resizeAction();
     });
     // TODO: make media delivery responsive/make sense (this isn't quite it)
@@ -580,11 +578,11 @@ function makeOverlay(type) {
             $contains_win_screen.css({top: ($(window).height() - $contains_win_screen.outerHeight(true)) / 2});
             break;
         case 'about':
-            $overlayInfoWrapper.addClass('contains_attribs');
+            $overlayInfoWrapper.addClass('contains_attribs').css({top: ($(window).height() - $('.contains_attribs').outerHeight(true)) / 2});
             $('.attribs').show();
             break;
         case 'rules':
-            $overlayInfoWrapper.addClass('contains_rules_screen');
+            $overlayInfoWrapper.addClass('contains_rules_screen').css({top: ($(window).height() - $('.contains_rules_screen').outerHeight(true)) / 2});
             $('.rules_screen').show();
             break;
     }
